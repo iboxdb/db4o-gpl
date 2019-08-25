@@ -5,6 +5,8 @@ using System.Linq;
 using Db4objects.Db4o.Linq;
 using Db4objects.Db4o.Query;
 using Db4objects.Db4o.CS;
+using Db4objects.Db4o.Ext;
+using System.Threading;
 
 namespace db40
 {
@@ -45,7 +47,6 @@ namespace db40
 
                 Person p = results.First();
 
-                // Update the Person
                 Console.WriteLine(p.Name);
 
                 var result2 = from Person tp in db
@@ -56,36 +57,39 @@ namespace db40
                 // Update the Person
                 Console.WriteLine(p.Name);
 
+                var uid = client.Ext().GetObjectInfo(p).GetInternalID();
+
+                p = (Person)client.Ext().GetByID(uid);
+                Console.WriteLine(p.Name);
+
                 p.Name = "Peter";
                 db.Store(p);
 
-                // Delete the person
 
+                // Delete the person
                 db.Delete(p);
 
                 // Don't forget to commit!
-
                 db.Commit();
-
             }
 
-            catch
+            catch (Exception ex)
             {
-
                 db.Rollback();
-
+                Console.WriteLine(ex.ToString());
+                throw ex;
             }
 
             finally
             {
 
                 // Close the db cleanly
-
-                db.Close();
+                client.Close();
+                Environment.Exit(0);
 
             }
-            client.Close();
-            server.Close();
+
+
         }
     }
 }

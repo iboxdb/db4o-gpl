@@ -8,3 +8,7 @@ db4o.net/db4o.license/.classpath
 **/Bin/*
 **/debug/*
 **/Debug/*
+*.pdb
+*.db
+**/publish/*
+db4o.net/Output/netstandard2.0/*.json

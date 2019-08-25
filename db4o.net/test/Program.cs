@@ -17,21 +17,38 @@ namespace db40
         {
             Name = v;
         }
-
-        public string Name { get; set; }
+        //Fields, not properties.
+        public string Name;
+        public long Age = 9;
     }
     class Program
     {
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            //IObjectContainer db = Db4oFactory.OpenFile("/tmp/x.db");
+            IObjectContainer db;
+            IObjectServer server = null;
 
-            var server = Db4oClientServer.OpenServer("/tmp/x2.db", 7881);
-            server.GrantAccess("user", "password");
-            IObjectContainer client =
-                    Db4oClientServer.OpenClient("localhost", 7881, "user", "password");
-            var db = client;
+            bool embed = false;
+            string dbpath = "/tmp/x.db";
+
+            if (embed)
+            {
+                db = Db4oEmbedded.OpenFile(dbpath);
+            }
+            else
+            {
+                var config = Db4oClientServer.NewServerConfiguration();
+                //config.Common.ObjectClass(typeof(Person)).ObjectField("Age").Indexed(true);
+                //config.Common.ObjectClass(typeof(Person)).ObjectField("Name").Indexed(true);
+                //config.Common.Diagnostic.AddListener(new Db4objects.Db4o.Diagnostic.DiagnosticToConsole());
+                server = Db4oClientServer.OpenServer(config, dbpath, 7881);
+                server.GrantAccess("user", "password");
+                IObjectContainer client =
+                        Db4oClientServer.OpenClient("localhost", 7881, "user", "password");
+                db = client;
+            }
+
             try
             {
 
@@ -42,26 +59,45 @@ namespace db40
                 db.Store(new Person("Gallad"));
 
                 // Retrieve the Person
+                Person p;
+                {
+                    Console.WriteLine("001");
+                    var results = db.Query<Person>(x => x.Name == "Petra");
+                    p = results.First();
+                    Console.WriteLine(p.Name);
+                }
+                {
+                    Console.WriteLine("002");
+                    var result2 = from Person tp in db
+                                  where tp.Name == "Petra"
+                                  select tp;
+                    p = result2.First();
+                    Console.WriteLine(p.Name);
+                }
 
-                var results = db.Query<Person>(x => x.Name == "Petra");
+                {
+                    Console.WriteLine("003");
+                    var result2 = from Person tp in db
+                                  where tp.Name.StartsWith("Petr")
+                                  select tp;
+                    p = result2.First();
+                    Console.WriteLine(p.Name);
+                }
 
-                Person p = results.First();
-
-                Console.WriteLine(p.Name);
-
-                var result2 = from Person tp in db
-                              where tp.Name == "Petra"
-                              select p;
-                p = results.First();
-
-                // Update the Person
-                Console.WriteLine(p.Name);
-
-                var uid = client.Ext().GetObjectInfo(p).GetInternalID();
-
-                p = (Person)client.Ext().GetByID(uid);
-                Console.WriteLine(p.Name);
-
+                {
+                    Console.WriteLine("004");
+                    var result2 = from Person tp in db
+                                  where tp.Age == 9 && tp.Name == "Petra"
+                                  select tp;
+                    p = result2.First();
+                    Console.WriteLine(p.Name);
+                }
+                {
+                    Console.WriteLine("005");
+                    var uid = db.Ext().GetObjectInfo(p).GetInternalID();
+                    p = (Person)db.Ext().GetByID(uid);
+                    Console.WriteLine(p.Name);
+                }
                 p.Name = "Peter";
                 db.Store(p);
 
@@ -71,6 +107,8 @@ namespace db40
 
                 // Don't forget to commit!
                 db.Commit();
+                Console.WriteLine("Commited " + db.Query<Person>().Count(x => x.Age >= 0));
+
             }
 
             catch (Exception ex)
@@ -82,9 +120,8 @@ namespace db40
 
             finally
             {
-
                 // Close the db cleanly
-                client.Close();
+                db.Close();
                 Environment.Exit(0);
 
             }

@@ -1,0 +1,10 @@
+db4o.net/.project
+**/.vs/*   
+**/.idea/*
+**/obj/*
+**/.settings/*
+db4o.net/db4o.license/.classpath
+**/bin/*
+**/Bin/*
+**/debug/*
+**/Debug/*

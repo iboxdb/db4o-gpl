@@ -8,6 +8,8 @@ This oop-database project, has no news in a long time.
 here update it to .NetStandard2. some users maybe need it.
 
 
+##### DotNet Core
+
 Use IDE to Open **Db4o-2010.sln**  or run
 ```
 Db4objects.Db4o/dotnet publish
@@ -15,9 +17,21 @@ Db4objects.Db4o.Linq/dotnet publish
 Db4objects.Db4o.CS/dotnet publish
 test/dotnet run
 ```
-
-
 **/test** includes a dotnet core example.
+
+##### Xamarin
+
+```
+Db4o-Projects/dotnet publish -c Release //like above
+Add 4 DLLs in /Output to xamarin-project
+
+var path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+string dbpath = Path.Combine(path, "x.db");
+db = Db4oEmbedded.OpenFile(dbpath);
+
+Project Properities->Android Options->Linking->"Sdk Assemblies Only" (not "Sdk and User Assemblies").
+Permission: Read/Write_External_Storage
+```
 
 
 #### Documentation
@@ -29,7 +43,7 @@ test/dotnet run
 [Object-oriented database programming with db4o](https://www.codeproject.com/articles/17946/object-oriented-database-programming-with-db4o)
 
 
-License: GPL
+License: [GPL](https://github.com/iboxdb/db4o-gpl/blob/master/db4o.net/db4o.license/db4o.license.html)
 
 
 The info from the author. 

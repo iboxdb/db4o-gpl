@@ -33,6 +33,12 @@ Project Properities->Android Options->Linking->"Sdk Assemblies Only" (not "Sdk a
 Permission: Read/Write_External_Storage
 ```
 
+##### nuget
+```
+dotnet add package db4o-core --version 8.1.0
+```
+
+
 
 #### Documentation
 
@@ -41,6 +47,9 @@ Permission: Read/Write_External_Storage
 [gamlor.info](https://www.gamlor.info/wordpress/tag/db4o/)
 
 [Object-oriented database programming with db4o](https://www.codeproject.com/articles/17946/object-oriented-database-programming-with-db4o)
+
+
+
 
 
 License: [GPL](https://github.com/iboxdb/db4o-gpl/blob/master/db4o.net/db4o.license/db4o.license.html)

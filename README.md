@@ -34,9 +34,8 @@ Permission: Read/Write_External_Storage
 ```
 
 ##### nuget
-```
-dotnet add package db4o-core --version 8.1.0
-```
+[db4o-core](https://www.nuget.org/packages/db4o-core/)
+
 
 #### .NET Documentation
 

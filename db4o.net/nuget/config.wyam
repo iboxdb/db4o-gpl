@@ -1,0 +1,36 @@
+#recipe Docs
+
+// Customize your settings and add new ones here
+Settings[Keys.Host] = "iboxdb.github.io";
+Settings[Keys.LinksUseHttps] = true;
+Settings[Keys.LinkRoot] = "db4o-gpl-doc/output";
+
+Settings[DocsKeys.Title] = "DB4O GPL API Documentation";
+Settings[DocsKeys.SolutionFiles] = @"/home/user/github/db4o-gpl/db4o.net/Db4o-2010.sln";
+//Settings[DocsKeys.ProjectFiles] = @"/home/user/github/db4o-gpl/db4o.net/Db4objects.Db4o/Db4objects.Db4o-2010.csproj";
+
+// Add any pipeline customizations here
+
+
+//wyam new -r Docs
+//wyam -r Docs
+//wyam preview --virtual-dir "db4o-gpl-doc/output"
+
+//Open file: /etc/security/limits.conf
+//Add 
+
+//*         hard    nofile      500000
+//*         soft    nofile      500000
+//root      hard    nofile      500000
+//root      soft    nofile      500000
+
+//Once you save file, you may need to logout and login again.
+//ulimit -n
+
+
+//cat /proc/sys/fs/inotify/max_user_watches
+//The limit can be increased to its maximum by editing **/etc/sysctl.conf** and adding this line to the end of the file:
+
+//fs.inotify.max_user_watches=524288
+
+//The new value can then be loaded in by running **sudo sysctl -p**.

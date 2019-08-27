@@ -49,6 +49,12 @@ dotnet add package db4o-core --version 8.1.0
 
 #### JAVA 7
 Use IDE **NetBeans 11** to Open **db4o.j/db4o-core** project
+```
+ Run File db4o.j/db4o-core/tutorial/src/com/db4odoc/f1/Main.java 
+```
+
+
+
 
 
 License: [GPL](https://github.com/iboxdb/db4o-gpl/blob/master/db4o.net/db4o.license/db4o.license.html)

@@ -12,5 +12,4 @@ db4o.net/db4o.license/.classpath
 *.db
 **/publish/*
 db4o.net/Output/netstandard2.0/*.json
-db4o.net/Output/netstandard2.0/*.xml
 **/Output/Tutorial/*

@@ -3,6 +3,7 @@
   <PropertyGroup>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup>

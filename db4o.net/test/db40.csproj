@@ -1,14 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+    </PropertyGroup>
 
-  <ItemGroup>
-   <Reference Include="../Output/netstandard2.0/Db4objects.Db4o-gpl-2010.dll" />
-   <Reference Include="../Output/netstandard2.0/Db4objects.Db4o.Linq-2010.dll" />
-    <Reference Include="../Output/netstandard2.0/Db4objects.Db4o.CS-2010.dll" />
-  </ItemGroup>
+    <ItemGroup>
+  
+        <Reference Include="../Output/netstandard2.0/Db4objects.Db4o-gpl-2010.dll"/>
+        <Reference Include="../Output/netstandard2.0/Db4objects.Db4o.Linq-2010.dll"/>
+        <Reference Include="../Output/netstandard2.0/Db4objects.Db4o.CS-2010.dll"/>
+
+    </ItemGroup>
+
 
 </Project>

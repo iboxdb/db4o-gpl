@@ -50,7 +50,7 @@ Permission: Read/Write_External_Storage
 [Nuget db4o-core](https://www.nuget.org/packages/db4o-core/)
 
 
-#### .NET Documentation
+#### .NET Tutorials
 
 [Getting Started With db4o](https://dzone.com/refcardz/getting-started-db4o)
 
@@ -59,9 +59,12 @@ Permission: Read/Write_External_Storage
 [Object-oriented database programming with db4o](https://www.codeproject.com/articles/17946/object-oriented-database-programming-with-db4o)
 
 
-#### Java Documentation
+#### API
 
-[Online Document](https://iboxdb.github.io/db4o-gpl-doc/javadoc/com/db4o/Db4oEmbedded.html)
+##### .NET Docs  [Db4oEmbedded](https://iboxdb.github.io/db4o-gpl-doc/output/api/Db4objects.Db4o/Db4oEmbedded/)
+
+##### JAVA Docs [Db4oEmbedded](https://iboxdb.github.io/db4o-gpl-doc/javadoc/com/db4o/Db4oEmbedded.html)
+
  
  
 

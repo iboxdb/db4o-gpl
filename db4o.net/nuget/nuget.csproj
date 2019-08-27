@@ -3,19 +3,19 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>db4o-core</PackageId>
-    <Version>8.1.0</Version>
+    <Version>8.1.1</Version>
     <authors>db4o</authors>
     <owners>db4o</owners>
     <RepositoryUrl>https://github.com/iboxdb/db4o-gpl</RepositoryUrl>
-    <Title>DB4O GPL netstandard2.0 version</Title>
+    <Title>DB4O GPL .netstandard2.0 version</Title>
     <Description>db4o is an .NET embedded object oriented database aimed to simplify object storage / query / retrieval with minimal. this is GPL .netstandard2.0 version 
     </Description>
-    <PackageTags>database;object-database;db4o;db4objects;netstandard</PackageTags>
+    <PackageTags>database;object-database;db4o;db4objects;netstandard;nosql;db</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
-   <Reference Include="../Output/netstandard2.0/Db4objects.Db4o-gpl-2010.dll" />
-   <Reference Include="../Output/netstandard2.0/Db4objects.Db4o.Linq-2010.dll" />
+    <Reference Include="../Output/netstandard2.0/Db4objects.Db4o-gpl-2010.dll" />
+    <Reference Include="../Output/netstandard2.0/Db4objects.Db4o.Linq-2010.dll" />
     <Reference Include="../Output/netstandard2.0/Db4objects.Db4o.CS-2010.dll" />
   </ItemGroup>
 

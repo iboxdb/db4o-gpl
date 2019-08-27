@@ -8,7 +8,7 @@ This oop-database project, has no news in a long time.
 here update it to .NetStandard2 & Java7. some users maybe need it.
 
 
-##### DotNet Core
+#### DotNet Core
 
 Use IDE to Open **Db4o-2010.sln**  or run
 ```
@@ -19,7 +19,15 @@ test/dotnet run
 ```
 **/test** includes a dotnet core example.
 
-##### Xamarin
+
+#### JAVA 7
+Use IDE **NetBeans 11** to Open **db4o.j/db4o-core** project
+```
+ Build Project will output a jar to ../db4o-gpl/db4o.j/db4o-core/dist/db4o-core.jar
+ or Run File, db4o.j/db4o-core/tutorial/src/com/db4odoc/f1/Main.java 
+```
+
+#### Xamarin
 
 ```
 Db4o-Projects/dotnet publish -c Release //like above
@@ -33,8 +41,13 @@ Project Properities->Android Options->Linking->"Sdk Assemblies Only" (not "Sdk a
 Permission: Read/Write_External_Storage
 ```
 
-##### nuget
-[db4o-core](https://www.nuget.org/packages/db4o-core/)
+#### Download Assemblies Directly
+
+[.NETStandard2](https://github.com/iboxdb/db4o-gpl/tree/master/db4o.net/Output/netstandard2.0)
+
+[JAVA JAR](https://github.com/iboxdb/db4o-gpl/tree/master/db4o.j/db4o-core/dist)
+
+[Nuget db4o-core](https://www.nuget.org/packages/db4o-core/)
 
 
 #### .NET Documentation
@@ -45,12 +58,6 @@ Permission: Read/Write_External_Storage
 
 [Object-oriented database programming with db4o](https://www.codeproject.com/articles/17946/object-oriented-database-programming-with-db4o)
 
-
-#### JAVA 7
-Use IDE **NetBeans 11** to Open **db4o.j/db4o-core** project
-```
- Run File db4o.j/db4o-core/tutorial/src/com/db4odoc/f1/Main.java 
-```
 
 
 

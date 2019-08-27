@@ -12,7 +12,6 @@
             </source-roots>
             <test-roots>
                 <root id="test.src2.dir"/>
-                <root id="test.src.dir"/>
             </test-roots>
         </data>
     </configuration>

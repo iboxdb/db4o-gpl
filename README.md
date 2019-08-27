@@ -1,11 +1,11 @@
-#### Db4o-GPL .NetStandard2.0 Version
+#### Db4o-GPL .NetStandard2.0 & Java7 Version
 
 Not as complexity as big sql database server, not as simplicity as iBoxDB,
 
 Db4o is the best database project to help you to learn how to write a database.
 
 This oop-database project, has no news in a long time. 
-here update it to .NetStandard2. some users maybe need it.
+here update it to .NetStandard2 & Java7. some users maybe need it.
 
 
 ##### DotNet Core
@@ -38,9 +38,7 @@ Permission: Read/Write_External_Storage
 dotnet add package db4o-core --version 8.1.0
 ```
 
-
-
-#### Documentation
+#### .NET Documentation
 
 [Getting Started With db4o](https://dzone.com/refcardz/getting-started-db4o)
 
@@ -49,7 +47,8 @@ dotnet add package db4o-core --version 8.1.0
 [Object-oriented database programming with db4o](https://www.codeproject.com/articles/17946/object-oriented-database-programming-with-db4o)
 
 
-
+#### JAVA 7
+Use IDE **NetBeans 11** to Open **db4o.j/db4o-core** project
 
 
 License: [GPL](https://github.com/iboxdb/db4o-gpl/blob/master/db4o.net/db4o.license/db4o.license.html)

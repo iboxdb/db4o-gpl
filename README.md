@@ -45,7 +45,7 @@ Permission: Read/Write_External_Storage
 
 [.NETStandard2](https://github.com/iboxdb/db4o-gpl/tree/master/db4o.net/Output/netstandard2.0)
 
-[JAVA JAR](https://github.com/iboxdb/db4o-gpl/tree/master/db4o.j/db4o-core/dist)
+[JAVA JAR](https://github.com/iboxdb/db4o-gpl/tree/master/db4o.j/db4o-core/dist) 
 
 [Nuget db4o-core](https://www.nuget.org/packages/db4o-core/)
 
@@ -59,9 +59,11 @@ Permission: Read/Write_External_Storage
 [Object-oriented database programming with db4o](https://www.codeproject.com/articles/17946/object-oriented-database-programming-with-db4o)
 
 
+#### Java Documentation
 
-
-
+[Online Document](https://iboxdb.github.io/db4o-gpl-doc/javadoc/com/db4o/Db4oEmbedded.html)
+ 
+ 
 
 License: [GPL](https://github.com/iboxdb/db4o-gpl/blob/master/db4o.net/db4o.license/db4o.license.html)
 

@@ -3,7 +3,9 @@ db4o.net/.project
 **/.idea/*
 **/obj/*
 **/.settings/*
-db4o.net/db4o.license/.classpath
+*.classpath
+*.cvsignore
+*.project
 **/bin/*
 **/Bin/*
 **/debug/*

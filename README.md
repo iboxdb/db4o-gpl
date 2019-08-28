@@ -65,7 +65,7 @@ Permission: Read/Write_External_Storage
 
 ##### JAVA Docs [Db4oEmbedded](https://iboxdb.github.io/db4o-gpl-doc/javadoc/com/db4o/Db4oEmbedded.html)
 
- 
+##### [About UpdateDepth](https://iboxdb.github.io/db4o-gpl-doc/output/api/Db4objects.Db4o.Config/ICommonConfiguration/69C8CF73)
  
 
 License: [GPL](https://github.com/iboxdb/db4o-gpl/blob/master/db4o.net/db4o.license/db4o.license.html)

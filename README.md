@@ -1,4 +1,4 @@
-#### Db4o-GPL .NetStandard2.0 & Java7 Version
+#### Db4o-GPL .NetStandard2.0 & Java7+ Version
 
 Not as complexity as big sql database server, not as simplicity as iBoxDB,
 
@@ -67,6 +67,63 @@ Permission: Read/Write_External_Storage
 
 ##### [About UpdateDepth](https://iboxdb.github.io/db4o-gpl-doc/output/api/Db4objects.Db4o.Config/ICommonConfiguration/69C8CF73)
  
+
+#### Examples
+
+#####  [.NET Example](https://github.com/iboxdb/db4o-gpl/blob/master/db4o.net/Db4odoc.Tutorial.Chapters/F1/Chapter6/ClientServerExample.cs)
+
+##### [JAVA Example](https://github.com/iboxdb/db4o-gpl/blob/master/db4o.j/db4o-core/tutorial/src/com/db4odoc/f1/chapter6/ClientServerExample.java)
+
+**One Local Share Connection**
+```java
+ObjectContainer db = Db4oEmbedded.openFile(Db4oEmbedded
+				.newConfiguration(), DB4OFILENAME);
+```
+
+**Multiple Local Connections**
+```java
+ServerConfiguration config = Db4oClientServer.newServerConfiguration();
+//https://iboxdb.github.io/db4o-gpl-doc/javadoc/com/db4o/config/CommonConfiguration.html#updateDepth(int)
+config.common().objectClass(Car.class).updateDepth(5);
+//https://iboxdb.github.io/db4o-gpl-doc/javadoc/com/db4o/cs/Db4oClientServer.html#openServer(com.db4o.cs.config.ServerConfiguration,java.lang.String,int)
+//Set Port = 0
+ObjectServer server = Db4oClientServer.openServer(config, DB4OFILENAME, 0);
+try {
+  ObjectContainer client = server.openClient();
+  ObjectContainer client1 = server.openClient();
+  ObjectContainer client2 = server.openClient();
+  // Do something with this clients
+  client.close();
+  client1.close();
+  client2.close();
+} finally {
+  server.close();
+}
+public static void queryLocalServer(ObjectServer server) {
+  ObjectContainer client = server.openClient();
+  listResult(client.queryByExample(new Car(null)));
+  client.close();
+}
+```
+
+**Multiple Remote Connections**
+```java
+//set PORT > 0
+ObjectServer server = Db4oClientServer.openServer(Db4oClientServer
+				.newServerConfiguration(), DB4OFILENAME, PORT);
+server.grantAccess(USER, PASSWORD);
+try {
+  ObjectContainer client = Db4oClientServer.openClient(
+    Db4oClientServer.newClientConfiguration(), "localhost",PORT, USER, PASSWORD);
+  // Do something with this client, or open more clients
+  client.close();
+} finally {
+  server.close();
+}
+```
+
+
+<br>
 
 License: [GPL](https://github.com/iboxdb/db4o-gpl/blob/master/db4o.net/db4o.license/db4o.license.html)
 

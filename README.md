@@ -125,7 +125,7 @@ try {
 
 <br>
 
-License: [GPL](https://github.com/iboxdb/db4o-gpl/blob/master/db4o.net/db4o.license/db4o.license.html)
+License: [GPL](https://github.com/iboxdb/db4o-gpl/blob/master/db4o.net/db4o.license/db4o.license.html) , as MySQL.
 
 
 The info from the author. 

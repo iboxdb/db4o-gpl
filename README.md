@@ -74,12 +74,13 @@ Permission: Read/Write_External_Storage
 
 ##### [JAVA Example](https://github.com/iboxdb/db4o-gpl/blob/master/db4o.j/db4o-core/tutorial/src/com/db4odoc/f1/chapter6/ClientServerExample.java)
 
-One Local Share Connection
+**One Local Share Connection**
 ```java
 ObjectContainer db = Db4oEmbedded.openFile(Db4oEmbedded
 				.newConfiguration(), DB4OFILENAME);
 ```
-Multiple Local Connections
+
+**Multiple Local Connections**
 ```java
 ServerConfiguration config = Db4oClientServer.newServerConfiguration();
 //https://iboxdb.github.io/db4o-gpl-doc/javadoc/com/db4o/config/CommonConfiguration.html#updateDepth(int)
@@ -104,7 +105,8 @@ public static void queryLocalServer(ObjectServer server) {
   client.close();
 }
 ```
-Multiple Remote Connections
+
+**Multiple Remote Connections**
 ```java
 //set PORT > 0
 ObjectServer server = Db4oClientServer.openServer(Db4oClientServer
@@ -121,7 +123,6 @@ try {
 ```
 
 
-<br>
 <br>
 
 License: [GPL](https://github.com/iboxdb/db4o-gpl/blob/master/db4o.net/db4o.license/db4o.license.html)

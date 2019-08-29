@@ -137,7 +137,7 @@ namespace Db4odoc.Tutorial.F1.Chapter6
                 
                 System.Console.WriteLine(@"
 Client-Server, Some Systems Server.Close() will wait long time until timeout.
-about the Network setting,
+about the Client Network setting,
 you can call 'Environment.Exit(0)' instead of close()");
                // Environment.Exit(0);
             }

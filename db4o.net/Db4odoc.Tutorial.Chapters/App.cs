@@ -17,7 +17,7 @@ namespace Db4objects.Db4o.Tutorial.Console
             Db4odoc.Tutorial.F1.Chapter8.TransparentActivationExample.Main(args);
             Db4odoc.Tutorial.F1.Chapter9.TransparentPersistenceExample.Main(args);
             
-            System.Console.Error.WriteLine("Client-Server");
+            System.Console.WriteLine("Client-Server");
             Db4odoc.Tutorial.F1.Chapter6.ClientServerExample.Main(args);
             System.Console.WriteLine("End");
         }

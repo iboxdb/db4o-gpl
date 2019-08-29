@@ -29,23 +29,20 @@ namespace db40
             IObjectContainer db;
             IObjectServer server = null;
 
-            bool embed = false;
+            bool multiple_client = true;
             string dbpath = "/tmp/x.db";
 
-            if (embed)
+            if (!multiple_client)
             {
                 db = Db4oEmbedded.OpenFile(dbpath);
             }
             else
             {
                 var config = Db4oClientServer.NewServerConfiguration();
-                //config.Common.ObjectClass(typeof(Person)).ObjectField("Age").Indexed(true);
-                //config.Common.ObjectClass(typeof(Person)).ObjectField("Name").Indexed(true);
-                //config.Common.Diagnostic.AddListener(new Db4objects.Db4o.Diagnostic.DiagnosticToConsole());
-                server = Db4oClientServer.OpenServer(config, dbpath, 7881);
-                server.GrantAccess("user", "password");
-                IObjectContainer client =
-                        Db4oClientServer.OpenClient("localhost", 7881, "user", "password");
+                //Wait before close()
+                config.TimeoutServerSocket = 1000 * 10;
+                server = Db4oClientServer.OpenServer(config, dbpath, 0);
+                IObjectContainer client = server.OpenClient();
                 db = client;
             }
 
@@ -122,10 +119,12 @@ namespace db40
             {
                 // Close the db cleanly
                 db.Close();
-                Environment.Exit(0);
+
+                //Environment.Exit(0);, just Exit() will faster
+                server?.Close();
 
             }
-
+            Console.WriteLine("End.");
 
         }
     }

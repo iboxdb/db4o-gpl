@@ -90,15 +90,12 @@ config.common().objectClass(Car.class).updateDepth(5);
 ObjectServer server = Db4oClientServer.openServer(config, DB4OFILENAME, 0);
 try {
   ObjectContainer client = server.openClient();
-  ObjectContainer client1 = server.openClient();
-  ObjectContainer client2 = server.openClient();
   // Do something with this clients
   client.close();
-  client1.close();
-  client2.close();
 } finally {
   server.close();
 }
+//Open new Client for every request. Concurrent
 public static void queryLocalServer(ObjectServer server) {
   ObjectContainer client = server.openClient();
   listResult(client.queryByExample(new Car(null)));

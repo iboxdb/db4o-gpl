@@ -384,7 +384,7 @@ public final class Platform4 {
     	
     	
     	Class<?>[] jdkFactories = {
-    			DalvikVM.Factory.class,
+    			//DalvikVM.Factory.class,
     			JDK_5.Factory.class,
     			JDK_1_4.Factory.class,
     			JDK_1_3.Factory.class,

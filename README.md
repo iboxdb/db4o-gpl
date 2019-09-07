@@ -41,7 +41,7 @@ Project Properities->Android Options->Linking->"Sdk Assemblies Only" (not "Sdk a
 Permission: Read/Write_External_Storage, INTERNET
 ```
 
-#### Android Javaa
+#### Android Java
 
 ```java
 // <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>

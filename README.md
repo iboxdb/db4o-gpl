@@ -38,7 +38,28 @@ string dbpath = Path.Combine(path, "x.db");
 db = Db4oEmbedded.OpenFile(dbpath);
 
 Project Properities->Android Options->Linking->"Sdk Assemblies Only" (not "Sdk and User Assemblies").
-Permission: Read/Write_External_Storage
+Permission: Read/Write_External_Storage, INTERNET
+```
+
+#### Android Javaa
+
+```java
+// <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+// <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+// <uses-permission android:name="android.permission.INTERNET"/>
+
+private class Async extends android.os.AsyncTask{
+  @Override  
+  protected Object doInBackground(Object... arg) {
+    //Path 
+    //android.os.Environment.getDataDirectory().getAbsolutePath()
+    //		+ "/data/" + "com.example.fapp" + ""
+    //DB4O Code here 
+    return null;
+  }
+}
+
+new Async().execute(null);
 ```
 
 #### Download Assemblies Directly

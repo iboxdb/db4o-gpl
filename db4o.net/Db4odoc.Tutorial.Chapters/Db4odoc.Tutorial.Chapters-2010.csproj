@@ -143,18 +143,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Db4objects.Db4o.CS\Db4objects.Db4o.CS-2010.csproj">
-      <Project>{9FA8178A-3E77-42C5-A252-6690EA9BA257}</Project>
-      <Name>Db4objects.Db4o.CS-2010</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Db4objects.Db4o.Linq\Db4objects.Db4o.Linq-2010.csproj">
-      <Project>{23531440-0922-43EB-A483-6592FFC2F093}</Project>
-      <Name>Db4objects.Db4o.Linq-2010</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Db4objects.Db4o\Db4objects.Db4o-2010.csproj">
-      <Project>{600CD3BF-2ED2-4183-87F7-ADD78A968AE0}</Project>
-      <Name>Db4objects.Db4o-2010</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\Db4objects.Db4o.CS\Db4objects.Db4o.CS-2010.csproj" />
+      
+    <ProjectReference Include="..\Db4objects.Db4o.Linq\Db4objects.Db4o.Linq-2010.csproj" />
+     
+    <ProjectReference Include="..\Db4objects.Db4o\Db4objects.Db4o-2010.csproj" />
+
+<!-- Optional, can be removed -->
+    <ProjectReference Include="..\Db4objects.Db4o.Optional\Db4objects.Db4o.Optional-2010.csproj" />
+
   </ItemGroup>
    
 </Project>

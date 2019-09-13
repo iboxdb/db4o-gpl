@@ -7,13 +7,13 @@ namespace Db4objects.Db4o.Internal.CLI
 {
 	internal class CLR35 : CLIBase
 	{
-		[DllImport("kernel32.dll", SetLastError = true)]
-		static extern int FlushFileBuffers(Microsoft.Win32.SafeHandles.SafeFileHandle fileHandle);
+		//[DllImport("kernel32.dll", SetLastError = true)]
+		//static extern int FlushFileBuffers(Microsoft.Win32.SafeHandles.SafeFileHandle fileHandle);
 
 		public override void Flush(FileStream stream)
 		{
 			stream.Flush(); 
-			FlushFileBuffers(stream.SafeFileHandle); 
+			//FlushFileBuffers(stream.SafeFileHandle); 
 		}
 	}
 }

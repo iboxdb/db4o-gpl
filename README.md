@@ -12,9 +12,10 @@ here update it to .NetStandard2 & Java7. some users maybe need it.
 
 Use IDE to Open **Db4o-2010.sln**  or run
 ```
-Db4objects.Db4o/dotnet publish
-Db4objects.Db4o.Linq/dotnet publish
-Db4objects.Db4o.CS/dotnet publish
+Db4objects.Db4o/dotnet publish -c Release
+Db4objects.Db4o.Linq/dotnet publish -c Release
+Db4objects.Db4o.CS/dotnet publish -c Release
+Db4objects.Db4o.Optional/dotnet publish -c Release //Optional 
 test/dotnet run
 ```
 **/test** includes a dotnet core example.
@@ -30,7 +31,7 @@ Use IDE **NetBeans 11** to Open **db4o.j/db4o-core** project
 #### Xamarin
 
 ```
-Db4o-Projects/dotnet publish -c Release //like above
+Db4o-Projects/*/dotnet publish -c Release //like above
 Add 4 DLLs in /Output to xamarin-project
 
 var path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
@@ -140,8 +141,20 @@ try {
 }
 ```
 
+#### Object Management
 
-<br>
+**Use MonoDevelop with Mono6 on Linux**
+
+```
+Db4o-Projects/*/dotnet publish -c Release //like above
+use MonoDevelop open  db4o-gpl/admins/om.net/OMAddin-2010.sln 
+build and run
+```
+
+[See the result, images/db4o_gpl.png](https://iboxdb.github.io/db4o-gpl-doc/images/db4o_gpl.png)
+
+<br> 
+<br> 
 
 License: [GPL](https://github.com/iboxdb/db4o-gpl/blob/master/db4o.net/db4o.license/db4o.license.html) , as MySQL.
 

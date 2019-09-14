@@ -17,3 +17,4 @@ db4o.net/Output/netstandard2.0/*.json
 **/Output/Tutorial/*
 /db4o.j/db4o-core/nbproject/private/
 /db4o.j/db4o-core/build/
+admins/om.net/.vs/*

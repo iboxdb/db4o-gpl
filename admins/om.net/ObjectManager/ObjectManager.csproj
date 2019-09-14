@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4167EB0C-18A7-41AC-8CB8-465AA8235417}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ObjectManager</RootNamespace>
+    <AssemblyName>ObjectManager</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;NET_4_0</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <DefineConstants>NET_4_0</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WinForm.cs" />
+    <Compile Include="Connect.cs" />
+    <Compile Include="OutputWindow.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>..\..\OMADDIN\Properties\Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="PortImpl\DTE2.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LoggingBlock\LoggingBlock-2010.csproj">
+      <Project>{F8B76B1A-3675-4EA5-95FD-8A6EB1B484C6}</Project>
+      <Name>LoggingBlock-2010</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OMAddinDataTransferLayer\OMAddinDataTransferLayer.csproj">
+      <Project>{FAD4092B-6902-48D4-ADC5-673D4C799AEA}</Project>
+      <Name>OMAddinDataTransferLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OmControlLibrary\OMControlLibrary-2010.csproj">
+      <Project>{73E41A2F-EDD6-4547-BB46-0D33965994EC}</Project>
+      <Name>OMControlLibrary-2010</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OM+\OMPlus-2010.csproj">
+      <Project>{E4ED4CBB-BD2F-4DC8-8C01-5413216DCB9A}</Project>
+      <Name>OMPlus-2010</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CommandBar.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FAQ\FAQ_files\filelist.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="OMAddin.AddIn">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="FAQ\FAQ.htm" />
+    <Content Include="FAQ\FAQ_files\image001.gif" />
+    <Content Include="FAQ\FAQ_files\image002.gif" />
+    <Content Include="ReadMe_vs2010\ReadMe_vs2010.htm" />
+    <Content Include="ReadMe_vs2010\ReadMe_vs2010_files\filelist.xml" />
+    <Content Include="ReadMe_vs2010\ReadMe_vs2010_files\image001.jpg" />
+    <Content Include="ReadMe_vs2010\ReadMe_vs2010_files\image002.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FAQ\" />
+    <Folder Include="Images\" />
+    <Folder Include="Properties\" />
+    <Folder Include="ReadMe_vs2010\" />
+    <Folder Include="PortImpl\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

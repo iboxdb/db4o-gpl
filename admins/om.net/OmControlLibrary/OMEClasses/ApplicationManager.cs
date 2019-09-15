@@ -13,7 +13,7 @@ namespace OMControlLibrary
 
 		//Resource related member variables
 		private static ResourceManager m_ResourceManager;
-		private static LanguageCodes m_SelectedLanguage = LanguageCodes.English;
+        private static LanguageCodes m_SelectedLanguage = LanguageCodes.English;
 
 		#endregion
 
@@ -38,9 +38,12 @@ namespace OMControlLibrary
 		{
 			try
 			{
-				if (CultureInfo.CurrentCulture.Name.Equals(Common.Constants.JAPANESE_CULTURE))
+                //Could not find any resources appropriate for the specified culture or the neutral culture. 
+                //Make sure "OMControlLibrary.Resources.Resource.jp.resources"
+                /*
+                if (CultureInfo.CurrentCulture.Name.Equals(Common.Constants.JAPANESE_CULTURE))
 					return SetLanguage(LanguageCodes.Japanese);
-				
+				*/
 				return SetLanguage(LanguageCodes.English);
 			}
 			catch (Exception)
@@ -67,6 +70,7 @@ namespace OMControlLibrary
 				}
 				else if (lngCode == LanguageCodes.Japanese)
 				{
+                    //not included.
 					m_ResourceManager = new ResourceManager(Constants.RESOURCE_NAME_JP, typeof(ViewBase).Assembly);
 					languageCulture = Common.Constants.JAPANESE_CULTURE;
 				}

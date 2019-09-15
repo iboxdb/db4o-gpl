@@ -70,9 +70,6 @@
     <EmbeddedResource Include="FAQ\FAQ_files\filelist.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="OMAddin.AddIn">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="FAQ\FAQ.htm" />
     <Content Include="FAQ\FAQ_files\image001.gif" />
     <Content Include="FAQ\FAQ_files\image002.gif" />

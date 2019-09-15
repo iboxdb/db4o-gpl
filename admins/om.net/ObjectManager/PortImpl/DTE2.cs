@@ -36,7 +36,7 @@ namespace ObjectManager.PortImpl
         }
         public void DisableMenu()
         {
-            foreach(var e in mainForm.Menu.MenuItems)
+            foreach (var e in mainForm.Menu.MenuItems)
             {
                 ((MenuItem)e).Visible = false;
             }
@@ -52,6 +52,7 @@ namespace ObjectManager.PortImpl
             WindowImpl r = new WindowImpl();
             r.Form = new Form();
             r.Form.ControlBox = false;
+             
             if (toolWindowClass != OMControlLibrary.Common.Constants.CLASS_NAME_OBJECTBROWSER)
             {
                 r.Form.StartPosition = FormStartPosition.CenterScreen;
@@ -75,7 +76,18 @@ namespace ObjectManager.PortImpl
         public override bool Visible { get { return Form.Visible; } set { Form.Visible = value; if (true) Activate(); } }
         public override string Caption { get; set; }
         public override int Width { get { return Form.Width; } set { Form.Width = value; } }
-        public override int Height { get { return Form.Height; } set { Form.Height = value; } }
+        public override int Height
+        {
+            get { return Form.Height; }
+            set
+            {
+                int sh = Screen.PrimaryScreen.Bounds.Height;
+                //Console.WriteLine("Height: " + sh);
+                if (value > (sh - 100)) { value = sh - 100; Form.AutoScroll = true; }
+                if ( value < 50) { value = 50; }
+                Form.Height = value;
+            }
+        }
 
         public override ViewBase Object { get { return UserControl; } }
 
@@ -87,12 +99,12 @@ namespace ObjectManager.PortImpl
 
         public override void Close(vsSaveChanges vsSaveChangesNo)
         {
-         if ( Caption == OMControlLibrary.Common.Constants.LOGIN)
+            if (UserControl is Login)
             {
                 Form.Close();
             }
         }
-         
+
     }
 
     public class StatusBarImpl : OMControlLibrary.PortLinux.StatusBar
@@ -108,7 +120,7 @@ namespace ObjectManager.PortImpl
                 DTE2Impl.mainForm.statusBarPanel.Text = value;
             }
         }
-         
+
         public override void Clear()
         {
             DTE2Impl.mainForm.statusBarPanel.Text = "";
@@ -140,7 +152,7 @@ namespace ObjectManager.PortImpl
         public override bool Visible { get; set; }
         public override bool Enabled { get; set; }
         public override string Caption { get; set; }
-         
+
 
         public override CommandBarButton Control { get; }
         public override CommandBarControls Controls { get; set; } = new CommandBarControlsImpl();
@@ -160,13 +172,13 @@ namespace ObjectManager.PortImpl
 
         public override bool Visible { get; set; }
         public override bool Enabled { get; set; }
-         
+
         public override string Caption { get { return mItem.Text; } set { mItem.Text = value; } }
 
         public override CommandBarButton Control { get { return this; } }
         public override CommandBarControls Controls { get; set; } = new CommandBarControlsImpl();
 
-         public override void Delete(object p)
+        public override void Delete(object p)
         {
         }
     }

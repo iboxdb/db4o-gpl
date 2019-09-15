@@ -29,6 +29,7 @@ java -jar "/home/user/github/db4o-gpl/admins/om.j/ObjectManager/dist/ObjectManag
     
     public static void main(String[] args) { 
         com.db4o.objectManager.v2.Dashboard.main(args);
+        
     }
     
 }

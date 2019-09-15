@@ -335,10 +335,9 @@ public class Dashboard {
 
 		public void actionPerformed(ActionEvent e) {
 			JOptionPane.showMessageDialog(
-					frame,
-					// todo: make this linkable, need to figure out how to launch a browser
+					frame, 
 					"Please visit our online help at: \n" +
-							"http://developer.db4o.com/DocsWiki/view.aspx/Reference/Object_Manager_For_db4o/Installation");
+							"https://github.com/iboxdb/db4o-gpl/");
 		}
 	}
 

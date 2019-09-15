@@ -143,13 +143,23 @@ try {
 
 #### Object Management
 
-**Use MonoDevelop with Mono6 on Linux**
+**Use NetBeans-11 with Java on Linux**
 
 ```
-Db4o-Projects/*/dotnet publish -c Release //like above
+build 'db4o.j/db4o-core' project, get db4o-core.jar
+use NetBeans open db4o-gpl/admins/om.j/ObjectManager/ 
+build and run
+```
+
+**Use MonoDevelop-7.8.4+ with Mono-6 on Linux**
+
+```
+Db4o-Projects/*/dotnet publish -c Release, get db4o DLLs
 use MonoDevelop open  db4o-gpl/admins/om.net/OMAddin-2010.sln 
 build and run
 ```
+
+
 
 [See the result, images/db4o_gpl.png](https://iboxdb.github.io/db4o-gpl-doc/images/db4o_gpl.png)
 

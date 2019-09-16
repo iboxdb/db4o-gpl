@@ -31,9 +31,11 @@ class ClientMessageDispatcherImpl implements Runnable, ClientMessageDispatcher {
 		return !_isClosed;
 	}
 
-	public synchronized boolean close() {
+        @Override
+	public synchronized void close() {
 	    if(_isClosed){
-	        return true;
+	        //return true;
+                return;
 	    }
 		_isClosed = true;
 		if(_socket != null) {
@@ -45,7 +47,8 @@ class ClientMessageDispatcherImpl implements Runnable, ClientMessageDispatcher {
 		}
 		_synchronousMessageQueue.stop();
 		_asynchronousMessageQueue.stop();
-		return true;
+		//return true;
+                return;
 	}
 	
 	public void run() {

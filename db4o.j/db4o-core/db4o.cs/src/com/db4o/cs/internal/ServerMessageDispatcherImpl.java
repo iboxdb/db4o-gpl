@@ -64,8 +64,9 @@ public final class ServerMessageDispatcherImpl implements ServerMessageDispatche
 		// i_socket.setTcpNoDelay(true);
 	}
     
-    public boolean close() {
-    	return close(ShutdownMode.NORMAL);
+    @Override
+    public void close() {
+    	boolean r = close(ShutdownMode.NORMAL);
     }
 
     public boolean close(ShutdownMode mode) {

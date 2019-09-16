@@ -5,7 +5,11 @@
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
             <name>db4o-core</name>
             <source-roots>
+                <root id="src.src7.dir"/>
+                <root id="src.src6.dir"/>
                 <root id="src.src3.dir"/>
+                <root id="src.src4.dir"/>
+                <root id="src.src5.dir"/>
                 <root id="src.src2.dir"/>
                 <root id="src.src.dir"/>
                 <root id="src.dir"/>

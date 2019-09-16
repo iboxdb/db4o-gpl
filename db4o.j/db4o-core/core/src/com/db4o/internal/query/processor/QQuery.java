@@ -2,6 +2,7 @@
 
 package com.db4o.internal.query.processor;
 
+import com.db4o.ObjectSet;
 import java.util.*;
 
 import com.db4o.internal.*;
@@ -30,4 +31,9 @@ public class QQuery extends QQueryBase implements Query {
     public Query sortBy(Comparator comparator) {
 		return sortBy(new JdkComparatorWrapper(comparator));
 	}
+    
+    @Override
+    public <T> ObjectSet<T> execute(Class<T> aclass) {
+        return execute();
+    }
 }

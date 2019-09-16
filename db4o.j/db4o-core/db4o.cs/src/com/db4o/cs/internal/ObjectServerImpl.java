@@ -170,8 +170,9 @@ public class ObjectServerImpl implements ObjectServerEvents, ObjectServer, ExtOb
 		close();
 	}
 
-	public synchronized boolean close() {
-		return close(ShutdownMode.NORMAL);
+        @Override
+	public synchronized void close() {
+		boolean r = close(ShutdownMode.NORMAL);
 	}
 
 	public synchronized boolean close(ShutdownMode mode) {

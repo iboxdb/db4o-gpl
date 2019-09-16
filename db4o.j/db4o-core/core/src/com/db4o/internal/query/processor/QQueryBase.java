@@ -334,6 +334,7 @@ public abstract class QQueryBase implements InternalQuery, Unversioned {
         return foundClass.value;
     }
 
+
     public ObjectSet execute() {
         synchronized (streamLock()) {
         	return triggeringQueryEvents(new Closure4<ObjectSet>() { public ObjectSet run() {

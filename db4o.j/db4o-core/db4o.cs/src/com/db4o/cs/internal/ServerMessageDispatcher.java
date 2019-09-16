@@ -31,7 +31,8 @@ public interface ServerMessageDispatcher extends ClientConnection, MessageDispat
 
 	public void login();
 
-	public boolean close();
+        @Override
+	public void close();
 	
 	public boolean close(ShutdownMode mode);
 	

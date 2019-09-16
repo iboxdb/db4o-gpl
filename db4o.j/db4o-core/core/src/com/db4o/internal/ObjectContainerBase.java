@@ -339,14 +339,16 @@ public abstract class ObjectContainerBase  implements TransientClass, Internal4,
         return transaction();
     }
 
-    final public boolean close() {
+    @Override
+    final public void close() {
 		synchronized (_lock) {
 			callbacks().closeOnStarted(this);
 			if(DTrace.enabled){
 				DTrace.CLOSE_CALLED.log(this.toString());
 			}
 			close1();
-			return true;
+			//return true;
+                        return;
 		}
 	}
     

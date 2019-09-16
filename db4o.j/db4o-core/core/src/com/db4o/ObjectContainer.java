@@ -23,7 +23,7 @@ import java.util.Comparator;
  * @see ExtObjectContainer ExtObjectContainer for extended functionality.
  * @sharpen.ignore
  */
-public interface ObjectContainer {
+public interface ObjectContainer extends java.io.Closeable{
 	
     /**
      * Activates all members on a stored object to the specified depth.
@@ -60,7 +60,9 @@ public interface ObjectContainer {
      * @return success - true denotes that the object container was closed, false if it was already closed
      * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
      */
-	public boolean close() throws Db4oIOException;
+    @Override
+    public void close() throws Db4oIOException;
+    //public boolean close() throws Db4oIOException;
 
     /**
      * Commits the running transaction.
@@ -151,7 +153,7 @@ public interface ObjectContainer {
 	 * @throws Db4oIOException I/O operation failed or was unexpectedly interrupted.
 	 * @throws DatabaseClosedException db4o database file was closed or failed to open.
 	 */
-    public <T> ObjectSet<T> queryByExample(Object template) throws Db4oIOException, DatabaseClosedException;
+    public <T> ObjectSet<T> queryByExample(T template) throws Db4oIOException, DatabaseClosedException;
     
     /**
      * Creates a new S.O.D.A. {@link Query Query}.

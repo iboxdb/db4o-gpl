@@ -17,7 +17,7 @@ import com.db4o.ext.*;
  * 
  * @sharpen.extends System.IDisposable
  */
-public interface ObjectServer {
+public interface ObjectServer extends java.io.Closeable {
     
     /**
     * Closes the {@link ObjectServer } and writes all cached data.
@@ -25,7 +25,9 @@ public interface ObjectServer {
     * @return true - denotes that the last instance connected to the
     * used database file was closed.
     */
-    public boolean close();
+    @Override
+    public void close();    
+    //public boolean close();
 
     /**
      * Returns an  {@link ExtObjectServer} with extended functionality.

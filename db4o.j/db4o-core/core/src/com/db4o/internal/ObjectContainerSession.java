@@ -270,10 +270,12 @@ public class ObjectContainerSession implements InternalObjectContainer, Transien
 		return _server.activationDepthProvider();
 	}
 
-    public boolean close() throws Db4oIOException {
+    @Override
+    public void close() throws Db4oIOException {
         synchronized(lock()){
             if(isClosed()){
-                return false;
+               // return false;
+               return;
             }
             if(! _server.isClosed()){
                 if(! _server.configImpl().isReadOnly()){
@@ -283,7 +285,8 @@ public class ObjectContainerSession implements InternalObjectContainer, Transien
             _server.callbacks().closeOnStarted(this);
             _server.closeTransaction(_transaction, false, false);
             _closed = true;
-            return true;
+            //return true;
+            return;
         }
     }
 

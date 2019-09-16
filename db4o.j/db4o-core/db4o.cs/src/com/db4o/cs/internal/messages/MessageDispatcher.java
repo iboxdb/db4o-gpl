@@ -7,11 +7,13 @@ package com.db4o.cs.internal.messages;
 /**
  * @exclude
  */
-public interface MessageDispatcher {
+public interface MessageDispatcher extends java.io.Closeable {
 
 	public boolean isMessageDispatcherAlive();
 	
 	public boolean write(Msg msg);
-	
-	public boolean close();
+
+        @Override
+        public void close();
+	//public boolean close();
 }

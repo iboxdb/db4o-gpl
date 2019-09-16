@@ -10,7 +10,7 @@ Not as complexity as big **SQL** database server, not as simplicity as **iBoxDB*
 
 Db4o is the best database project to help you to learn how to write a database.
 
-This oop-database project, has no news in a long time. 
+This adventurous oop-database project, has no news in a long time. 
 here update it to .NetStandard2 & Java7. some users maybe need it.
 
 
@@ -101,6 +101,8 @@ new Async().execute(null);
 #####  [.NET Example](https://github.com/iboxdb/db4o-gpl/blob/master/db4o.net/Db4odoc.Tutorial.Chapters/F1/Chapter6/ClientServerExample.cs)
 
 ##### [JAVA Example](https://github.com/iboxdb/db4o-gpl/blob/master/db4o.j/db4o-core/tutorial/src/com/db4odoc/f1/chapter6/ClientServerExample.java)
+
+[WIKI](https://github.com/iboxdb/db4o-gpl/wiki)
 
 **One Local Share Connection**
 ```java

@@ -1,6 +1,12 @@
+#### The Basic Principle of db4o
+
+db4o is a non-intrusive persistence system that stores any complex object with one single line of code. The class schema of your application classes is analysed and adjusted in real time when objects are stored. Object-oriented querying functionality is provided through Native Queries (NQ), the ability to query the database using .NET syntax and semantics (similar in concept to LINQ/DLINQ), Query by Example (QBE) which uses prototype objects for querying and other APIs. High performance is achieved with indexed fields and by reducing database-file-internal redirections to the absolute minimum. db4o features ACID transactions, fast embedded single-user mode and multi-transactional Client/Server access, locally and through TCP, object-oriented replication, and the ObjectManager to browse database files.
+
+[Download Object Manager Binaries to TRY](https://github.com/iboxdb/db4o-gpl-doc/tree/master/Binaries/20190916)
+
 #### Db4o-GPL .NetStandard2.0 & Java7+ Version
 
-Not as complexity as big sql database server, not as simplicity as iBoxDB,
+Not as complexity as big **SQL** database server, not as simplicity as **iBoxDB**,
 
 Db4o is the best database project to help you to learn how to write a database.
 
@@ -120,7 +126,7 @@ try {
 //Open new Client for every request. Concurrent
 public static void queryLocalServer(ObjectServer server) {
   ObjectContainer client = server.openClient();
-  listResult(client.queryByExample(new Car(null)));
+  listResult(client.queryByExample(new Car("885588")));
   client.close();
 }
 ```
@@ -158,8 +164,6 @@ Db4o-Projects/*/dotnet publish -c Release, get db4o DLLs
 use MonoDevelop open  db4o-gpl/admins/om.net/OMAddin-2010.sln 
 build and run
 ```
-
-[Download Object Manager Binaries](https://github.com/iboxdb/db4o-gpl-doc/tree/master/Binaries/20190916)
 
 
 [See the result, images/db4o_gpl.png](https://iboxdb.github.io/db4o-gpl-doc/images/db4o_gpl.png)

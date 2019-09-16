@@ -60,7 +60,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -70,9 +70,6 @@
     </Reference>
     <Reference Include="Db4objects.Db4o.Linq-2010">
       <HintPath>..\..\..\db4o.net\Output\netstandard2.0\Db4objects.Db4o.Linq-2010.dll</HintPath>
-    </Reference>
-    <Reference Include="Db4objects.Db4o.Optional-2010">
-      <HintPath>..\..\..\db4o.net\Output\netstandard2.0\Db4objects.Db4o.Optional-2010.dll</HintPath>
     </Reference>
     <Reference Include="Db4objects.Db4o-gpl-2010">
       <HintPath>..\..\..\db4o.net\Output\netstandard2.0\Db4objects.Db4o-gpl-2010.dll</HintPath>

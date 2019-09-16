@@ -159,6 +159,7 @@ use MonoDevelop open  db4o-gpl/admins/om.net/OMAddin-2010.sln
 build and run
 ```
 
+[Download Object Manager Binaries](https://github.com/iboxdb/db4o-gpl-doc/tree/master/Binaries/20190916)
 
 
 [See the result, images/db4o_gpl.png](https://iboxdb.github.io/db4o-gpl-doc/images/db4o_gpl.png)

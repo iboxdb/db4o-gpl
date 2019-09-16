@@ -1,13 +1,13 @@
 package com.db4o.ta.instrumentation.ant;
 
-import org.apache.tools.ant.util.regexp.*;
+//import org.apache.tools.ant.util.regexp.*;
 
 import com.db4o.instrumentation.core.*;
 
 /**
  * @exclude
  */
-class AntRegExpClassFilter implements ClassFilter {
+class AntRegExpClassFilter { /* implements ClassFilter {
 	private final Regexp[] _regExp;
 
 	public AntRegExpClassFilter(Regexp[] regExp) {
@@ -23,4 +23,5 @@ class AntRegExpClassFilter implements ClassFilter {
 		}
 		return false;
 	}
+*/
 }

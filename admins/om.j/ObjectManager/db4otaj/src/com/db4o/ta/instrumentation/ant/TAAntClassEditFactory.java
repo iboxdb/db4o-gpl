@@ -2,10 +2,11 @@ package com.db4o.ta.instrumentation.ant;
 
 import java.util.*;
 
+/*
 import org.apache.tools.ant.*;
 import org.apache.tools.ant.types.*;
 import org.apache.tools.ant.util.regexp.*;
-
+*/
 import com.db4o.instrumentation.ant.*;
 import com.db4o.instrumentation.classfilter.*;
 import com.db4o.instrumentation.core.*;
@@ -14,7 +15,7 @@ import com.db4o.ta.instrumentation.*;
 /**
  * @exclude
  */
-public class TAAntClassEditFactory extends ProjectComponent implements AntClassEditFactory {
+public class TAAntClassEditFactory{ /* extends ProjectComponent implements AntClassEditFactory {
 
 	private final List _regExp = new ArrayList();
 	private final List _filters = new ArrayList();
@@ -69,5 +70,5 @@ public class TAAntClassEditFactory extends ProjectComponent implements AntClassE
 		}
 		return new InjectTransparentActivationEdit(userClassFilter, _withCollections);
 	}
-
+*/
 }

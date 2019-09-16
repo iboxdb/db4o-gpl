@@ -26,11 +26,12 @@ namespace db40
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+
             IObjectContainer db;
             IObjectServer server = null;
 
             bool multiple_client = true;
-            string dbpath = "/tmp/x.db";
+            string dbpath = "/tmp/temp.n.db";
 
             if (!multiple_client)
             {

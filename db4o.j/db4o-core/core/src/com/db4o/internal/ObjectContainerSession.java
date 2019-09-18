@@ -110,6 +110,26 @@ public class ObjectContainerSession implements InternalObjectContainer, Transien
         }
     }
 
+    @Override
+    public final <T> T getByID(Class<T> aclass,long ID) 
+    {
+        Object o = getByID(ID);
+        activate(o);
+        return (T)o;
+    }
+    @Override
+    public final <T> T getByUUID(Class<T> aclass,Db4oUUID uuid) 
+    {
+        Object o = getByUUID(uuid);
+        activate(o);
+        return (T)o;
+    }
+    @Override
+    public <T> T getByUUID(Class<T> aclass,String uuid)
+    {
+        return getByUUID(aclass, new Db4oUUID(uuid));
+    }
+    
     public long getID(Object obj) {
         synchronized(lock()){
             checkClosed();

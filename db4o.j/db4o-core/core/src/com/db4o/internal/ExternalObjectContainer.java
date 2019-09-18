@@ -56,18 +56,35 @@ public abstract class ExternalObjectContainer extends ObjectContainerBase {
         return this;
     }
     
-	public final ObjectSet queryByExample(Object template) throws DatabaseClosedException {
+    public final ObjectSet queryByExample(Object template) throws DatabaseClosedException {
         return queryByExample(null, template);
     }
 
     public final Object getByID(long id) throws DatabaseClosedException, InvalidIDException  {
-        return getByID(null, id);
+        return getByID((Transaction)null, id);
     }
-
     public final Object getByUUID(Db4oUUID uuid){
-        return getByUUID(null, uuid);
+        return getByUUID((Transaction)null, uuid);
     }
-    
+    @Override
+    public final <T> T getByID(Class<T> aclass,long ID) 
+    {
+        Object o = getByID(ID);
+        activate(o);
+        return (T)o;
+    }
+    @Override
+    public final <T> T getByUUID(Class<T> aclass,Db4oUUID uuid) 
+    {
+        Object o = getByUUID(uuid);
+        activate(o);
+        return (T)o;
+    }
+    @Override
+    public <T> T getByUUID(Class<T> aclass,String uuid)
+    {
+        return getByUUID(aclass, new Db4oUUID(uuid));
+    }
     public final long getID(Object obj) {
         return getID(null, obj);
     }

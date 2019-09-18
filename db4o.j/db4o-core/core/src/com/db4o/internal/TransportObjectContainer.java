@@ -231,7 +231,7 @@ public class TransportObjectContainer extends LocalObjectContainer {
     	if(obj instanceof KnownObjectIdentity){
     		KnownObjectIdentity oi = (KnownObjectIdentity)obj;
     		activate(oi);
-    		obj = _parent.getByID(null, oi._id);
+    		obj = _parent.getByID((Transaction)null, oi._id);
     	}
     	
     	return obj;

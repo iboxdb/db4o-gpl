@@ -186,6 +186,7 @@ public interface ExtObjectContainer extends ObjectContainer {
      * @throws InvalidIDException when an invalid id is passed
      */
     public <T> T getByID(long ID) throws DatabaseClosedException, InvalidIDException;
+    public <T> T getByID(Class<T> aclass,long ID) ;
     
     /**
      * returns a stored object for a {@link Db4oUUID}.
@@ -202,7 +203,9 @@ public interface ExtObjectContainer extends ObjectContainer {
      * @throws DatabaseClosedException db4o database file was closed or failed to open.
      */
     public <T> T getByUUID(Db4oUUID uuid) throws DatabaseClosedException, Db4oIOException;
-
+    public <T> T getByUUID(Class<T> aclass,Db4oUUID uuid);
+    public <T> T getByUUID(Class<T> aclass,String uuid);
+    
     /**
      * returns the internal unique object ID.
      * <br><br>db4o assigns an internal ID to every object that is stored. IDs are 

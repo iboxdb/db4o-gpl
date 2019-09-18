@@ -3,10 +3,7 @@ using System;
 using Db4objects.Db4o;
 using System.Linq;
 using Db4objects.Db4o.Linq;
-using Db4objects.Db4o.Query;
 using Db4objects.Db4o.CS;
-using Db4objects.Db4o.Ext;
-using System.Threading;
 using System.IO;
 using Db4objects.Db4o.Config;
 using Db4objects.Db4o.Config.Attributes;
@@ -38,11 +35,11 @@ namespace db40
             cfg.Common.ObjectClass(typeof(Node)).CascadeOnActivate(true);
             cfg.Common.ObjectClass(typeof(Node)).CascadeOnUpdate(true);
             cfg.Common.ObjectClass(typeof(Node)).CascadeOnDelete(true);
-            
+
             cfg.Common.Add(new TransparentActivationSupport());
             cfg.Common.Add(new TransparentPersistenceSupport());
             cfg.File.GenerateUUIDs = ConfigScope.Globally;
-            
+
             using (var server = Db4oClientServer.OpenServer(cfg, file, 0))
             {
                 using (var client = server.OpenClient())
@@ -58,38 +55,45 @@ namespace db40
                     client.Store(root);
                     client.Commit();
                 }
-                
-                using (var oc = server.OpenClient()) {
+
+                using (var oc = server.OpenClient())
+                {
                     var metaInfo = oc.Ext().StoredClass(typeof(Node));
                     // list a fields and check if they have a index
-                    foreach (var field in metaInfo.GetStoredFields()) {
-                        if (field.HasIndex()) {
+                    foreach (var field in metaInfo.GetStoredFields())
+                    {
+                        if (field.HasIndex())
+                        {
                             Console.WriteLine("The field '" + field.GetName() + "' is indexed");
-                        } else {
+                        }
+                        else
+                        {
                             Console.WriteLine("The field '" + field.GetName() + "' isn't indexed");
                         }
                     }
                 }
                 using (var client = server.OpenClient())
-                { 
-                    var root = client.QueryByExample(new Node {Name = "Root"})[0];
+                {
+                    var root = client.QueryByExample(new Node { Name = "Root" })[0];
                     Console.WriteLine(root.Right.Right.Name);
                     internalId = client.Ext().GetID(root);
                     objectId = client.Ext().GetObjectInfo(root).GetUUID().ToString();
                 }
-                
-                using (var client = server.OpenClient()) {
+
+                using (var client = server.OpenClient())
+                {
                     Console.WriteLine(objectId);
                     var root = client.Ext().GetByUUID<Node>(objectId);
                     Console.WriteLine(root.Right.Right.Name);
                 }
-                
-                using (var oc = server.OpenClient()) {
+
+                using (var oc = server.OpenClient())
+                {
                     Console.WriteLine(internalId);
                     var root = oc.Ext().GetByID<Node>(internalId);
                     Console.WriteLine(root.Right.Right.Name);
                 }
-                
+
                 using (var client = server.OpenClient())
                 {
                     var root = (from Node n in client
@@ -104,7 +108,7 @@ namespace db40
                     Console.WriteLine(root.Right.Right.Name);
                 }
 
-                
+
 
                 //Not Recommended
                 using (var client = server.OpenClient())
@@ -146,44 +150,48 @@ namespace db40
             ecfg.Common.ObjectClass(typeof(Node)).CascadeOnActivate(true);
             ecfg.Common.ObjectClass(typeof(Node)).CascadeOnUpdate(true);
             ecfg.Common.ObjectClass(typeof(Node)).CascadeOnDelete(true);
-            
+
             ecfg.Common.Add(new TransparentActivationSupport());
             ecfg.Common.Add(new TransparentPersistenceSupport());
             ecfg.File.GenerateUUIDs = ConfigScope.Globally;
 
-            
-            using (var oc = Db4oEmbedded.OpenFile(ecfg, file)) {
+
+            using (var oc = Db4oEmbedded.OpenFile(ecfg, file))
+            {
 
                 Console.WriteLine(objectId);
                 var root = oc.Ext().GetByUUID<Node>(objectId);
                 Console.WriteLine(root.Right.Right.Name);
 
                 Console.WriteLine(internalId);
-                root = oc.Ext().GetByID<Node>( internalId);
+                root = oc.Ext().GetByID<Node>(internalId);
                 Console.WriteLine(root.Right.Right.Name);
             }
-            
-            
+
+
             ecfg = Db4oEmbedded.NewConfiguration();
             ecfg.Common.ObjectClass(typeof(Node)).CallConstructor(true);
             ecfg.Common.ObjectClass(typeof(Node)).CascadeOnActivate(true);
             ecfg.Common.ObjectClass(typeof(Node)).CascadeOnUpdate(true);
             ecfg.Common.ObjectClass(typeof(Node)).CascadeOnDelete(true);
-            
+
             ecfg.Common.Add(new TransparentActivationSupport());
             ecfg.Common.Add(new TransparentPersistenceSupport());
             ecfg.File.GenerateUUIDs = ConfigScope.Globally;
 
-            
-            using (var oc = Db4oEmbedded.OpenFile(ecfg, file)) {
- 
-                using (var see = oc.Ext().OpenSession()) {
+
+            using (var oc = Db4oEmbedded.OpenFile(ecfg, file))
+            {
+
+                using (var see = oc.Ext().OpenSession())
+                {
                     Console.WriteLine(objectId);
                     var root = see.Ext().GetByUUID<Node>(objectId);
                     Console.WriteLine(root.Right.Right.Name);
                 }
 
-                using (var see = oc.Ext().OpenSession()) {
+                using (var see = oc.Ext().OpenSession())
+                {
                     Console.WriteLine(internalId);
                     var root = see.Ext().GetByID<Node>(internalId);
                     Console.WriteLine(root.Right.Right.Name);

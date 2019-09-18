@@ -48,14 +48,14 @@ namespace Db4odoc.Tutorial.F1.Chapter5
         public static void RetrieveAllSensorReadoutsQBE(IObjectContainer db)
         {
             SensorReadout proto = new SensorReadout(DateTime.MinValue, null, null);
-            IObjectSet result = db.QueryByExample(proto);
+            var result = db.QueryByExample(proto);
             ListResult(result);
         }
         
         public static void RetrieveTemperatureReadoutsQBE(IObjectContainer db)
         {
             SensorReadout proto = new TemperatureSensorReadout(DateTime.MinValue, null, null, 0.0);
-            IObjectSet result = db.QueryByExample(proto);
+            var result = db.QueryByExample(proto);
             ListResult(result);
         }
         

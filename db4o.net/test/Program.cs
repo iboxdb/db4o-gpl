@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Db4objects.Db4o;
 using System.Linq;
 using Db4objects.Db4o.Linq;
@@ -7,26 +6,29 @@ using Db4objects.Db4o.Query;
 using Db4objects.Db4o.CS;
 using Db4objects.Db4o.Ext;
 using System.Threading;
+using Db4objects.Db4o.Foundation;
 
 namespace db40
 {
     public class Person
     {
-
         public Person(string v)
         {
             Name = v;
         }
+
         //Fields, not properties.
         public string Name;
         public long Age = 9;
     }
+
     class Program
     {
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-
+            TreeProgram.Run();
+            return;
             IObjectContainer db;
             IObjectServer server = null;
 
@@ -49,7 +51,6 @@ namespace db40
 
             try
             {
-
                 // Store a few Person objects
 
                 db.Store(new Person("Petra"));
@@ -67,8 +68,8 @@ namespace db40
                 {
                     Console.WriteLine("002");
                     var result2 = from Person tp in db
-                                  where tp.Name == "Petra"
-                                  select tp;
+                        where tp.Name == "Petra"
+                        select tp;
                     p = result2.First();
                     Console.WriteLine(p.Name);
                 }
@@ -76,8 +77,8 @@ namespace db40
                 {
                     Console.WriteLine("003");
                     var result2 = from Person tp in db
-                                  where tp.Name.StartsWith("Petr")
-                                  select tp;
+                        where tp.Name.StartsWith("Petr")
+                        select tp;
                     p = result2.First();
                     Console.WriteLine(p.Name);
                 }
@@ -85,15 +86,15 @@ namespace db40
                 {
                     Console.WriteLine("004");
                     var result2 = from Person tp in db
-                                  where tp.Age == 9 && tp.Name == "Petra"
-                                  select tp;
+                        where tp.Age == 9 && tp.Name == "Petra"
+                        select tp;
                     p = result2.First();
                     Console.WriteLine(p.Name);
                 }
                 {
                     Console.WriteLine("005");
                     var uid = db.Ext().GetObjectInfo(p).GetInternalID();
-                    p = (Person)db.Ext().GetByID(uid);
+                    p = (Person) db.Ext().GetByID(uid);
                     Console.WriteLine(p.Name);
                 }
                 p.Name = "Peter";
@@ -106,7 +107,6 @@ namespace db40
                 // Don't forget to commit!
                 db.Commit();
                 Console.WriteLine("Commited " + db.Query<Person>().Count(x => x.Age >= 0));
-
             }
 
             catch (Exception ex)
@@ -123,10 +123,9 @@ namespace db40
 
                 //Environment.Exit(0);, just Exit() will faster
                 server?.Close();
-
             }
-            Console.WriteLine("End.");
 
+            Console.WriteLine("End.");
         }
     }
 }

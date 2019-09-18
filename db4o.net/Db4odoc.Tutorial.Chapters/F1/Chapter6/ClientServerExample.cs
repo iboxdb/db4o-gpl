@@ -99,7 +99,7 @@ namespace Db4odoc.Tutorial.F1.Chapter6
                 client2 = server.OpenClient())
             {
                 Pilot pilot = new Pilot("David Coulthard", 98);
-                IObjectSet result = client1.QueryByExample(new Car("BMW"));
+                var result = client1.QueryByExample(new Car("BMW"));
                 Car car = (Car) result.Next();
                 car.Pilot = pilot;
                 client1.Store(car);
@@ -116,8 +116,8 @@ namespace Db4odoc.Tutorial.F1.Chapter6
             using (IObjectContainer client1 = server.OpenClient(),
                 client2 = server.OpenClient())
             {
-                IObjectSet result = client1.QueryByExample(new Car("BMW"));
-                Car car = (Car) result.Next();
+                var result = client1.QueryByExample(new Car("BMW"));
+                Car car =  result.Next();
                 car.Pilot = new Pilot("Someone else", 0);
                 client1.Store(car);
                 ListResult(client1.QueryByExample(new Car(null)));
@@ -171,8 +171,8 @@ you can call 'Environment.Exit(0)' instead of close()");
                 client2 = Db4oClientServer.OpenClient("localhost", port, user, password))
             {
                 Pilot pilot = new Pilot("Jenson Button", 97);
-                IObjectSet result = client1.QueryByExample(new Car(null));
-                Car car = (Car) result.Next();
+                var result = client1.QueryByExample(new Car(null));
+                Car car =  result.Next();
                 car.Pilot = pilot;
                 client1.Store(car);
                 ListResult(client1.QueryByExample(new Car(null)));
@@ -188,8 +188,8 @@ you can call 'Environment.Exit(0)' instead of close()");
             using (IObjectContainer client1 = Db4oClientServer.OpenClient("localhost", port, user, password),
                 client2 = Db4oClientServer.OpenClient("localhost", port, user, password))
             {
-                IObjectSet result = client1.QueryByExample(new Car(null));
-                Car car = (Car) result.Next();
+                var result = client1.QueryByExample(new Car(null));
+                Car car =  result.Next();
                 car.Pilot = new Pilot("Someone else", 0);
                 client1.Store(car);
                 ListResult(client1.QueryByExample(new Car(null)));

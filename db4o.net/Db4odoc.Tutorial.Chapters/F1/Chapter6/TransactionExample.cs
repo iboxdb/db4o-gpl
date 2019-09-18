@@ -55,8 +55,8 @@ namespace Db4odoc.Tutorial.F1.Chapter6
     
         public static void CarSnapshotRollback(IObjectContainer db)
         {
-            IObjectSet result = db.QueryByExample(new Car("BMW"));
-            Car car = (Car)result.Next();
+            var result = db.QueryByExample(new Car("BMW"));
+            Car car = result.Next();
             car.Snapshot();
             db.Store(car);
             db.Rollback();
@@ -65,8 +65,8 @@ namespace Db4odoc.Tutorial.F1.Chapter6
     
         public static void CarSnapshotRollbackRefresh(IObjectContainer db)
         {
-            IObjectSet result=db.QueryByExample(new Car("BMW"));
-            Car car=(Car)result.Next();
+            var result=db.QueryByExample(new Car("BMW"));
+            Car car=result.Next();
             car.Snapshot();
             db.Store(car);
             db.Rollback();

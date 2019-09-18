@@ -1,5 +1,6 @@
 /* Copyright (C) 2004 - 2011  Versant Inc.  http://www.db4o.com */
 
+using System;
 using Db4objects.Db4o;
 using Db4objects.Db4o.Config;
 using Db4objects.Db4o.Ext;
@@ -228,6 +229,10 @@ namespace Db4objects.Db4o.Ext
 		/// <exception cref="Db4objects.Db4o.Ext.Db4oIOException"></exception>
 		object GetByUUID(Db4oUUID uuid);
 
+		T GetByUUID<T>(Db4oUUID uuid) where T : class;
+		T GetByUUID<T>(String uuid) where T : class;
+		T GetByID<T>(long id) where T : class;
+		
 		/// <summary>returns the internal unique object ID.</summary>
 		/// <remarks>
 		/// returns the internal unique object ID.

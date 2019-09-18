@@ -1,5 +1,7 @@
 /* Copyright (C) 2004 - 2011  Versant Inc.  http://www.db4o.com */
 
+using System;
+using System.IO;
 using System.Text;
 
 namespace Db4objects.Db4o.Ext
@@ -95,6 +97,22 @@ namespace Db4objects.Db4o.Ext
 		}
 
 		public override string ToString()
+		{
+			var mm = new MemoryStream();
+			mm.Write(BitConverter.GetBytes(longPart),0,8);
+			mm.Write(signaturePart,0,signaturePart.Length);
+			return Convert.ToBase64String(mm.ToArray());
+		}
+		
+		public Db4oUUID(String uuid)
+		{
+			var bs = Convert.FromBase64String(uuid);
+			longPart = BitConverter.ToInt64(bs, 0);
+			signaturePart = new byte[bs.Length - 8];
+			Buffer.BlockCopy(bs,8,signaturePart,0,signaturePart.Length);
+		}
+		
+		private string ToString2()
 		{
 			StringBuilder sb = new StringBuilder();
 			sb.Append(GetType().FullName);

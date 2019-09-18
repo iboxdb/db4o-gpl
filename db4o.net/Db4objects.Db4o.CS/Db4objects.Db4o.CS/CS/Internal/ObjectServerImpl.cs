@@ -388,7 +388,7 @@ namespace Db4objects.Db4o.CS.Internal
 			_container.ShowInternalClasses(true);
 			try
 			{
-				return _container.QueryByExample(new User(userName, null));
+				return _container.QueryByExample((object)new User(userName, null));
 			}
 			finally
 			{

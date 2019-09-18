@@ -65,14 +65,14 @@ namespace Db4odoc.Tutorial.F1.Chapter2
         public static void RetrieveAllCarsQBE(IObjectContainer db)
         {
             Car proto = new Car(null);
-            IObjectSet result = db.QueryByExample(proto);
+            var result = db.QueryByExample(proto);
             ListResult(result);
         }
 
         public static void RetrieveAllPilotsQBE(IObjectContainer db)
         {
             Pilot proto = new Pilot(null, 0);
-            IObjectSet result = db.QueryByExample(proto);
+            var result = db.QueryByExample(proto);
             ListResult(result);
         }
 
@@ -81,7 +81,7 @@ namespace Db4odoc.Tutorial.F1.Chapter2
             Pilot pilotproto = new Pilot("Rubens Barrichello", 0);
             Car carproto = new Car(null);
             carproto.Pilot = pilotproto;
-            IObjectSet result = db.QueryByExample(carproto);
+            var result = db.QueryByExample(carproto);
             ListResult(result);
         }
 
@@ -91,7 +91,7 @@ namespace Db4odoc.Tutorial.F1.Chapter2
             query.Constrain(typeof(Car));
             query.Descend("_pilot").Descend("_name")
                 .Constrain("Rubens Barrichello");
-            IObjectSet result = query.Execute();
+            var result = query.Execute<Car>();
             ListResult(result);
         }
 
@@ -151,8 +151,8 @@ namespace Db4odoc.Tutorial.F1.Chapter2
 
         public static void UpdateCar(IObjectContainer db)
         {
-            IObjectSet result = db.QueryByExample(new Car("Ferrari"));
-            Car found = (Car)result.Next();
+            var result = db.QueryByExample(new Car("Ferrari"));
+            Car found = result.Next();
             found.Pilot = new Pilot("Somebody else", 0);
             db.Store(found);
             result = db.QueryByExample(new Car("Ferrari"));
@@ -161,8 +161,8 @@ namespace Db4odoc.Tutorial.F1.Chapter2
 
         public static void UpdatePilotSingleSession(IObjectContainer db)
         {
-            IObjectSet result = db.QueryByExample(new Car("Ferrari"));
-            Car found = (Car)result.Next();
+            var result = db.QueryByExample(new Car("Ferrari"));
+            Car found = result.Next();
             found.Pilot.AddPoints(1);
             db.Store(found);
             result = db.QueryByExample(new Car("Ferrari"));
@@ -171,15 +171,15 @@ namespace Db4odoc.Tutorial.F1.Chapter2
 
         public static void UpdatePilotSeparateSessionsPart1(IObjectContainer db)
         {
-            IObjectSet result = db.QueryByExample(new Car("Ferrari"));
-            Car found = (Car)result.Next();
+            var result = db.QueryByExample(new Car("Ferrari"));
+            Car found = result.Next();
             found.Pilot.AddPoints(1);
             db.Store(found);
         }
 
         public static void UpdatePilotSeparateSessionsPart2(IObjectContainer db)
         {
-            IObjectSet result = db.QueryByExample(new Car("Ferrari"));
+            var result = db.QueryByExample(new Car("Ferrari"));
             ListResult(result);
         }
 
@@ -189,8 +189,8 @@ namespace Db4odoc.Tutorial.F1.Chapter2
             config.Common.ObjectClass(typeof(Car)).CascadeOnUpdate(true);
             using(IObjectContainer db = Db4oEmbedded.OpenFile(config, YapFileName))
             {
-                IObjectSet result = db.QueryByExample(new Car("Ferrari"));
-                Car found = (Car)result.Next();
+                var result = db.QueryByExample(new Car("Ferrari"));
+                Car found = result.Next();
                 found.Pilot.AddPoints(1);
                 db.Store(found);
             }
@@ -198,14 +198,14 @@ namespace Db4odoc.Tutorial.F1.Chapter2
 
         public static void UpdatePilotSeparateSessionsImprovedPart2(IObjectContainer db)
         {
-            IObjectSet result = db.QueryByExample(new Car("Ferrari"));
+            var result = db.QueryByExample(new Car("Ferrari"));
             ListResult(result);
         }
 
         public static void DeleteFlat(IObjectContainer db)
         {
-            IObjectSet result = db.QueryByExample(new Car("Ferrari"));
-            Car found = (Car)result.Next();
+            var result = db.QueryByExample(new Car("Ferrari"));
+            Car found = result.Next();
             db.Delete(found);
             result = db.QueryByExample(new Car(null));
             ListResult(result);
@@ -216,8 +216,8 @@ namespace Db4odoc.Tutorial.F1.Chapter2
             IEmbeddedConfiguration config = Db4oEmbedded.NewConfiguration();
             config.Common.ObjectClass(typeof(Car)).CascadeOnDelete(true);
             using(IObjectContainer db = Db4oEmbedded.OpenFile(config, YapFileName)){
-                IObjectSet result = db.QueryByExample(new Car("BMW"));
-                Car found = (Car)result.Next();
+                var result = db.QueryByExample(new Car("BMW"));
+                Car found = result.Next();
                 db.Delete(found);
                 result = db.QueryByExample(new Car(null));
                 ListResult(result);
@@ -230,8 +230,8 @@ namespace Db4odoc.Tutorial.F1.Chapter2
             config.Common.ObjectClass(typeof(Car)).CascadeOnDelete(true);
             using(IObjectContainer db = Db4oEmbedded.OpenFile(config, YapFileName))
             {
-                IObjectSet result = db.QueryByExample(new Pilot("Michael Schumacher", 0));
-                Pilot pilot = (Pilot)result.Next();
+                var result = db.QueryByExample(new Pilot("Michael Schumacher", 0));
+                Pilot pilot = result.Next();
                 Car car1 = new Car("Ferrari");
                 Car car2 = new Car("BMW");
                 car1.Pilot = pilot;
@@ -239,8 +239,8 @@ namespace Db4odoc.Tutorial.F1.Chapter2
                 db.Store(car1);
                 db.Store(car2);
                 db.Delete(car2);
-                result = db.QueryByExample(new Car(null));
-                ListResult(result);
+                var result2 = db.QueryByExample(new Car(null));
+                ListResult(result2);
             }
         }
     }

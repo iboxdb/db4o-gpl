@@ -1,5 +1,6 @@
 /* Copyright (C) 2004 - 1010  Versant Inc.   http://www.db4o.com */
 
+using System;
 using Db4objects.Db4o.Config;
 using Db4objects.Db4o.Ext;
 using Db4objects.Db4o.Qlin;
@@ -168,6 +169,9 @@ namespace Db4objects.Db4o
         /// <seealso cref="Db4objects.Db4o.Config.IConfiguration.ActivationDepth">Why activation?</seealso>
         /// <seealso cref="Db4objects.Db4o.Ext.IObjectCallbacks">Using callbacks</seealso>
         Db4objects.Db4o.IObjectSet QueryByExample(object template);
+        Db4objects.Db4o.IObjectSet QueryByExample(Type template);
+        Db4objects.Db4o.IObjectSet QueryByExample(Array template);
+        Db4objects.Db4o.IObjectSet<T> QueryByExample<T>(T template);
 
 
 		/// <summary>

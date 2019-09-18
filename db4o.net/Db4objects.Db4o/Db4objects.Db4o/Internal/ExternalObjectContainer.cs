@@ -76,7 +76,18 @@ namespace Db4objects.Db4o.Internal
 		{
 			return QueryByExample(null, template);
 		}
-
+		public override IObjectSet<T> QueryByExample<T>(T template)
+		{
+			return new IObjectSet<T>(QueryByExample((object) template));
+		}
+		public override IObjectSet QueryByExample(Type template)
+		{
+			return QueryByExample((object) template);
+		}
+		public override IObjectSet QueryByExample(Array template)
+		{
+			return QueryByExample((object) template);
+		}
 		/// <exception cref="Db4objects.Db4o.Ext.DatabaseClosedException"></exception>
 		/// <exception cref="Db4objects.Db4o.Ext.InvalidIDException"></exception>
 		public sealed override object GetByID(long id)
@@ -93,7 +104,24 @@ namespace Db4objects.Db4o.Internal
 		{
 			return GetID(null, obj);
 		}
+		public override T GetByUUID<T>(Db4oUUID uuid) 
+		{
+			var o = GetByUUID(uuid);
+			Activate(o);
+			return (T) o;
+		}
 
+		public override T GetByUUID<T>(String uuid) 
+		{
+			return GetByUUID<T>(new Db4oUUID(uuid));
+		}
+		public override T GetByID<T>(long id) 
+		{
+			var o = GetByID(id);
+			Activate(o);
+			return (T) o;
+		}
+		
 		public sealed override IObjectInfo GetObjectInfo(object obj)
 		{
 			return GetObjectInfo(null, obj);
@@ -134,7 +162,7 @@ namespace Db4objects.Db4o.Internal
 
 		public sealed override IObjectSet Query(Type clazz)
 		{
-			return QueryByExample(clazz);
+			return QueryByExample((object)clazz);
 		}
 
 		public sealed override IObjectSet Query(Predicate predicate)

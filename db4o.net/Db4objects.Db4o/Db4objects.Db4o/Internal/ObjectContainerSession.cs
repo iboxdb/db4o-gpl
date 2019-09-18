@@ -16,6 +16,7 @@ using Db4objects.Db4o.Internal.Query;
 using Db4objects.Db4o.Qlin;
 using Db4objects.Db4o.Query;
 using Db4objects.Db4o.Reflect;
+using Db4objects.Db4o.Reflect.Core;
 using Db4objects.Db4o.Reflect.Generic;
 using Db4objects.Db4o.Types;
 
@@ -135,6 +136,25 @@ namespace Db4objects.Db4o.Internal
 				return _server.GetID(_transaction, obj);
 			}
 		}
+		
+		public T GetByUUID<T>(Db4oUUID uuid) where T : class
+		{
+			var o = GetByUUID(uuid);
+			Activate(o);
+			return (T) o;
+		}
+
+		public T GetByUUID<T>(String uuid) where T : class
+		{
+			return GetByUUID<T>(new Db4oUUID(uuid));
+		}
+		public T GetByID<T>(long id) where T : class
+		{
+			var o = GetByID(id);
+			Activate(o);
+			return (T) o;
+		}
+		
 
 		public virtual IObjectInfo GetObjectInfo(object obj)
 		{
@@ -421,6 +441,18 @@ namespace Db4objects.Db4o.Internal
 			}
 		}
 
+		public IObjectSet<T> QueryByExample<T>(T template)
+		{
+			return new IObjectSet<T>(QueryByExample((object) template));
+		}
+		public IObjectSet QueryByExample(Type template)
+		{
+			return QueryByExample((object) template);
+		}
+		public IObjectSet QueryByExample(Array template)
+		{
+			return QueryByExample((object) template);
+		}
 		/// <exception cref="Db4objects.Db4o.Ext.DatabaseClosedException"></exception>
 		public virtual IQuery Query()
 		{

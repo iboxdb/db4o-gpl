@@ -68,6 +68,11 @@ namespace Db4objects.Db4o.Internal.Cluster
 			}
 		}
 
+		public IObjectSet<T> Execute<T>()
+		{
+			return new IObjectSet<T>(Execute());
+		}
+
 		public virtual IQuery OrderAscending()
 		{
 			throw new NotSupportedException();

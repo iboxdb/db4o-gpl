@@ -16,6 +16,14 @@ namespace Db4odoc.Tutorial.F1
 			}
 		}
 
+		public static void ListResult<T>(IObjectSet<T> result)
+		{
+			Console.WriteLine(result.Count);
+			foreach (object item in result)
+			{
+				Console.WriteLine(item);
+			}
+		}
 		public static void ListRefreshedResult(IObjectContainer container, IObjectSet items, int depth)
 		{
 			Console.WriteLine(items.Count);
@@ -25,7 +33,15 @@ namespace Db4odoc.Tutorial.F1
 				Console.WriteLine(item);
 			}
 		}
-		
+		public static void ListRefreshedResult<T>(IObjectContainer container, IObjectSet<T> items, int depth)
+		{
+			Console.WriteLine(items.Count);
+			foreach (object item in items)
+			{	
+				container.Ext().Refresh(item, depth);
+				Console.WriteLine(item);
+			}
+		}
 		public static void RetrieveAll(IObjectContainer db) 
 		{
 			IObjectSet result = db.QueryByExample(typeof(Object));

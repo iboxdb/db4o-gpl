@@ -67,7 +67,7 @@ namespace Db4odoc.Tutorial.F1.Chapter4
 		public static void RetrieveSensorReadoutQBE(IObjectContainer db)
 		{
 			SensorReadout proto = new SensorReadout(new double[] { 0.3, 0.1 }, DateTime.MinValue, null);
-			IObjectSet result = db.QueryByExample(proto);
+			var result = db.QueryByExample(proto);
 			ListResult(result);
 		}
         
@@ -77,19 +77,19 @@ namespace Db4odoc.Tutorial.F1.Chapter4
 			IList protoHistory = new ArrayList();
 			protoHistory.Add(protoReadout);
 			Car protoCar = new Car(null, protoHistory);
-			IObjectSet result = db.QueryByExample(protoCar);
+			var result = db.QueryByExample(protoCar);
 			ListResult(result);
 		}
         
 		public static void RetrieveCollections(IObjectContainer db)
 		{
-			IObjectSet result = db.QueryByExample(new ArrayList());
+			var result = db.QueryByExample(new ArrayList());
 			ListResult(result);
 		}
         
 		public static void RetrieveArrays(IObjectContainer db)
 		{
-			IObjectSet result = db.QueryByExample(new double[] { 0.6, 0.4 });
+			IObjectSet result = db.QueryByExample((Array)new double[] { 0.6, 0.4 });
 			ListResult(result);
 		}
         
@@ -160,8 +160,8 @@ namespace Db4odoc.Tutorial.F1.Chapter4
             config.Common.ObjectClass(typeof(Car)).CascadeOnUpdate(true);
             using(IObjectContainer db = Db4oEmbedded.OpenFile(config, YapFileName))
             {
-                IObjectSet result = db.QueryByExample(new Car("BMW", null));
-                Car car = (Car)result.Next();
+                var result = db.QueryByExample(new Car("BMW", null));
+                Car car = result.Next();
                 car.Snapshot();
                 db.Store(car);
                 RetrieveAllSensorReadout(db);
@@ -176,13 +176,13 @@ namespace Db4odoc.Tutorial.F1.Chapter4
             {
                 IQuery query = db.Query();
                 query.Constrain(typeof (Car));
-                IObjectSet result = query.Descend("_history").Execute();
+                var result = query.Descend("_history").Execute();
                 IList history = (IList) result.Next();
                 history.RemoveAt(0);
                 db.Store(history);
                 Car proto = new Car(null, null);
-                result = db.QueryByExample(proto);
-                foreach (Car car in result)
+                var result2 = db.QueryByExample(proto);
+                foreach (Car car in result2)
                 {
                     foreach (object readout in car.History)
                     {
@@ -198,12 +198,12 @@ namespace Db4odoc.Tutorial.F1.Chapter4
             config.Common.ObjectClass(typeof(Car)).CascadeOnDelete(true);
             using(IObjectContainer db = Db4oEmbedded.OpenFile(config, YapFileName))
             {
-                IObjectSet result = db.QueryByExample(new Car(null, null));
+                var result = db.QueryByExample(new Car(null, null));
                 foreach (object car in result)
                 {
                     db.Delete(car);
                 }
-                IObjectSet readouts = db.QueryByExample(new SensorReadout(null, DateTime.MinValue, null));
+                var readouts = db.QueryByExample(new SensorReadout(null, DateTime.MinValue, null));
                 foreach (object readout in readouts)
                 {
                     db.Delete(readout);

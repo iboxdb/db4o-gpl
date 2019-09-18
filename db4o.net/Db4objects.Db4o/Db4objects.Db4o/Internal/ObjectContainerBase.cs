@@ -2830,6 +2830,9 @@ namespace Db4objects.Db4o.Internal
 
 		public abstract IExtObjectContainer Ext();
 
+		public abstract IObjectSet QueryByExample(Type template);
+		public abstract IObjectSet QueryByExample(Array template);
+		public abstract IObjectSet<T> QueryByExample<T>(T template);
 		public abstract IQuery Query();
 
 		public abstract IObjectSet Query(Type arg1);
@@ -2857,6 +2860,9 @@ namespace Db4objects.Db4o.Internal
 		public abstract object GetByID(long arg1);
 
 		public abstract object GetByUUID(Db4oUUID arg1);
+		public abstract T GetByUUID<T>(Db4oUUID uuid) where T : class;
+		public abstract T GetByUUID<T>(string uuid) where T : class;
+		public abstract T GetByID<T>(long id) where T : class;
 
 		public abstract long GetID(object arg1);
 

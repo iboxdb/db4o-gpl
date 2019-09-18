@@ -118,7 +118,7 @@ namespace Db4objects.Db4o.Query
 		/// .
 		/// </returns>
 		IObjectSet Execute();
-
+		IObjectSet<T> Execute<T>();
 		/// <summary>Adds an ascending ordering criteria to this node of the query graph.</summary>
 		/// <remarks>
 		/// Adds an ascending ordering criteria to this node of the query graph.

@@ -84,11 +84,10 @@ public class Db4oUUID {
     }
 
     public final byte[] toBytes() {
-        ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES + Integer.BYTES + signaturePart.length + Byte.BYTES * 2);
+        ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES + signaturePart.length + Byte.BYTES * 2);
 
         buffer.put((byte) 100);
         buffer.putLong(longPart);
-        buffer.putInt(signaturePart.length);
         buffer.put(signaturePart);
         buffer.put((byte) 100);
 
@@ -99,7 +98,7 @@ public class Db4oUUID {
         ByteBuffer buffer = ByteBuffer.wrap(bs);
         buffer.get();
         long lp = buffer.getLong();
-        int s = buffer.getInt();
+        int s = bs.length - Long.BYTES - Byte.BYTES * 2;
         byte[] ss = new byte[s];
         buffer.get(ss);
         return new Db4oUUID(lp, ss);

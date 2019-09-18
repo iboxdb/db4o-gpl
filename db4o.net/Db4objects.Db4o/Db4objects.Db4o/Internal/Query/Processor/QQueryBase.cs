@@ -394,6 +394,11 @@ namespace Db4objects.Db4o.Internal.Query.Processor
 			}
 		}
 
+		public IObjectSet<T> Execute<T>()
+		{
+			return new IObjectSet<T>(Execute());
+		}
+
 		private sealed class _IClosure4_331 : IClosure4
 		{
 			public _IClosure4_331(QQueryBase _enclosing)

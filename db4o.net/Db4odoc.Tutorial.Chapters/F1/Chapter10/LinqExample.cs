@@ -62,7 +62,7 @@ namespace Db4odoc.Tutorial.F1.Chapter10
 
 		public static void ClearDatabase(IObjectContainer db)
 		{
-			IObjectSet result = db.QueryByExample(null);
+			IObjectSet result = db.QueryByExample((object)null);
 			while (result.HasNext())
 			{
 				db.Delete(result.Next());

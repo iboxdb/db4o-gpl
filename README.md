@@ -105,10 +105,14 @@ new Async().execute(null);
 [WIKI](https://github.com/iboxdb/db4o-gpl/wiki)
 
 **One Local Share Connection**
+
 ```java
 ObjectContainer db = Db4oEmbedded.openFile(Db4oEmbedded
 				.newConfiguration(), DB4OFILENAME);
 ```
+
+[See Session Object Container](https://github.com/iboxdb/db4o-gpl/wiki/Db4oSessions#session-containers)
+
 
 **Multiple Local Connections**
 ```java

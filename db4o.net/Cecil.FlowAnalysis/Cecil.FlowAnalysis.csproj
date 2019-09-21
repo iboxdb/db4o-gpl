@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <ProjectGuid>{ED1BE103-1699-4116-A732-616BEB142EB2}</ProjectGuid>
+    <ProjectType>Local</ProjectType>
+    <SchemaVersion>2.0</SchemaVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Cecil.FlowAnalysis</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Cecil.FlowAnalysis</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DebugSymbols>false</DebugSymbols>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'silverlight_Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\silverlight_Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NET_3_5;NET_4_0;SILVERLIGHT</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'silverlight_Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\silverlight_Release\</OutputPath>
+    <DefineConstants>TRACE;NET_3_5;NET_4_0;SILVERLIGHT</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ActionFlow\AbstractFallThroughActionBlock.cs" />
+    <Compile Include="ActionFlow\ActionBlock.cs" />
+    <Compile Include="ActionFlow\ActionFlowGraph.cs" />
+    <Compile Include="ActionFlow\ActionFlowGraphBuilder.cs" />
+    <Compile Include="ActionFlow\ActionType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ActionFlow\AssignActionBlock.cs" />
+    <Compile Include="ActionFlow\BranchActionBlock.cs" />
+    <Compile Include="ActionFlow\ConditionalBranchActionBlock.cs" />
+    <Compile Include="ActionFlow\ExpressionDecompiler.cs" />
+    <Compile Include="ActionFlow\InvokeActionBlock.cs" />
+    <Compile Include="ActionFlow\ReturnActionBlock.cs" />
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CodeStructure\AbstractCodeStructureVisitor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CodeStructure\ArgumentReferenceExpression.cs" />
+    <Compile Include="CodeStructure\AssignExpression.cs" />
+    <Compile Include="CodeStructure\BinaryExpression.cs" />
+    <Compile Include="CodeStructure\BinaryOperator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CodeStructure\BlockStatement.cs" />
+    <Compile Include="CodeStructure\CastExpression.cs" />
+    <Compile Include="CodeStructure\CodeElementType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CodeStructure\Expression.cs" />
+    <Compile Include="CodeStructure\ExpressionPrinter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CodeStructure\FieldReferenceExpression.cs" />
+    <Compile Include="CodeStructure\ICodeElement.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CodeStructure\ICodeStructureVisitor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CodeStructure\LiteralExpression.cs" />
+    <Compile Include="CodeStructure\MethodInvocationExpression.cs" />
+    <Compile Include="CodeStructure\MethodReferenceExpression.cs" />
+    <Compile Include="CodeStructure\PropertyReferenceExpression.cs" />
+    <Compile Include="CodeStructure\ReturnStatement.cs" />
+    <Compile Include="CodeStructure\Statement.cs" />
+    <Compile Include="CodeStructure\ThisReferenceExpression.cs" />
+    <Compile Include="CodeStructure\TryCastExpression.cs" />
+    <Compile Include="CodeStructure\UnaryExpression.cs" />
+    <Compile Include="CodeStructure\UnaryOperator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CodeStructure\VariableReferenceExpression.cs" />
+    <Compile Include="ControlFlow\ControlFlowGraph.cs" />
+    <Compile Include="ControlFlow\ControlFlowGraphBuilder.cs" />
+    <Compile Include="ControlFlow\InstructionBlock.cs" />
+    <Compile Include="ControlFlow\InstructionData.cs" />
+    <Compile Include="FlowGraphFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\AbstractInstructionVisitor.cs" />
+    <Compile Include="Utilities\Formatter.cs" />
+    <Compile Include="Utilities\IInstructionVisitor.cs" />
+    <Compile Include="Utilities\InstructionDispatcher.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\cecil\Mono.Cecil.csproj">
+      <Project>{D68133BD-1E63-496E-9EDE-4FBDBF77B486}</Project>
+      <Name>Mono.Cecil</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

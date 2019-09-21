@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cecil.FlowAnalysis</name>
+    </assembly>
+    <members>
+        <member name="T:Cecil.FlowAnalysis.ActionFlow.ActionBlock">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Cecil.FlowAnalysis.ActionFlow.ActionFlowGraphBuilder">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Cecil.FlowAnalysis.ActionFlow.ActionFlowGraphBuilder.IsLogicalExpression(Cecil.FlowAnalysis.ControlFlow.InstructionBlock)">
+            <summary>
+            Checks if the subgraph starting at block represents
+            a logical expression.
+            </summary>
+            <param name="block"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Cecil.FlowAnalysis.ActionFlow.ConditionalBranchActionBlock">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Cecil.FlowAnalysis.CodeStructure.ExpressionPrinter">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Cecil.FlowAnalysis.ControlFlow.ControlFlowGraphBuilder">
+            <summary>
+            </summary>
+        </member>
+        <member name="T:Cecil.FlowAnalysis.FlowGraphFactory">
+            <summary>
+            Creates the specific graphs.
+            </summary>
+        </member>
+        <member name="T:Cecil.FlowAnalysis.Utilities.Formatter">
+            <summary>
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -313,9 +313,11 @@ namespace Db4objects.Db4o.NativeQueries
 
 		private static bool DeclaringTypeImplementsIActivatable(TypeDefinition type)
 		{
-			foreach (TypeReference itf in type.Interfaces)
+			foreach (var ii in type.Interfaces)
 			{
-				if (itf.FullName == typeof (IActivatable).FullName)
+                TypeReference itf = ii.InterfaceType;
+
+                if (itf.FullName == typeof (IActivatable).FullName)
 				{
 					return true;
 				}

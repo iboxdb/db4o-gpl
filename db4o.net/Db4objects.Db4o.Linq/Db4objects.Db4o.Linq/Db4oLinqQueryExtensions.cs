@@ -14,7 +14,12 @@ namespace Db4objects.Db4o.Linq
 	/// </summary>
 	public static class Db4oLinqQueryExtensions
 	{
-		public static IDb4oLinqQuery<TSource> Where<TSource>(this IDb4oLinqQuery<TSource> self, Expression<Func<TSource, bool>> expression)
+        static Db4oLinqQueryExtensions()
+        {
+            var t = typeof(Db4objects.Db4o.NativeQueries.NQOptimizer);
+            System.GC.KeepAlive(t);
+        }
+        public static IDb4oLinqQuery<TSource> Where<TSource>(this IDb4oLinqQuery<TSource> self, Expression<Func<TSource, bool>> expression)
 		{
 			return Process(self,
 				query => new WhereClauseVisitor().Process(expression),

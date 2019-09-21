@@ -30,7 +30,8 @@ namespace Db4objects.Db4o.Instrumentation.Cecil
 
 		public void AddInterface(ITypeRef type)
 		{
-			_type.Interfaces.Add(GetTypeReference(type));
+			_type.Interfaces.Add(
+            new InterfaceImplementation(GetTypeReference(type)));
 		}
 
 		public IMethodBuilder NewPublicMethod(string methodName, ITypeRef returnType, ITypeRef[] parameterTypes)

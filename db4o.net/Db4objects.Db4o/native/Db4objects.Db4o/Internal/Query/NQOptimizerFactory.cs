@@ -8,8 +8,12 @@ namespace Db4objects.Db4o.Internal.Query
 	{
 		public static INQOptimizer CreateExpressionBuilder()
 		{
-			Type type = Type.GetType("Db4objects.Db4o.NativeQueries.NQOptimizer, Db4objects.Db4o.NativeQueries", true);
-			return (INQOptimizer)Activator.CreateInstance(type);
+			Type type = Type.GetType("Db4objects.Db4o.NativeQueries.NQOptimizer, Db4objects.Db4o.NativeQueries", false);
+            if (type == null)
+            {
+                type = Type.GetType("Db4objects.Db4o.NativeQueries.NQOptimizer", true);
+            }
+            return (INQOptimizer)Activator.CreateInstance(type);
 		}
 	}
 }

@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+# Mono Develop 7.8.4.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Db4objects.Db4o-2010", "Db4objects.Db4o\Db4objects.Db4o-2010.csproj", "{600CD3BF-2ED2-4183-87F7-ADD78A968AE0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Db4objects.Db4o.CS-2010", "Db4objects.Db4o.CS\Db4objects.Db4o.CS-2010.csproj", "{9FA8178A-3E77-42C5-A252-6690EA9BA257}"
@@ -11,7 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Db4odoc.Tutorial.Chapters-2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Db4objects.Db4o.Optional-2010", "Db4objects.Db4o.Optional\Db4objects.Db4o.Optional-2010.csproj", "{E9588FE7-C19D-445E-BB53-AE539EA4F0E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "db40_test", "test\db40_test.csproj", "{D7B04CDB-6214-40B1-B3A9-160A2CE62EE7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Db4objects.Db4o.NativeQueries-2010", "Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries-2010.csproj", "{AB1BF369-A9C4-4876-9797-178DB8AD437F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Db4objects.Db4o.Instrumentation-2010", "Db4objects.Db4o.Instrumentation\Db4objects.Db4o.Instrumentation-2010.csproj", "{F20881FC-88AF-42E5-B894-8D4A11A05AD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cecil.FlowAnalysis", "Cecil.FlowAnalysis\Cecil.FlowAnalysis.csproj", "{ED1BE103-1699-4116-A732-616BEB142EB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mono.Cecil", "Mono.Cecil\Mono.Cecil.csproj", "{EECB9819-DC9C-416D-A780-433B5A9823AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,10 +45,22 @@ Global
 		{E9588FE7-C19D-445E-BB53-AE539EA4F0E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9588FE7-C19D-445E-BB53-AE539EA4F0E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9588FE7-C19D-445E-BB53-AE539EA4F0E6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D7B04CDB-6214-40B1-B3A9-160A2CE62EE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D7B04CDB-6214-40B1-B3A9-160A2CE62EE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D7B04CDB-6214-40B1-B3A9-160A2CE62EE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D7B04CDB-6214-40B1-B3A9-160A2CE62EE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB1BF369-A9C4-4876-9797-178DB8AD437F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB1BF369-A9C4-4876-9797-178DB8AD437F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB1BF369-A9C4-4876-9797-178DB8AD437F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB1BF369-A9C4-4876-9797-178DB8AD437F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F20881FC-88AF-42E5-B894-8D4A11A05AD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F20881FC-88AF-42E5-B894-8D4A11A05AD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F20881FC-88AF-42E5-B894-8D4A11A05AD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F20881FC-88AF-42E5-B894-8D4A11A05AD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED1BE103-1699-4116-A732-616BEB142EB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED1BE103-1699-4116-A732-616BEB142EB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED1BE103-1699-4116-A732-616BEB142EB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED1BE103-1699-4116-A732-616BEB142EB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EECB9819-DC9C-416D-A780-433B5A9823AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EECB9819-DC9C-416D-A780-433B5A9823AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EECB9819-DC9C-416D-A780-433B5A9823AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EECB9819-DC9C-416D-A780-433B5A9823AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

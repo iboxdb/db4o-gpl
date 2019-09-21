@@ -149,5 +149,6 @@ namespace Db4objects.Db4o.Instrumentation.Cecil
 		{
 			Formatter.WriteMethodBody(@out, _method);
 		}
+		
 	}
 }

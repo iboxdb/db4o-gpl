@@ -7,6 +7,9 @@ using Db4objects.Db4o.CS;
 using Db4objects.Db4o.Ext;
 using System.Threading;
 using Db4objects.Db4o.Foundation;
+using Db4objects.Db4o.Diagnostic;
+using Db4objects.Db4o.Config.Attributes;
+using System.IO;
 
 namespace db40
 {
@@ -18,6 +21,7 @@ namespace db40
         }
 
         //Fields, not properties.
+        [Indexed]
         public string Name;
         public long Age = 9;
     }
@@ -27,13 +31,13 @@ namespace db40
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            TreeProgram.Run();
-            return;
+
             IObjectContainer db;
             IObjectServer server = null;
 
             bool multiple_client = true;
             string dbpath = "/tmp/temp.n.db";
+            File.Delete(dbpath);
 
             if (!multiple_client)
             {
@@ -42,6 +46,7 @@ namespace db40
             else
             {
                 var config = Db4oClientServer.NewServerConfiguration();
+                config.Common.Diagnostic.AddListener(new DiagnosticToConsole());
                 //Wait before close()
                 config.TimeoutServerSocket = 1000 * 10;
                 server = Db4oClientServer.OpenServer(config, dbpath, 0);
@@ -64,7 +69,8 @@ namespace db40
                     var results = db.Query<Person>(x => x.Name == "Petra");
                     p = results.First();
                     Console.WriteLine(p.Name);
-                }
+                } 
+
                 {
                     Console.WriteLine("002");
                     var result2 = from Person tp in db

@@ -153,6 +153,44 @@ try {
 }
 ```
 
+#### Getting Started
+```cs
+public class Node
+{
+  [Indexed]
+  public String Name;
+  public Node Left;
+  public Node Right;
+}
+    
+StringBuilder sb = new StringBuilder();
+var path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+path = Path.Combine(path, "t.db");
+File.Delete(path);
+
+var cf = Db4oEmbedded.NewConfiguration();
+cf.Common.Add(new TransparentActivationSupport());
+cf.Common.Add(new TransparentPersistenceSupport());
+using (var oc = Db4oEmbedded.OpenFile(cf, path))
+{
+    using (var ss = oc.Ext().OpenSession())
+    {
+        Node root = new Node();
+        root.Name = "Root";
+        root.Left = new Node();
+        root.Left.Name = "LEFT";
+        root.Left.Left = new Node();
+        root.Left.Left.Name = "LEFT.LEFT";
+        ss.Store(root);
+        ss.Commit();
+    }
+    using (var ss = oc.Ext().OpenSession())
+    {
+        sb.AppendLine(ss.QueryByExample(new Node { Name = "Root" }).First().Left.Left.Name);
+    }
+}
+```
+
 #### Object Management
 
 **Use NetBeans-11 with Java on Linux**

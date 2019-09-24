@@ -16,7 +16,8 @@ import java.lang.reflect.Type;
  */
 @SuppressWarnings("serial")
 public abstract class Predicate<ExtentType> implements Serializable{
-    
+
+        public IPredicate<ExtentType> ExtentInterface = null;    
     /**
      * public for implementation reasons, please ignore.
      */

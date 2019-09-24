@@ -362,6 +362,21 @@ public class ObjectContainerSession implements InternalObjectContainer, Transien
         }
     }
 
+    public final ObjectSet query(IPredicate predicate){
+       return query(predicate,(QueryComparator)null);   
+    }
+    public final ObjectSet query(final IPredicate predicate,QueryComparator comparator){
+        Predicate p = new Predicate(){
+            @Override
+            public boolean match(Object candidate) {
+               return predicate.match(candidate);
+            }            
+        };
+        p.ExtentInterface = predicate;
+        return query(p, comparator);
+    }
+    
+    
     public ObjectSet query(Predicate predicate) throws Db4oIOException, DatabaseClosedException {
         synchronized(lock()){
             checkClosed();

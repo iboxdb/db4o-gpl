@@ -99,6 +99,16 @@ public final class Constant {
 	 */
 	public static final byte UTF8 = 1;
 
+        
+        //JAVA7-11
+    public static final byte MethodHandle = 15;//	§4.4.8
+    public static final byte MethodType = 16;// 	§4.4.9
+    public static final byte Dynamic = 17;// 	§4.4.10
+    public static final byte InvokeDynamic = 18;//	§4.4.10
+    public static final byte Module = 19;//§4.4.11
+    public static final byte Package = 20;
+
+        
 	/**
 	 * @param tag
 	 *            The constant's tag.

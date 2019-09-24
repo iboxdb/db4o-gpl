@@ -485,6 +485,27 @@ public class ClassFile implements ClassInfo {
 		case Constant.UTF8:
 			value = in.readUTF();
 			break;
+                    //Java7-11
+                    case Constant.MethodHandle:
+                        value = new int[2];
+                        ((int[]) value)[0] = in.readUnsignedByte();
+                        ((int[]) value)[1] = in.readUnsignedShort();
+                        break;
+                    case Constant.MethodType:
+                        value = new Integer(in.readUnsignedShort());
+                        break;
+                        
+                    case Constant.Dynamic:
+                    case Constant.InvokeDynamic:
+                        value = new int[2];
+                        ((int[]) value)[0] = in.readUnsignedShort();
+                        ((int[]) value)[1] = in.readUnsignedShort();
+                        break;
+                        
+                    case Constant.Module:
+                    case Constant.Package:
+                        value = new Integer(in.readUnsignedShort());
+                        break;
 		default:
 			throw new ClassFormatException(file.getPath()
 					+ ": Invalid constant tag: " + tag);

@@ -18,8 +18,9 @@ import com.db4o.reflect.*;
 public class NativeQueryHandler {
 	
 	private static final String OPTIMIZER_IMPL_NAME = "com.db4o.nativequery.optimization.Db4oOnTheFlyEnhancer";
-
-	public final static String UNOPTIMIZED = "UNOPTIMIZED";
+        protected Class Db4oOnTheFlyEnhancer = com.db4o.nativequery.optimization.Db4oOnTheFlyEnhancer.class;
+	
+        public final static String UNOPTIMIZED = "UNOPTIMIZED";
 	public final static String PREOPTIMIZED = "PREOPTIMIZED";
 	public final static String DYNOPTIMIZED = "DYNOPTIMIZED";
 	

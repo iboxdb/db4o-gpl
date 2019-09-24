@@ -120,6 +120,24 @@ public abstract class ExternalObjectContainer extends ObjectContainerBase {
     public final ObjectSet query(Class clazz) {
         return queryByExample(clazz);
     }
+     
+    @Override
+    public  <TargetType> ObjectSet <TargetType> query(IPredicate<TargetType> predicate){ 
+       return query(predicate,(QueryComparator)null);   
+    }
+     
+    @Override
+   public  <TargetType> ObjectSet <TargetType> query(IPredicate<TargetType> predicate,QueryComparator<TargetType> comparator) {
+       final IPredicate<TargetType> predicate_f = predicate;
+        Predicate<TargetType> p = new Predicate<TargetType>(){
+            @Override
+            public boolean match(TargetType candidate) {
+               return predicate_f.match(candidate);
+            }            
+        };
+        p.ExtentInterface = predicate;
+        return query(p, comparator);
+    }
     
     public final ObjectSet query(Predicate predicate){
         return query(predicate,(QueryComparator)null);

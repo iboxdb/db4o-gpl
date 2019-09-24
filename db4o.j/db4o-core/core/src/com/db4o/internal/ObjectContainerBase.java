@@ -2129,6 +2129,7 @@ public abstract class ObjectContainerBase  implements TransientClass, Internal4,
 		}
     }
 
+        protected Class ThreadPool4Impl = com.db4o.internal.threading.ThreadPool4Impl.class;
 	public ThreadPool4 threadPool() {
         return environment().provide(ThreadPool4.class);
     }

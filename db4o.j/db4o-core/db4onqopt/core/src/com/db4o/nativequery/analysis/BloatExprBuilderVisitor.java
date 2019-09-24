@@ -40,8 +40,10 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 	private int _topLevelStmtCount = 0;
 
 	public BloatExprBuilderVisitor(BloatLoaderContext bloatUtil) {
-		this(bloatUtil, new LinkedList<MemberRef>(), Arrays.<ComparisonOperand>asList(PredicateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE));
-	}
+	//	this(bloatUtil, new LinkedList<MemberRef>(), Arrays.<ComparisonOperand>asList(PredicateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE));
+this(bloatUtil, new LinkedList<MemberRef>(), Arrays.<ComparisonOperand>asList(CandidateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE));
+		
+        }
 
 	private BloatExprBuilderVisitor(BloatLoaderContext bloatUtil, LinkedList<MemberRef> methodStack, List<ComparisonOperand> locals) {
 		_context = bloatUtil;
@@ -90,7 +92,8 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 		final boolean[] result = { true };
 		expr.accept(new TraversingExpressionVisitor() {
 			public void visit(ComparisonExpression expression) {
-				if (expression.left().root() != CandidateFieldRoot.INSTANCE) {
+				if ( (expression.left().root() != CandidateFieldRoot.INSTANCE) )
+                                {
 					result[0] = false;
 				}
 			}
@@ -546,7 +549,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 	}
 
 	private static boolean isCandidateFieldValue(ComparisonOperand op) {
-		return ((op instanceof FieldValue) && ((FieldValue) op).root() == CandidateFieldRoot.INSTANCE);
+		return ((op instanceof FieldValue) && ((FieldValue) op).root() == CandidateFieldRoot.INSTANCE) ;    
 	}
 
 	private boolean isComparableExprOperand(Expr expr) {

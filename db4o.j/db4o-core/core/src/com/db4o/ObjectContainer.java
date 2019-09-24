@@ -3,6 +3,7 @@
 package  com.db4o;
 
 import com.db4o.ext.*;
+import com.db4o.query.IPredicate;
 import com.db4o.query.Predicate;
 import com.db4o.query.Query;
 import com.db4o.query.QueryComparator;
@@ -216,6 +217,7 @@ public interface ObjectContainer extends java.io.Closeable{
      * @throws DatabaseClosedException db4o database file was closed or failed to open.
      */
     public <TargetType> ObjectSet <TargetType> query(Predicate<TargetType> predicate) throws Db4oIOException, DatabaseClosedException;
+    public <TargetType> ObjectSet <TargetType> query(IPredicate<TargetType> predicate) ;
 
     /**
      * Native Query Interface. Queries as with {@link com.db4o.ObjectContainer#query(com.db4o.query.Predicate)},
@@ -228,6 +230,7 @@ public interface ObjectContainer extends java.io.Closeable{
      * @throws DatabaseClosedException db4o database file was closed or failed to open.
      */
     public <TargetType> ObjectSet <TargetType> query(Predicate<TargetType> predicate,QueryComparator<TargetType> comparator) throws Db4oIOException, DatabaseClosedException;
+    public <TargetType> ObjectSet <TargetType> query(IPredicate<TargetType> predicate,QueryComparator<TargetType> comparator) ;
 
     /**
      * Native Query Interface. Queries as with {@link com.db4o.ObjectContainer#query(com.db4o.query.Predicate)},

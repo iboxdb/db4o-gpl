@@ -21,6 +21,7 @@ public class ObjectContainerFactory {
 		return oc;
 	}
 
+        protected static Class TransportObjectContainer = com.db4o.internal.TransportObjectContainer.class;
 	private static void emitDebugInfo() {
 	    if (Deploy.debug) {
 			System.out.println("db4o Debug is ON");

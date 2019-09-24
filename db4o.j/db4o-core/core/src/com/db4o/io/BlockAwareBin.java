@@ -17,7 +17,8 @@ public class BlockAwareBin extends BinDecorator {
 	private boolean _readOnly;
 	
 	private final BlockSize _blockSize = my(BlockSize.class);
-	
+        protected Class BlockSizeImpl = com.db4o.internal.io.BlockSizeImpl.class;
+
 	public BlockAwareBin(Bin bin) {
 		super(bin);
     }

@@ -1,5 +1,4 @@
 /* Copyright (C) 2007  Versant Inc.  http://www.db4o.com */
-
 package com.db4o.internal;
 
 import java.util.*;
@@ -22,123 +21,121 @@ import com.db4o.reflect.generic.*;
 import com.db4o.types.*;
 
 /**
- * @exclude
- * @sharpen.partial
+ * @exclude @sharpen.partial
  */
-public class ObjectContainerSession implements InternalObjectContainer, TransientClass, ObjectContainerSpec   {
-    
+public class ObjectContainerSession implements InternalObjectContainer, TransientClass, ObjectContainerSpec {
+
     protected final ObjectContainerBase _server;
-    
+
     protected final Transaction _transaction;
-    
+
     private boolean _closed = false;
-    
+
     public ObjectContainerSession(ObjectContainerBase server, Transaction trans) {
         _server = server;
         _transaction = trans;
     }
-    
+
     public ObjectContainerSession(ObjectContainerBase server) {
         this(server, server.newUserTransaction());
         _transaction.setOutSideRepresentation(this);
     }
-    
 
-    /** @param path */
+    /**
+     * @param path
+     */
     public void backup(String path) throws Db4oIOException, DatabaseClosedException,
-        	NotSupportedException {
+            NotSupportedException {
         throw new NotSupportedException();
     }
 
     public void backup(Storage storage, String path) throws Db4oIOException, DatabaseClosedException,
-    		NotSupportedException {
-    	throw new NotSupportedException();
+            NotSupportedException {
+        throw new NotSupportedException();
     }
 
     public void backupSync(String path) throws Db4oIOException, DatabaseClosedException, NotSupportedException {
-    	throw new NotSupportedException();
-	}
-    
+        throw new NotSupportedException();
+    }
+
     public void backupSync(Storage storage, String path) throws Db4oIOException, DatabaseClosedException, NotSupportedException {
-    	throw new NotSupportedException();
-	}
-    
+        throw new NotSupportedException();
+    }
+
     public void bind(Object obj, long id) throws InvalidIDException, DatabaseClosedException {
         _server.bind(_transaction, obj, id);
     }
-    
+
     public Config4Impl configImpl() {
-    	// internal interface method doesn't need to lock
-    	return _server.configImpl();
+        // internal interface method doesn't need to lock
+        return _server.configImpl();
     }
 
     public Configuration configure() {
-        
-    	// FIXME: Consider throwing NotSupportedException here.
+
+        // FIXME: Consider throwing NotSupportedException here.
         // throw new NotSupportedException();
-        
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.configure();
         }
     }
 
     public Object descend(Object obj, String[] path) {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.descend(_transaction, obj, path);
         }
     }
 
     private void checkClosed() {
-        if(isClosed()){
+        if (isClosed()) {
             throw new DatabaseClosedException();
         }
     }
 
     public Object getByID(long id) throws DatabaseClosedException, InvalidIDException {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.getByID(_transaction, id);
         }
     }
 
     public Object getByUUID(Db4oUUID uuid) throws DatabaseClosedException, Db4oIOException {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.getByUUID(_transaction, uuid);
         }
     }
 
     @Override
-    public final <T> T getByID(Class<T> aclass,long ID) 
-    {
+    public final <T> T getByID(Class<T> aclass, long ID) {
         Object o = getByID(ID);
         activate(o);
-        return (T)o;
+        return (T) o;
     }
+
     @Override
-    public final <T> T getByUUID(Class<T> aclass,Db4oUUID uuid) 
-    {
+    public final <T> T getByUUID(Class<T> aclass, Db4oUUID uuid) {
         Object o = getByUUID(uuid);
         activate(o);
-        return (T)o;
+        return (T) o;
     }
+
     @Override
-    public <T> T getByUUID(Class<T> aclass,String uuid)
-    {
+    public <T> T getByUUID(Class<T> aclass, String uuid) {
         return getByUUID(aclass, new Db4oUUID(uuid));
     }
-    
+
     public long getID(Object obj) {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.getID(_transaction, obj);
         }
     }
 
     public ObjectInfo getObjectInfo(Object obj) {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.getObjectInfo(_transaction, obj);
         }
@@ -148,21 +145,21 @@ public class ObjectContainerSession implements InternalObjectContainer, Transien
     // This should work, since there is an automatic bind
     // replacement. Replication test cases will tell.
     public Db4oDatabase identity() {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.identity();
         }
     }
 
     public boolean isActive(Object obj) {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.isActive(_transaction, obj);
         }
     }
 
     public boolean isCached(long id) {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.isCached(_transaction, id);
         }
@@ -175,14 +172,14 @@ public class ObjectContainerSession implements InternalObjectContainer, Transien
     }
 
     public boolean isStored(Object obj) throws DatabaseClosedException {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.isStored(_transaction, obj);
         }
     }
 
     public ReflectClass[] knownClasses() {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.knownClasses();
         }
@@ -191,51 +188,51 @@ public class ObjectContainerSession implements InternalObjectContainer, Transien
     public Object lock() {
         return _server.lock();
     }
-    
+
     public Object peekPersisted(Object object, int depth, boolean committed) {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.peekPersisted(_transaction, object, activationDepthProvider().activationDepth(depth, ActivationMode.PEEK), committed);
         }
     }
 
     public void purge() {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             _server.purge();
         }
     }
 
     public void purge(Object obj) {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             _server.purge(_transaction, obj);
         }
     }
 
     public GenericReflector reflector() {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.reflector();
         }
     }
 
     public void refresh(Object obj, int depth) {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             _server.refresh(_transaction, obj, depth);
         }
     }
 
     public void releaseSemaphore(String name) {
-    	checkClosed();
+        checkClosed();
         _server.releaseSemaphore(_transaction, name);
     }
 
-	public void store(Object obj, int depth) {
-        synchronized(lock()){
+    public void store(Object obj, int depth) {
+        synchronized (lock()) {
             checkClosed();
-            _server.store(_transaction, obj, (depth == Const4.UNSPECIFIED ? (UpdateDepth)updateDepthProvider().unspecified(NullModifiedObjectQuery.INSTANCE) : (UpdateDepth)updateDepthProvider().forDepth(depth)));
+            _server.store(_transaction, obj, (depth == Const4.UNSPECIFIED ? (UpdateDepth) updateDepthProvider().unspecified(NullModifiedObjectQuery.INSTANCE) : (UpdateDepth) updateDepthProvider().forDepth(depth)));
         }
     }
 
@@ -245,60 +242,60 @@ public class ObjectContainerSession implements InternalObjectContainer, Transien
     }
 
     public StoredClass storedClass(Object clazz) {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.storedClass(_transaction, clazz);
         }
-   }
+    }
 
     public StoredClass[] storedClasses() {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.storedClasses(_transaction);
         }
     }
 
     public SystemInfo systemInfo() {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.systemInfo();
         }
     }
 
     public long version() {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.version();
         }
     }
-    
+
     public void activate(Object obj) throws Db4oIOException, DatabaseClosedException {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             _server.activate(_transaction, obj);
         }
     }
 
     public void activate(Object obj, int depth) throws Db4oIOException, DatabaseClosedException {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             _server.activate(_transaction, obj, activationDepthProvider().activationDepth(depth, ActivationMode.ACTIVATE));
         }
     }
 
-	private ActivationDepthProvider activationDepthProvider() {
-		return _server.activationDepthProvider();
-	}
+    private ActivationDepthProvider activationDepthProvider() {
+        return _server.activationDepthProvider();
+    }
 
     @Override
     public void close() throws Db4oIOException {
-        synchronized(lock()){
-            if(isClosed()){
-               // return false;
-               return;
+        synchronized (lock()) {
+            if (isClosed()) {
+                // return false;
+                return;
             }
-            if(! _server.isClosed()){
-                if(! _server.configImpl().isReadOnly()){
+            if (!_server.isClosed()) {
+                if (!_server.configImpl().isReadOnly()) {
                     commit();
                 }
             }
@@ -311,131 +308,132 @@ public class ObjectContainerSession implements InternalObjectContainer, Transien
     }
 
     public void commit() throws Db4oIOException, DatabaseClosedException,
-        DatabaseReadOnlyException, UniqueFieldValueConstraintViolationException {
-        synchronized(lock()){
+            DatabaseReadOnlyException, UniqueFieldValueConstraintViolationException {
+        synchronized (lock()) {
             checkClosed();
             _server.commit(_transaction);
         }
     }
 
     public void deactivate(Object obj, int depth) throws DatabaseClosedException {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             _server.deactivate(_transaction, obj, depth);
         }
     }
-    
+
     public void deactivate(Object obj) throws DatabaseClosedException {
-    	deactivate(obj, 1);
+        deactivate(obj, 1);
     }
 
     public void delete(Object obj) throws Db4oIOException, DatabaseClosedException,
-        DatabaseReadOnlyException {
-        synchronized(lock()){
+            DatabaseReadOnlyException {
+        synchronized (lock()) {
             checkClosed();
             _server.delete(_transaction, obj);
         }
     }
 
     public ExtObjectContainer ext() {
-        return (ExtObjectContainer)this;
+        return (ExtObjectContainer) this;
     }
 
-	public ObjectSet queryByExample(Object template) throws Db4oIOException, DatabaseClosedException {
-        synchronized(lock()){
+    public ObjectSet queryByExample(Object template) throws Db4oIOException, DatabaseClosedException {
+        synchronized (lock()) {
             checkClosed();
             return _server.queryByExample(_transaction, template);
         }
     }
 
     public Query query() throws DatabaseClosedException {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.query(_transaction);
         }
     }
 
     public ObjectSet query(Class clazz) throws Db4oIOException, DatabaseClosedException {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.query(_transaction, clazz);
         }
     }
 
-    public final ObjectSet query(IPredicate predicate){
-       return query(predicate,(QueryComparator)null);   
+    public final ObjectSet query(IPredicate predicate) {
+        return query(predicate, (QueryComparator) null);
     }
-    public final ObjectSet query(final IPredicate predicate,QueryComparator comparator){
-        Predicate p = new Predicate(){
+
+    public final ObjectSet query(IPredicate predicate, QueryComparator comparator) {
+        final IPredicate f_predicate = predicate;
+        Predicate p = new Predicate() {
             @Override
             public boolean match(Object candidate) {
-               return predicate.match(candidate);
-            }            
+                return f_predicate.match(candidate);
+            }
         };
         p.ExtentInterface = predicate;
         return query(p, comparator);
     }
-    
-    
+
     public ObjectSet query(Predicate predicate) throws Db4oIOException, DatabaseClosedException {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.query(_transaction, predicate);
         }
     }
 
     public <T> ObjectSet<T> query(Predicate<T> predicate, QueryComparator<T> comparator) throws Db4oIOException,
-        DatabaseClosedException {
-        synchronized(lock()){
+            DatabaseClosedException {
+        synchronized (lock()) {
             checkClosed();
             return _server.query(_transaction, predicate, comparator);
         }
     }
 
     public void rollback() throws Db4oIOException, DatabaseClosedException,
-        DatabaseReadOnlyException {
-        synchronized(lock()){
+            DatabaseReadOnlyException {
+        synchronized (lock()) {
             checkClosed();
             _server.rollback(_transaction);
         }
     }
 
-	public void store(Object obj) throws DatabaseClosedException, DatabaseReadOnlyException {
-        synchronized(lock()){
+    public void store(Object obj) throws DatabaseClosedException, DatabaseReadOnlyException {
+        synchronized (lock()) {
             checkClosed();
             _server.store(_transaction, obj);
         }
     }
-    
-    public ObjectContainerBase container(){
+
+    public ObjectContainerBase container() {
         return _server;
     }
-    
-    public Transaction transaction(){
+
+    public Transaction transaction() {
         return _transaction;
     }
-    
-    public void callbacks(Callbacks cb){
-        synchronized(lock()){
+
+    public void callbacks(Callbacks cb) {
+        synchronized (lock()) {
             checkClosed();
             _server.callbacks(cb);
         }
     }
-    
-    public Callbacks callbacks(){
-        synchronized(lock()){
+
+    public Callbacks callbacks() {
+        synchronized (lock()) {
             checkClosed();
             return _server.callbacks();
         }
     }
-    
+
     public final NativeQueryHandler getNativeQueryHandler() {
-        synchronized(lock()){
+        synchronized (lock()) {
             checkClosed();
             return _server.getNativeQueryHandler();
         }
     }
-    
+
     public ClassMetadata classMetadataForReflectClass(ReflectClass reflectClass) {
         return _server.classMetadataForReflectClass(reflectClass);
     }
@@ -448,55 +446,55 @@ public class ObjectContainerSession implements InternalObjectContainer, Transien
         return _server.classMetadataForID(id);
     }
 
-    public HandlerRegistry handlers(){
+    public HandlerRegistry handlers() {
         return _server.handlers();
     }
 
     public Object syncExec(Closure4 block) {
-    	return _server.syncExec(block);
+        return _server.syncExec(block);
     }
 
-	public int instanceCount(ClassMetadata clazz, Transaction trans) {
-		return _server.instanceCount(clazz, trans);
-	}
+    public int instanceCount(ClassMetadata clazz, Transaction trans) {
+        return _server.instanceCount(clazz, trans);
+    }
 
     /**
      * @sharpen.ignore
      */
     @decaf.Ignore(decaf.Platform.JDK11)
     public ObjectSet query(Predicate predicate, Comparator comparator) throws Db4oIOException,
-        DatabaseClosedException {
-        return _server.query(_transaction, predicate, new JdkComparatorWrapper(comparator)); 
+            DatabaseClosedException {
+        return _server.query(_transaction, predicate, new JdkComparatorWrapper(comparator));
     }
-    
-    public boolean isClient(){
-    	return true;
-    }
-    
-	public void storeAll(Transaction transaction, Iterator4 objects){
-		_server.storeAll(transaction, objects);
-	}
 
-	public UpdateDepthProvider updateDepthProvider() {
-		return configImpl().updateDepthProvider();
-	}
-	
-	public ObjectContainer openSession(){
-		synchronized(lock()){
-			return new ObjectContainerSession(_server);
-		}
-	}
-	
-	public EventRegistryImpl newEventRegistry(){
-		return new EventRegistryImpl();
-	}
-	
-	public <T> QLin<T> from(Class<T> clazz) {
-		return new QLinRoot<T>(query(), clazz);
-	}
-	
-	@Override
-	public boolean inCallback() {
-		return EventRegistryImpl.inCallback(this);
-	}
+    public boolean isClient() {
+        return true;
+    }
+
+    public void storeAll(Transaction transaction, Iterator4 objects) {
+        _server.storeAll(transaction, objects);
+    }
+
+    public UpdateDepthProvider updateDepthProvider() {
+        return configImpl().updateDepthProvider();
+    }
+
+    public ObjectContainer openSession() {
+        synchronized (lock()) {
+            return new ObjectContainerSession(_server);
+        }
+    }
+
+    public EventRegistryImpl newEventRegistry() {
+        return new EventRegistryImpl();
+    }
+
+    public <T> QLin<T> from(Class<T> clazz) {
+        return new QLinRoot<T>(query(), clazz);
+    }
+
+    @Override
+    public boolean inCallback() {
+        return EventRegistryImpl.inCallback(this);
+    }
 }

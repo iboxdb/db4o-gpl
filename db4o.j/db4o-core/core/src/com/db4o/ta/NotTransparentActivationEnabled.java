@@ -21,6 +21,8 @@ public class NotTransparentActivationEnabled extends DiagnosticBase {
 	}
 
 	public String solution() {
-		return "Use a TA aware class with equivalent functionality or ensure that this class provides a sensible implementation of the " + Activatable.class.getName() + " interface and the implicit TA hooks, either manually or by applying instrumentation.";
+		return "Use a TA aware class with equivalent functionality or ensure that this class provides a sensible implementation of the '" + Activatable.class.getName() 
+                        + "' interface and the implicit TA hooks, either manually or by applying instrumentation."
+                        + " Using try (var see = oc.ext().openSession()) { ... } , and ignore this information.";
 	}
 }

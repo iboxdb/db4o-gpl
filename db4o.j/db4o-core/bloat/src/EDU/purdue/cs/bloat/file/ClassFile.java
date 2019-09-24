@@ -707,6 +707,15 @@ public class ClassFile implements ClassInfo {
 			case Constant.LONG:
 			case Constant.DOUBLE:
 				// Longs and doubles take up 2 constant pool entries.
+//https://docs.oracle.com/javase/specs/jvms/se11/html/jvms-4.html#jvms-4.4.5
+/*
+ All 8-byte constants take up two entries in the constant_pool table of the class file. 
+ If a CONSTANT_Long_info or CONSTANT_Double_info structure is the entry at index n in the constant_pool table, 
+ then the next usable entry in the table is located at index n+2. 
+ The constant_pool index n+1 must be valid but is considered unusable.
+
+In retrospect, making 8-byte constants take two constant pool entries was a poor choice. 
+*/                            
 				constants.add(++i, null);
 				break;
 			}

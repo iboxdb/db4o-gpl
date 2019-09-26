@@ -589,10 +589,17 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 
     public void visitLocalExpr(LocalExpr expr) {
         super.visitLocalExpr(expr);
-        if (expr.index() >= _locals.size()) {
+        int index = expr.index();
+        if (index >= _locals.size()) {
             earlyExit();
         }
-        retval(_locals.get(expr.index()));
+
+        ComparisonOperand co = _locals.get(expr.index());
+        if (co instanceof LocalValue) {
+            retval((LocalValue) co);
+        } else {
+            retval(new LocalValue((ComparisonOperandRoot) co, expr));
+        }
     }
 
     public void visitBlock(Block block) {

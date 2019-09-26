@@ -17,7 +17,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-
 package EDU.purdue.cs.bloat.tree;
 
 import EDU.purdue.cs.bloat.editor.*;
@@ -26,75 +25,84 @@ import EDU.purdue.cs.bloat.editor.*;
  * LocalExpr represents an expression that accesses a variable in a method's
  * local variable table. Note that during register allocation the index becomes
  * the color that the LocalExpr (variable) is assigned.
- * 
+ *
  * @see Tree#newStackLocal
  * @see Tree#newLocal(Type)
  */
 public class LocalExpr extends VarExpr implements LeafExpr {
-	boolean fromStack;
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param index
-	 *            Index into the local variable table for this expression.
-	 * @param fromStack
-	 *            Is the local allocated on the stack?
-	 * @param type
-	 *            The type of this expression
-	 */
-	public LocalExpr(final int index, final boolean fromStack, final Type type) {
-		super(index, type);
-		this.fromStack = fromStack;
-	}
+    boolean fromStack;
 
-	/**
-	 * Constructor. LocalExpr is not allocated on the stack.
-	 * 
-	 * @param index
-	 *            Index into the local variable table for this expression.
-	 * @param type
-	 *            The type of this expression.
-	 */
-	public LocalExpr(final int index, final Type type) {
-		this(index, false, type);
-	}
+    /**
+     * Constructor.
+     *
+     * @param index Index into the local variable table for this expression.
+     * @param fromStack Is the local allocated on the stack?
+     * @param type The type of this expression
+     */
+    public LocalExpr(final int index, final MethodEditor method, final boolean fromStack, final Type type) {
+        super(index, type);
+        this.fromStack = fromStack;
+        this._method = method;
+    }
+    private MethodEditor _method;
 
-	public boolean fromStack() {
-		return fromStack;
-	}
+    public int shortIndex() {
+        final Type[] paramTypes = _method.type().indexedParamTypes();
+        int shortIndex = -1;
+        for (int s = 0; s <= index; s++) {
+            Object t = paramTypes[s];
+            if (t != null) {
+                shortIndex++;
+            }
+        }
+        return shortIndex;
+    }
 
-	/**
-	 * Returns true if the type of this expression is a return address.
-	 */
-	public boolean isReturnAddress() {
-		return type().equals(Type.ADDRESS);
-	}
+    /**
+     * Constructor. LocalExpr is not allocated on the stack.
+     *
+     * @param index Index into the local variable table for this expression.
+     * @param type The type of this expression.
+     */
+    public LocalExpr(final int index, final MethodEditor method, final Type type) {
+        this(index, method, false, type);
+    }
 
-	public void visitForceChildren(final TreeVisitor visitor) {
-	}
+    public boolean fromStack() {
+        return fromStack;
+    }
 
-	public void visit(final TreeVisitor visitor) {
-		visitor.visitLocalExpr(this);
-	}
+    /**
+     * Returns true if the type of this expression is a return address.
+     */
+    public boolean isReturnAddress() {
+        return type().equals(Type.ADDRESS);
+    }
 
-	/**
-	 * @param other
-	 *            The other expression to compare against.
-	 */
-	public boolean equalsExpr(final Expr other) {
-		return (other instanceof LocalExpr)
-				&& ((LocalExpr) other).type.simple().equals(type.simple())
-				&& (((LocalExpr) other).fromStack == fromStack)
-				&& (((LocalExpr) other).index == index);
-	}
+    public void visitForceChildren(final TreeVisitor visitor) {
+    }
 
-	public int exprHashCode() {
-		return 13 + (fromStack ? 0 : 1) + index + type.simple().hashCode();
-	}
+    public void visit(final TreeVisitor visitor) {
+        visitor.visitLocalExpr(this);
+    }
 
-	public Object clone() {
-		return copyInto(new LocalExpr(index, fromStack, type));
-	}
+    /**
+     * @param other The other expression to compare against.
+     */
+    public boolean equalsExpr(final Expr other) {
+        return (other instanceof LocalExpr)
+                && ((LocalExpr) other).type.simple().equals(type.simple())
+                && (((LocalExpr) other).fromStack == fromStack)
+                && (((LocalExpr) other).index == index);
+    }
+
+    public int exprHashCode() {
+        return 13 + (fromStack ? 0 : 1) + index + type.simple().hashCode();
+    }
+
+    public Object clone() {
+        return copyInto(new LocalExpr(index, _method, fromStack, type));
+    }
 
 }

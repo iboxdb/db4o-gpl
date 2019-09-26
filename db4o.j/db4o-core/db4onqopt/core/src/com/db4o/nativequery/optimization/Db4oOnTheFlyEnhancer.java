@@ -62,12 +62,20 @@ public class Db4oOnTheFlyEnhancer implements Db4oNQOptimizer {
         private Class FClass;
         private Method getImplClass;
         private Method getImplMethodName;
+        public Method getInstantiatedMethodType;
+
+        public Method getCapturedArg;
+        public Method getCapturedArgCount;
 
         SerializedLambda() {
             try {
                 FClass = Class.forName("java.lang.invoke.SerializedLambda");
                 getImplClass = FClass.getMethod("getImplClass");
                 getImplMethodName = FClass.getMethod("getImplMethodName");
+                getInstantiatedMethodType = FClass.getMethod("getInstantiatedMethodType");
+
+                getCapturedArg = FClass.getMethod("getCapturedArg", Integer.TYPE);
+                getCapturedArgCount = FClass.getMethod("getCapturedArgCount");
             } catch (Throwable ex) {
 
             }
@@ -85,7 +93,7 @@ public class Db4oOnTheFlyEnhancer implements Db4oNQOptimizer {
 
     }
 
-    SerializedLambda serializedLambda = new SerializedLambda();
+    public static SerializedLambda serializedLambda = new SerializedLambda();
 
     private Expression analyzeInternal(Predicate filter) throws ClassNotFoundException {
         if (filter.ExtentInterface == null) {

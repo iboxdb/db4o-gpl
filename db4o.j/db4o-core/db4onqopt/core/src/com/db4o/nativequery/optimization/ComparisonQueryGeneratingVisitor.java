@@ -11,8 +11,6 @@ import com.db4o.internal.Reflection4;
 import com.db4o.nativequery.expr.cmp.*;
 import com.db4o.nativequery.expr.cmp.operand.*;
 import com.db4o.query.Predicate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 final class ComparisonQueryGeneratingVisitor implements ComparisonOperandVisitor {
 
@@ -35,7 +33,8 @@ final class ComparisonQueryGeneratingVisitor implements ComparisonOperandVisitor
     public void visit(FieldValue operand) {
         operand.parent().accept(this);
         if (operand.parent() instanceof CandidateFieldRoot
-                || operand.parent() instanceof PredicateFieldRoot) {
+                || operand.parent() instanceof PredicateFieldRoot
+                || _value == _predicate) {
             _value = argLocal(operand);
             return;
         }
@@ -76,6 +75,21 @@ final class ComparisonQueryGeneratingVisitor implements ComparisonOperandVisitor
             }
         }
         return null;
+    }
+
+    @Override
+    public void visit(LocalValue operand) {
+        if (_predicate.ExtentInterface != null) {
+            int si = operand.index().shortIndex();
+            if (si == _predicate.ExtentArgs.size()) {
+                //return _predicate.ExtentInterface;
+                _value = _predicate;
+            } else {
+                _value = _predicate.ExtentArgs.get(si);
+            }
+        } else {
+            throw new RuntimeException("LocalValue");
+        }
     }
 
     Object add(Object a, Object b) {

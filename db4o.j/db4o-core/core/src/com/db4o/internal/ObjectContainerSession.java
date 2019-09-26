@@ -14,12 +14,15 @@ import com.db4o.internal.events.*;
 import com.db4o.internal.qlin.*;
 import com.db4o.internal.query.*;
 import com.db4o.io.*;
+import com.db4o.nativequery.optimization.*;
 import com.db4o.qlin.*;
 import com.db4o.query.*;
 import com.db4o.reflect.*;
 import com.db4o.reflect.generic.*;
 import com.db4o.types.*;
-import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @exclude @sharpen.partial
@@ -361,16 +364,36 @@ public class ObjectContainerSession implements InternalObjectContainer, Transien
     }
 
     @Override
-    public <TargetType> ObjectSet <TargetType> query(IPredicate<TargetType> predicate) {
+    public <TargetType> ObjectSet<TargetType> query(IPredicate<TargetType> predicate) {
         return query(predicate, (QueryComparator<TargetType>) null);
     }
 
-    
     @Override
-    public <TargetType> ObjectSet <TargetType> query(IPredicate<TargetType> predicate,QueryComparator<TargetType> comparator) {
-         Class t = Predicate.getMatchType(predicate.getClass());
-         
-         
+    public <TargetType> ObjectSet<TargetType> query(IPredicate<TargetType> predicate, QueryComparator<TargetType> comparator) {
+        Class t = Predicate.getMatchType(predicate.getClass());
+        ArrayList args = null;
+        if (t == null) {
+            Object o = Db4oOnTheFlyEnhancer.serializedLambda.getMe(predicate);
+            if (o != null) {
+                try {
+                    String tname = (String) Db4oOnTheFlyEnhancer.serializedLambda.getInstantiatedMethodType.invoke(o);
+                    tname = tname.substring(2, tname.length() - 3);
+                    tname = tname.replaceAll("/", ".");
+                    t = Class.forName(tname);
+
+                    args = new ArrayList();
+                    int count = (Integer) Db4oOnTheFlyEnhancer.serializedLambda.getCapturedArgCount.invoke(o);
+                    for (int i = 0; i < count; i++) {
+                        Object v = Db4oOnTheFlyEnhancer.serializedLambda.getCapturedArg.invoke(o, i);
+                        args.add(v);
+
+                    }
+                } catch (Throwable ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+
         final IPredicate<TargetType> f_predicate = predicate;
         Predicate<TargetType> p = new Predicate<TargetType>(t) {
             @Override
@@ -378,7 +401,11 @@ public class ObjectContainerSession implements InternalObjectContainer, Transien
                 return f_predicate.match(candidate);
             }
         };
-        p.ExtentInterface = predicate;
+        if (t != null) {
+            p.ExtentInterface = predicate;
+            p.ExtentArgs = args;
+        }
+
         return query(p, comparator);
     }
 

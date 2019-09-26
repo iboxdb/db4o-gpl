@@ -10,6 +10,7 @@ public interface ComparisonOperandVisitor {
 	void visit(ArithmeticExpression operand);
 	void visit(ConstValue operand);
 	void visit(FieldValue operand);
+        void visit(LocalValue operand);
 	void visit(CandidateFieldRoot root);
 	void visit(PredicateFieldRoot root);
 	void visit(StaticFieldRoot root);

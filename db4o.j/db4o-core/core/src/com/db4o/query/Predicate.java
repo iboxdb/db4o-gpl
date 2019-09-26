@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 /**
  * Base class for native queries. See {@link com.db4o.ObjectContainer#query(Predicate)}
@@ -17,7 +18,8 @@ import java.lang.reflect.Type;
 @SuppressWarnings("serial")
 public abstract class Predicate<ExtentType> implements Serializable{
 
-        public IPredicate<ExtentType> ExtentInterface = null;    
+        public IPredicate<ExtentType> ExtentInterface = null;   
+        public ArrayList ExtentArgs ;
     /**
      * public for implementation reasons, please ignore.
      */

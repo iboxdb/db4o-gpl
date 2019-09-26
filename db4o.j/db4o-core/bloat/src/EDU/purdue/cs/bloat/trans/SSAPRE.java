@@ -331,7 +331,7 @@ public class SSAPRE {
 
 		final Type type = exprInfo.prototype().type();
 		final LocalVariable v = cfg.method().newLocal(type);
-		final VarExpr tmp = new LocalExpr(v.index(), type);
+		final VarExpr tmp = new LocalExpr(v.index(),cfg.method(), type);
 
 		final SSAConstructionInfo consInfo = new SSAConstructionInfo(cfg, tmp);
 		codeMotion(exprInfo, tmp, consInfo);

@@ -39,6 +39,11 @@ public class TraversingExpressionVisitor implements ExpressionVisitor, Compariso
 		operand.parent().accept(this);
 	}
 
+         @Override
+    public void visit(LocalValue operand) {
+       operand.parent().accept(this);
+    }
+        
 	public void visit(CandidateFieldRoot root) {
 	}
 
@@ -64,4 +69,6 @@ public class TraversingExpressionVisitor implements ExpressionVisitor, Compariso
 			args[i].accept(this);
 		}
 	}
+
+   
 }

@@ -79,7 +79,7 @@ final class ComparisonQueryGeneratingVisitor implements ComparisonOperandVisitor
 
     @Override
     public void visit(LocalValue operand) {
-        if (_predicate.ExtentInterface != null) {
+        if (_predicate.ExtentArgs != null) {
             int si = operand.index().shortIndex();
             if (si == _predicate.ExtentArgs.size()) {
                 //return _predicate.ExtentInterface;
@@ -88,7 +88,8 @@ final class ComparisonQueryGeneratingVisitor implements ComparisonOperandVisitor
                 _value = _predicate.ExtentArgs.get(si);
             }
         } else {
-            throw new RuntimeException("LocalValue");
+            //throw new RuntimeException("LocalValue");
+             _value = _predicate;
         }
     }
 

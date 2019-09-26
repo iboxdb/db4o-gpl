@@ -42,6 +42,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
         //	this(bloatUtil, new LinkedList<MemberRef>(), Arrays.<ComparisonOperand>asList(PredicateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE));
         this(bloatUtil, new LinkedList<MemberRef>(), Arrays.<ComparisonOperand>asList(CandidateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE,
                 CandidateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE,
+                CandidateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE,
                 CandidateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE));
 
     }

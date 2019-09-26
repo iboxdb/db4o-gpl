@@ -30,7 +30,7 @@ public class LocalValue extends ComparisonOperandDescendant {
     }
 
     public String toString() {
-        return super.toString() + ".[" + _index + "]";
+        return super.toString() + ".[" + _index.index() + "," + _index.type().descriptor() + "]";
     }
 
     public void accept(ComparisonOperandVisitor visitor) {

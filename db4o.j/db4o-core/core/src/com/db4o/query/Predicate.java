@@ -35,11 +35,28 @@ public abstract class Predicate<ExtentType> implements Serializable{
 		_extentType=extentType;
 	}
 
+    public static Class getMatchType(Class t) {
+        Method[] methods = t.getDeclaredMethods();
+        for (int methodIdx = 0; methodIdx < methods.length; methodIdx++) {
+            Method method = methods[methodIdx];
+            if ((!method.getName().equals(PredicatePlatform.PREDICATEMETHOD_NAME)) || method.getParameterTypes().length != 1) {
+                continue;
+            }
+            Class r = method.getParameterTypes()[0];
+            if (r == Object.class) {
+                return null;
+            } else {
+                return r;
+            }
+        }
+        return null;
+    }
+        
 	public Method getFilterMethod() {
 		if(cachedFilterMethod!=null) {
 			return cachedFilterMethod;
 		}
-		Method[] methods=getClass().getMethods();
+		Method[] methods=getClass().getDeclaredMethods(); //.getMethods();
 		for (int methodIdx = 0; methodIdx < methods.length; methodIdx++) {
 			Method method=methods[methodIdx];
 			if((!method.getName().equals(PredicatePlatform.PREDICATEMETHOD_NAME)) || method.getParameterTypes().length != 1) {

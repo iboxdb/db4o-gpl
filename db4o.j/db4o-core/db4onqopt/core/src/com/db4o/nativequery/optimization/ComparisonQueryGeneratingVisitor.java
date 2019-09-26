@@ -1,7 +1,6 @@
 /* Copyright (C) 2004 - 2006  Versant Inc.  http://www.db4o.com */
-
 /**
- * 
+ *
  */
 package com.db4o.nativequery.optimization;
 
@@ -11,179 +10,219 @@ import com.db4o.instrumentation.api.*;
 import com.db4o.internal.Reflection4;
 import com.db4o.nativequery.expr.cmp.*;
 import com.db4o.nativequery.expr.cmp.operand.*;
+import com.db4o.query.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 final class ComparisonQueryGeneratingVisitor implements ComparisonOperandVisitor {
-	private Object _predicate;
-	
-	private Object _value=null;
-	
-	private final NativeClassFactory _classSource;
 
-	private final ReferenceResolver _resolver;
+    private Predicate _predicate;
 
-	public Object value() {
-		return _value;
-	}
-	
-	public void visit(ConstValue operand) {
-		_value = operand.value();
-	}
+    private Object _value = null;
 
-	public void visit(FieldValue operand) {
-		operand.parent().accept(this);
-		Class clazz=((operand.parent() instanceof StaticFieldRoot) ? (Class)_value : _value.getClass());
-		try {
-			Field field=Reflection4.getField(clazz,operand.fieldName());
-			_value=field.get(_value); // arg is ignored for static
-		} catch (Exception exc) {
-			exc.printStackTrace();
-		}
-	}
+    private final NativeClassFactory _classSource;
 
-	Object add(Object a,Object b) {
-		if(a instanceof Double||b instanceof Double) {
-			return new Double(((Double)a).doubleValue()+ ((Double)b).doubleValue());
-		}
-		if(a instanceof Float||b instanceof Float) {
-			return new Float(((Float)a).floatValue()+ ((Float)b).floatValue());
-		}
-		if(a instanceof Long||b instanceof Long) {
-			return new Long(((Long)a).longValue()+ ((Long)b).longValue());
-		}
-		return new Integer(((Integer)a).intValue()+ ((Integer)b).intValue());
-	}
+    private final ReferenceResolver _resolver;
 
-	Object subtract(Object a,Object b) {
-		if(a instanceof Double||b instanceof Double) {
-	        return new Double(((Double)a).doubleValue()- ((Double)b).doubleValue());
-		}
-		if(a instanceof Float||b instanceof Float) {
-	        return new Float(((Float)a).floatValue() - ((Float)b).floatValue());
-		}
-		if(a instanceof Long||b instanceof Long) {
-	        return new Long(((Long)a).longValue() - ((Long)b).longValue());
-		}
-	    return new Integer(((Integer)a).intValue() - ((Integer)b).intValue());
-	}
+    public Object value() {
+        return _value;
+    }
 
-	Object multiply(Object a,Object b) {
-	    if(a instanceof Double||b instanceof Double) {
-	        return new Double(((Double)a).doubleValue() * ((Double)b).doubleValue());
-	    }
-	    if(a instanceof Float||b instanceof Float) {
-	        return new Float(((Float)a).floatValue() * ((Float)b).floatValue());
-	    }
-	    if(a instanceof Long||b instanceof Long) {
-	        return new Long(((Long)a).longValue() * ((Long)b).longValue());
-	    }
-	    return new Integer(((Integer)a).intValue() * ((Integer)b).intValue());
-	}
+    public void visit(ConstValue operand) {
+        _value = operand.value();
+    }
 
-	Object divide(Object a,Object b) {
-	    if(a instanceof Double||b instanceof Double) {
-	        return new Double(((Double)a).doubleValue()/ ((Double)b).doubleValue());
-	    }
-	    if(a instanceof Float||b instanceof Float) {
-	        return new Float(((Float)a).floatValue() / ((Float)b).floatValue());
-	    }
-	    if(a instanceof Long||b instanceof Long) {
-	        return new Long(((Long)a).longValue() / ((Long)b).longValue());
-	    }
-	    return new Integer(((Integer)a).intValue() / ((Integer)b).intValue());
-	}
+    public void visit(FieldValue operand) {
+        operand.parent().accept(this);
+        if (operand.parent() instanceof CandidateFieldRoot
+                || operand.parent() instanceof PredicateFieldRoot) {
+            _value = argLocal(operand);
+            return;
+        }
+        Class clazz = ((operand.parent() instanceof StaticFieldRoot) ? (Class) _value : _value.getClass());
+        try {
+            Field field = Reflection4.getField(clazz, operand.fieldName());
+            _value = field.get(_value); // arg is ignored for static
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+    }
 
-	Object modulo(Object a,Object b) {
-	    if(a instanceof Double||b instanceof Double) {
-	        return new Double(((Double)a).doubleValue() % ((Double)b).doubleValue());
-	    }
-	    if(a instanceof Float||b instanceof Float) {
-	        return new Float(((Float)a).floatValue() % ((Float)b).floatValue());
-	    }
-	    if(a instanceof Long||b instanceof Long) {
-	        return new Long(((Long)a).longValue() % ((Long)b).longValue());
-	    }
-	    return new Integer(((Integer)a).intValue() % ((Integer)b).intValue());
-	}
+    private Object argLocal(FieldValue operand) {
+        String name = operand.fieldName();
+        for (int i = 0; i < 2; i++) {
+            Class c;
+            Object o;
+            if (i == 0) {
+                o = ((Predicate) _value).ExtentInterface;
+                c = o != null ? o.getClass() : null;
+            } else {
+                o = _value;
+                c = o.getClass();
+            }
+            if (c != null) {
+                Field field = Reflection4.getField(c, name);
 
-	public void visit(ArithmeticExpression operand) {
-		operand.left().accept(this);
-		Object left=_value;
-		operand.right().accept(this);
-		Object right=_value;
-		switch(operand.op().id()) {
-			case ArithmeticOperator.ADD_ID: 
-				_value=add(left,right);
-				break;
-			case ArithmeticOperator.SUBTRACT_ID: 
-				_value=subtract(left,right);
-				break;
-			case ArithmeticOperator.MULTIPLY_ID: 
-				_value=multiply(left,right);
-				break;
-			case ArithmeticOperator.DIVIDE_ID: 
-				_value=divide(left,right);
-				break;
-			case ArithmeticOperator.MODULO_ID: 
-				_value=modulo(left,right);
-				break;
-		}
-	}
+                try {
+                    if (field != null) {
+                        field.setAccessible(true);
+                        return field.get(o);
+                    }
+                } catch (IllegalArgumentException ex) {
+                    ex.printStackTrace();
+                } catch (IllegalAccessException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
 
-	public void visit(CandidateFieldRoot root) {
-	}
+    Object add(Object a, Object b) {
+        if (a instanceof Double || b instanceof Double) {
+            return new Double(((Double) a).doubleValue() + ((Double) b).doubleValue());
+        }
+        if (a instanceof Float || b instanceof Float) {
+            return new Float(((Float) a).floatValue() + ((Float) b).floatValue());
+        }
+        if (a instanceof Long || b instanceof Long) {
+            return new Long(((Long) a).longValue() + ((Long) b).longValue());
+        }
+        return new Integer(((Integer) a).intValue() + ((Integer) b).intValue());
+    }
 
-	public void visit(PredicateFieldRoot root) {
-		_value=_predicate;
-	}
+    Object subtract(Object a, Object b) {
+        if (a instanceof Double || b instanceof Double) {
+            return new Double(((Double) a).doubleValue() - ((Double) b).doubleValue());
+        }
+        if (a instanceof Float || b instanceof Float) {
+            return new Float(((Float) a).floatValue() - ((Float) b).floatValue());
+        }
+        if (a instanceof Long || b instanceof Long) {
+            return new Long(((Long) a).longValue() - ((Long) b).longValue());
+        }
+        return new Integer(((Integer) a).intValue() - ((Integer) b).intValue());
+    }
 
-	public void visit(StaticFieldRoot root) {
-		try {
-			_value=_classSource.forName(root.type().name());
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
+    Object multiply(Object a, Object b) {
+        if (a instanceof Double || b instanceof Double) {
+            return new Double(((Double) a).doubleValue() * ((Double) b).doubleValue());
+        }
+        if (a instanceof Float || b instanceof Float) {
+            return new Float(((Float) a).floatValue() * ((Float) b).floatValue());
+        }
+        if (a instanceof Long || b instanceof Long) {
+            return new Long(((Long) a).longValue() * ((Long) b).longValue());
+        }
+        return new Integer(((Integer) a).intValue() * ((Integer) b).intValue());
+    }
 
-	public void visit(ArrayAccessValue operand) {
-		operand.parent().accept(this);
-		Object parent=_value;
-		operand.index().accept(this);
-		Integer index=(Integer)_value;
-		_value=Array.get(parent, index.intValue());
-	}
+    Object divide(Object a, Object b) {
+        if (a instanceof Double || b instanceof Double) {
+            return new Double(((Double) a).doubleValue() / ((Double) b).doubleValue());
+        }
+        if (a instanceof Float || b instanceof Float) {
+            return new Float(((Float) a).floatValue() / ((Float) b).floatValue());
+        }
+        if (a instanceof Long || b instanceof Long) {
+            return new Long(((Long) a).longValue() / ((Long) b).longValue());
+        }
+        return new Integer(((Integer) a).intValue() / ((Integer) b).intValue());
+    }
 
-	public void visit(MethodCallValue operand) {
-		operand.parent().accept(this);
-		Object receiver=_value;
-		Method method=_resolver.resolve(operand.method());
-		try {
-			method.setAccessible(true);
-			_value=method.invoke(isStatic(method) ? null : receiver, args(operand));
-		} catch (Exception exc) {
-			exc.printStackTrace();
-			_value=null;
-		}
-	}
+    Object modulo(Object a, Object b) {
+        if (a instanceof Double || b instanceof Double) {
+            return new Double(((Double) a).doubleValue() % ((Double) b).doubleValue());
+        }
+        if (a instanceof Float || b instanceof Float) {
+            return new Float(((Float) a).floatValue() % ((Float) b).floatValue());
+        }
+        if (a instanceof Long || b instanceof Long) {
+            return new Long(((Long) a).longValue() % ((Long) b).longValue());
+        }
+        return new Integer(((Integer) a).intValue() % ((Integer) b).intValue());
+    }
 
-	private Object[] args(MethodCallValue operand) {
-		final ComparisonOperand[] args = operand.args();
-		Object[] params=new Object[args.length];
-		for (int paramIdx = 0; paramIdx < args.length; paramIdx++) {
-			args[paramIdx].accept(this);
-			params[paramIdx]=_value;
-		}
-		return params;
-	}
+    public void visit(ArithmeticExpression operand) {
+        operand.left().accept(this);
+        Object left = _value;
+        operand.right().accept(this);
+        Object right = _value;
+        switch (operand.op().id()) {
+            case ArithmeticOperator.ADD_ID:
+                _value = add(left, right);
+                break;
+            case ArithmeticOperator.SUBTRACT_ID:
+                _value = subtract(left, right);
+                break;
+            case ArithmeticOperator.MULTIPLY_ID:
+                _value = multiply(left, right);
+                break;
+            case ArithmeticOperator.DIVIDE_ID:
+                _value = divide(left, right);
+                break;
+            case ArithmeticOperator.MODULO_ID:
+                _value = modulo(left, right);
+                break;
+        }
+    }
 
-	private boolean isStatic(Method method) {
-		return NativeQueriesPlatform.isStatic(method);
-	}
+    public void visit(CandidateFieldRoot root) {
+        _value = _predicate;
+    }
 
-	public ComparisonQueryGeneratingVisitor(Object predicate, NativeClassFactory classSource, ReferenceResolver resolver) {
-		super();
-		_predicate = predicate;
-		_classSource = classSource;
-		_resolver = resolver;
-	}
-	
+    public void visit(PredicateFieldRoot root) {
+        _value = _predicate;
+    }
+
+    public void visit(StaticFieldRoot root) {
+        try {
+            _value = _classSource.forName(root.type().name());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void visit(ArrayAccessValue operand) {
+        operand.parent().accept(this);
+        Object parent = _value;
+        operand.index().accept(this);
+        Integer index = (Integer) _value;
+        _value = Array.get(parent, index.intValue());
+    }
+
+    public void visit(MethodCallValue operand) {
+        operand.parent().accept(this);
+        Object receiver = _value;
+        Method method = _resolver.resolve(operand.method());
+        try {
+            method.setAccessible(true);
+            _value = method.invoke(isStatic(method) ? null : receiver, args(operand));
+        } catch (Exception exc) {
+            exc.printStackTrace();
+            _value = null;
+        }
+    }
+
+    private Object[] args(MethodCallValue operand) {
+        final ComparisonOperand[] args = operand.args();
+        Object[] params = new Object[args.length];
+        for (int paramIdx = 0; paramIdx < args.length; paramIdx++) {
+            args[paramIdx].accept(this);
+            params[paramIdx] = _value;
+        }
+        return params;
+    }
+
+    private boolean isStatic(Method method) {
+        return NativeQueriesPlatform.isStatic(method);
+    }
+
+    public ComparisonQueryGeneratingVisitor(Predicate predicate, NativeClassFactory classSource, ReferenceResolver resolver) {
+        super();
+        _predicate = predicate;
+        _classSource = classSource;
+        _resolver = resolver;
+    }
+
 }

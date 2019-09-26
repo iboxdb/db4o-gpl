@@ -249,6 +249,9 @@ public abstract class QQueryBase implements InternalQuery, Unversioned {
         }
     }
 
+    public void clearDescend(){
+        i_constraints.clear();
+    }
     public Query descend(final String a_field) {
         synchronized (streamLock()) {
             final QQuery query = new QQuery(_trans, _this, a_field);

@@ -19,6 +19,7 @@ import com.db4o.query.*;
 import com.db4o.reflect.*;
 import com.db4o.reflect.generic.*;
 import com.db4o.types.*;
+import java.lang.reflect.ParameterizedType;
 
 /**
  * @exclude @sharpen.partial
@@ -359,15 +360,21 @@ public class ObjectContainerSession implements InternalObjectContainer, Transien
         }
     }
 
-    public final ObjectSet query(IPredicate predicate) {
-        return query(predicate, (QueryComparator) null);
+    @Override
+    public <TargetType> ObjectSet <TargetType> query(IPredicate<TargetType> predicate) {
+        return query(predicate, (QueryComparator<TargetType>) null);
     }
 
-    public final ObjectSet query(IPredicate predicate, QueryComparator comparator) {
-        final IPredicate f_predicate = predicate;
-        Predicate p = new Predicate() {
+    
+    @Override
+    public <TargetType> ObjectSet <TargetType> query(IPredicate<TargetType> predicate,QueryComparator<TargetType> comparator) {
+         Class t = Predicate.getMatchType(predicate.getClass());
+         
+         
+        final IPredicate<TargetType> f_predicate = predicate;
+        Predicate<TargetType> p = new Predicate<TargetType>(t) {
             @Override
-            public boolean match(Object candidate) {
+            public boolean match(TargetType candidate) {
                 return f_predicate.match(candidate);
             }
         };

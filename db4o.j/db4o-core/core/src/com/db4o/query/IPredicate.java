@@ -11,8 +11,8 @@ import java.io.Serializable;
  *
  * @author user
  */
-public interface IPredicate<ExtentType> extends Serializable{
+public interface IPredicate<T> extends Serializable{
 
-    public boolean match(ExtentType candidate);
+    public boolean match(T candidate);
 
 }

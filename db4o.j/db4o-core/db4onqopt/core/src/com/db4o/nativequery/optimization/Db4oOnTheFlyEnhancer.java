@@ -37,6 +37,7 @@ public class Db4oOnTheFlyEnhancer implements Db4oNQOptimizer {
         this.bloatUtil = new BloatLoaderContext(context);
     }
 
+    @Override
     public Object optimize(Query query, Predicate filter) {
         try {
             //long start=System.currentTimeMillis();

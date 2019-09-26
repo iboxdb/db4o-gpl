@@ -85,4 +85,13 @@ public class ClusterQuery implements Query{
 		// FIXME
 		throw new NotSupportedException();
 	}
+
+    @Override
+    public void clearDescend() {
+        synchronized (_cluster) {
+            for (int i = 0; i < _queries.length; i++) {
+               _queries[i].clearDescend();
+            }
+        }
+    }
 }

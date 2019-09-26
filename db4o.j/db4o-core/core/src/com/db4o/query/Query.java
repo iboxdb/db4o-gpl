@@ -78,7 +78,7 @@ public interface Query {
      * @return descendant {@link Query} node
      */
     public Query descend(String fieldName);
-
+    public void clearDescend();
 
     /**
 	 * Executes the {@link Query}.

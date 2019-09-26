@@ -61,8 +61,8 @@ public class NativeQueryHandler {
 				notifyListeners(predicate,NativeQueryHandler.DYNOPTIMIZED,optimized);
 				return query;
 			}
-		} catch (Exception optimizationFailure) {
-			optimizationFailure.printStackTrace();
+		} catch (Throwable optimizationFailure) {
+			//optimizationFailure.printStackTrace();
                         query.clearDescend();
 		}
 		query.constrain(new PredicateEvaluation(predicate));

@@ -58,18 +58,16 @@ final class ComparisonQueryGeneratingVisitor implements ComparisonOperandVisitor
             } else {
                 o = _value;
                 c = o.getClass();
-            }
+            } 
             if (c != null) {
-                Field field = Reflection4.getField(c, name);
 
                 try {
+                    Field field = Reflection4.getField(c, name);
                     if (field != null) {
                         field.setAccessible(true);
                         return field.get(o);
                     }
-                } catch (IllegalArgumentException ex) {
-                    ex.printStackTrace();
-                } catch (IllegalAccessException ex) {
+                } catch (Throwable ex) {
                     ex.printStackTrace();
                 }
             }
@@ -89,7 +87,7 @@ final class ComparisonQueryGeneratingVisitor implements ComparisonOperandVisitor
             }
         } else {
             //throw new RuntimeException("LocalValue");
-             _value = _predicate;
+            _value = _predicate;
         }
     }
 

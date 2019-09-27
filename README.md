@@ -153,6 +153,12 @@ try {
 }
 ```
 
+**Java Lambda Index**
+```java
+var rs = see.query((Record r) -> r.indexField == dv);
+```
+Lambda index supports 'String int long double...', but not 'Long Double Integer...'
+
 #### Getting Started
 ```cs
 public class Node

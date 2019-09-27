@@ -157,7 +157,7 @@ try {
 ```java
 var rs = see.query((Record r) -> r.indexField == dv);
 ```
-Lambda index supports 'String int long double...', but not 'Long Double Integer...'
+Lambda index. FieldName on the left, enable index; on the right, disable index.
 
 #### Getting Started
 ```cs

@@ -540,7 +540,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
             leftOp = rightOp;
             rightOp = swap;
         }
-        */
+         */
         if (!isCandidateFieldValue(leftOp) || rightOp == null) {
             earlyExit();
         }
@@ -692,12 +692,16 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
             case ArithExpr.CMPL:
                 if (left instanceof FieldValue) {
                     retval(new ThreeWayComparison((FieldValue) left, right, swapped));
+                } else {
+                    throw new RuntimeException("FieldName not in Left. " + ArithExpr.CMPL + ". ");
                 }
                 break;
             case ArithExpr.XOR:
                 if (left instanceof FieldValue) {
                     retval(EXP_BUILDER.not(comparisonExpression((FieldValue) left,
                             right, ComparisonOperator.VALUE_EQUALITY)));
+                } else {
+                    throw new RuntimeException("FieldName not in Left. " + ArithExpr.XOR + ". ");
                 }
                 break;
             default:
@@ -807,8 +811,9 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 
     private static void earlyExit() {
         earlyExit("");
-        
+
     }
+
     private static void earlyExit(String msg) {
         throw new EarlyExitException(msg);
     }

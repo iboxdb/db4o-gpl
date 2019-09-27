@@ -20,7 +20,8 @@ public class NativeQueryNotOptimized extends DiagnosticBase {
         if (_details == null) {
             return _predicate;
         }
-        return "\n" + _details.getMessage() + ".  " + _predicate;
+        return "\n" + _details.getMessage() + ".  "
+                + (_predicate.ExtentInterface != null ? _predicate.ExtentInterface : _predicate);
     }
 
     public String problem() {
@@ -29,8 +30,8 @@ public class NativeQueryNotOptimized extends DiagnosticBase {
 
     public String solution() {
         return "This Native Query was run by instantiating all objects of the candidate class. "
-                + "Consider simplifying the expression in the Native Query method. "
-                + " 'FieldName' should on the Left, support 'String int long double...'. ";
+                //+ "Consider simplifying the expression in the Native Query method. "
+                + " 'FieldName' should on the Left. except to disable Index for test";
     }
 
 }

@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/bin/Debug/netcoreapp2.2/db40.dll",
+            "program": "${workspaceFolder}/bin/Debug/netcoreapp2.2/db40_test.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",

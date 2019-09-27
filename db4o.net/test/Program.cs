@@ -32,6 +32,9 @@ namespace db40
         {
             Console.WriteLine("Hello World!");
 
+            LinqIndex.Run();
+            return;
+
             IObjectContainer db;
             IObjectServer server = null;
 
@@ -69,13 +72,13 @@ namespace db40
                     var results = db.Query<Person>(x => x.Name == "Petra");
                     p = results.First();
                     Console.WriteLine(p.Name);
-                } 
+                }
 
                 {
                     Console.WriteLine("002");
                     var result2 = from Person tp in db
-                        where tp.Name == "Petra"
-                        select tp;
+                                  where tp.Name == "Petra"
+                                  select tp;
                     p = result2.First();
                     Console.WriteLine(p.Name);
                 }
@@ -83,8 +86,8 @@ namespace db40
                 {
                     Console.WriteLine("003");
                     var result2 = from Person tp in db
-                        where tp.Name.StartsWith("Petr")
-                        select tp;
+                                  where tp.Name.StartsWith("Petr")
+                                  select tp;
                     p = result2.First();
                     Console.WriteLine(p.Name);
                 }
@@ -92,15 +95,15 @@ namespace db40
                 {
                     Console.WriteLine("004");
                     var result2 = from Person tp in db
-                        where tp.Age == 9 && tp.Name == "Petra"
-                        select tp;
+                                  where tp.Age == 9 && tp.Name == "Petra"
+                                  select tp;
                     p = result2.First();
                     Console.WriteLine(p.Name);
                 }
                 {
                     Console.WriteLine("005");
                     var uid = db.Ext().GetObjectInfo(p).GetInternalID();
-                    p = (Person) db.Ext().GetByID(uid);
+                    p = (Person)db.Ext().GetByID(uid);
                     Console.WriteLine(p.Name);
                 }
                 p.Name = "Peter";

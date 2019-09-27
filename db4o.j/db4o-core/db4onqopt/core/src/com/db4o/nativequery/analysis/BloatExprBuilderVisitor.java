@@ -625,6 +625,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
             }
         } catch (EarlyExitException exc) {
             expression(null);
+            throw exc;
         }
     }
 
@@ -664,8 +665,11 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
             earlyExit();
         }
         ComparisonOperand right = (ComparisonOperand) rightObj;
+
         boolean swapped = false;
-        if (right instanceof FieldValue) {
+
+        /*
+        if (right instanceof FieldValue && (!(left instanceof FieldValue))) {
             FieldValue rightField = (FieldValue) right;
             if (rightField.root() == CandidateFieldRoot.INSTANCE) {
                 ComparisonOperand swap = left;
@@ -674,6 +678,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
                 swapped = true;
             }
         }
+         */
         ArithmeticOperator arithOp = arithmeticOperator(expr.operation());
         if (arithOp != null) {
             retval(new ArithmeticExpression(left, right, arithOp));
@@ -767,7 +772,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 
     public void visitStoreExpr(StoreExpr expr) {
         if (!(expr.target() instanceof StackExpr)) {
-            earlyExit();
+            earlyExit("Target Error");
         }
         super.visitStoreExpr(expr);
     }
@@ -778,7 +783,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 
     private static ComparisonExpression comparisonExpression(FieldValue left, ComparisonOperand right, ComparisonOperator op, boolean lenient) {
         if (!lenient && !isCandidateFieldValue(left) || right == null) {
-            earlyExit();
+            earlyExit("FieldName not on the Left");
         }
         return new ComparisonExpression((FieldValue) left, right, op);
     }
@@ -799,9 +804,17 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
     }
 
     private static void earlyExit() {
-        throw new EarlyExitException();
+        earlyExit("");
+        
+    }
+    private static void earlyExit(String msg) {
+        throw new EarlyExitException(msg);
     }
 
     private static class EarlyExitException extends RuntimeException {
+
+        public EarlyExitException(String str) {
+            super(str);
+        }
     }
 }

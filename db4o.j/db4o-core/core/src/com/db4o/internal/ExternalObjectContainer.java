@@ -8,9 +8,11 @@ import com.db4o.foundation.*;
 import com.db4o.internal.activation.*;
 import com.db4o.internal.events.*;
 import com.db4o.io.*;
+import com.db4o.nativequery.optimization.Db4oOnTheFlyEnhancer;
 import com.db4o.query.*;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 /**
  * @exclude
@@ -132,17 +134,41 @@ public abstract class ExternalObjectContainer extends ObjectContainerBase {
     @Override
     public <TargetType> ObjectSet<TargetType> query(IPredicate<TargetType> predicate, QueryComparator<TargetType> comparator) {
         Class t = Predicate.getMatchType(predicate.getClass());
+        ArrayList args = null;
+        if (t == null) {
+            Object o = Db4oOnTheFlyEnhancer.serializedLambda.getMe(predicate);
+            if (o != null) {
+                try {
+                    String tname = (String) Db4oOnTheFlyEnhancer.serializedLambda.getInstantiatedMethodType.invoke(o);
+                    tname = tname.substring(2, tname.length() - 3);
+                    tname = tname.replaceAll("/", ".");
+                    t = Class.forName(tname);
 
-    
-        
-        final IPredicate<TargetType> predicate_f = predicate;
+                    args = new ArrayList();
+                    int count = (Integer) Db4oOnTheFlyEnhancer.serializedLambda.getCapturedArgCount.invoke(o);
+                    for (int i = 0; i < count; i++) {
+                        Object v = Db4oOnTheFlyEnhancer.serializedLambda.getCapturedArg.invoke(o, i);
+                        args.add(v);
+
+                    }
+                } catch (Throwable ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+
+        final IPredicate<TargetType> f_predicate = predicate;
         Predicate<TargetType> p = new Predicate<TargetType>(t) {
             @Override
             public boolean match(TargetType candidate) {
-                return predicate_f.match(candidate);
+                return f_predicate.match(candidate);
             }
         };
-        p.ExtentInterface = predicate;
+        if (t != null) {
+            p.ExtentInterface = predicate;
+            p.ExtentArgs = args;
+        }
+
         return query(p, comparator);
     }
 

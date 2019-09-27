@@ -58,7 +58,7 @@ final class ComparisonQueryGeneratingVisitor implements ComparisonOperandVisitor
             } else {
                 o = _value;
                 c = o.getClass();
-            } 
+            }
             if (c != null) {
 
                 try {
@@ -72,7 +72,8 @@ final class ComparisonQueryGeneratingVisitor implements ComparisonOperandVisitor
                 }
             }
         }
-        return null;
+        throw new RuntimeException("Not Support '" + name + "',  FieldName should in the Left, here get value from the Right. ");
+        //return null;
     }
 
     @Override

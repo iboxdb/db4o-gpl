@@ -6,6 +6,7 @@ import com.db4o.ObjectContainer;
 import com.db4o.ObjectServer;
 import com.db4o.ObjectSet;
 import com.db4o.config.ConfigScope;
+import com.db4o.config.EmbeddedConfiguration;
 import com.db4o.config.annotations.Indexed;
 import com.db4o.cs.Db4oClientServer;
 import com.db4o.cs.config.ServerConfiguration;
@@ -24,7 +25,8 @@ public class Empty {
         public String name;
         public Node Left;
         public Node Right;
-    ;
+        @Indexed
+        public long value = 10;
 
     }
 
@@ -33,27 +35,35 @@ public class Empty {
         String dbname = "/tmp/node.j.db";
         new File(dbname).delete();
 
-        ServerConfiguration cfg = Db4oClientServer.newServerConfiguration();
+        EmbeddedConfiguration cfg = Db4oEmbedded.newConfiguration();
         cfg.common().diagnostic().addListener(new DiagnosticToConsole());
+        /*
         cfg.common().objectClass(Node.class).cascadeOnActivate(true);
         cfg.common().objectClass(Node.class).cascadeOnUpdate(true);
         cfg.common().objectClass(Node.class).cascadeOnDelete(true);
         cfg.common().objectClass(Node.class).callConstructor(true);
-
+         */
         cfg.common().add(new TransparentActivationSupport());
         cfg.common().add(new TransparentPersistenceSupport());
         cfg.file().generateUUIDs(ConfigScope.GLOBALLY);
-        try (ObjectServer server = Db4oClientServer.openServer(cfg, dbname, 0)) {
 
-        }
-        try (EmbeddedObjectContainer x = Db4oEmbedded.openFile(dbname)) {
+        try (EmbeddedObjectContainer x = Db4oEmbedded.openFile(cfg, dbname)) {
             Node n = new Node();
             n.name = "CCC";
             x.store(n);
             x.commit();
 
-            final String name = new String("CCC" + "") + "" + new String("");
+            final Double dd = Double.valueOf(10);
             ObjectSet<Node> ns = x.query(new Predicate<Node>() {
+                @Override
+                public boolean match(Node n) {
+                    return n.value == dd.longValue();
+                }
+            });
+            System.out.println(ns.size());
+
+            final String name = new String("CCC" + "") + "" + new String("");
+            ns = x.query(new Predicate<Node>() {
                 @Override
                 public boolean match(Node n) {
                     return n.name.equals(name);

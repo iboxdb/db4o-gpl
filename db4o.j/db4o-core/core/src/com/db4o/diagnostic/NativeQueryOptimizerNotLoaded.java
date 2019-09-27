@@ -5,12 +5,12 @@ package com.db4o.diagnostic;
 public class NativeQueryOptimizerNotLoaded extends DiagnosticBase {
 
 	private int _reason;
-	private final Exception _details;
+	private final Throwable _details;
 	public final static int NQ_NOT_PRESENT 			= 1;
 	public final static int NQ_CONSTRUCTION_FAILED 	= 2;
 
 	
-	public NativeQueryOptimizerNotLoaded(int reason, Exception details) {
+	public NativeQueryOptimizerNotLoaded(int reason, Throwable details) {
 		_reason = reason;
 		_details = details;
 	}

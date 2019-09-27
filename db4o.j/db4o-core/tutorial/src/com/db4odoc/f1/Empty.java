@@ -53,6 +53,14 @@ public class Empty {
             n.Left = new Node();
             n.Left.name= "Left";
             x.store(n);
+            
+            n = new Node();
+            n.name = "DDD";
+            n.Right = new Node();
+            n.Right.name= "Right";
+            x.store(n);
+            
+            
             x.commit();
 
             final Double dd = Double.valueOf(10);

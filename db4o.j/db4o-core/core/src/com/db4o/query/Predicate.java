@@ -129,11 +129,14 @@ public abstract class Predicate<ExtentType> implements Serializable{
      */
 	public boolean appliesTo(ExtentType candidate) {
 		try {
+                    return match(candidate);
+                    /*
 			Method filterMethod=getFilterMethod();
 			Platform4.setAccessible(filterMethod);
 			Object ret=filterMethod.invoke(this,new Object[]{candidate});
 			return ((Boolean)ret).booleanValue();
-		} catch (Exception e) {
+                   */
+		} catch (Throwable e) {
 			// TODO: log this exception somewhere?
 //			e.printStackTrace();
 			return false;

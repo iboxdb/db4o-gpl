@@ -50,6 +50,8 @@ public class Empty {
         try (EmbeddedObjectContainer x = Db4oEmbedded.openFile(cfg, dbname)) {
             Node n = new Node();
             n.name = "CCC";
+            n.Left = new Node();
+            n.Left.name= "Left";
             x.store(n);
             x.commit();
 
@@ -63,10 +65,11 @@ public class Empty {
             System.out.println(ns.size());
 
             final String name = new String("CCC" + "") + "" + new String("");
+            final String leftname = new String("Left" + "") + "" + new String("");
             ns = x.query(new Predicate<Node>() {
                 @Override
                 public boolean match(Node n) {
-                    return n.name.equals(name);
+                    return n.Left.name.equals(leftname);
                 }
             });
             System.out.println(ns.size());
@@ -83,7 +86,7 @@ public class Empty {
                 ns = x.query(new IPredicate<Node>() {
                     @Override
                     public boolean match(Node n) {
-                        return n.name.equals("CCC");
+                        return n.name.equals(name);
                     }
                 });
                 System.out.println(ns.size());

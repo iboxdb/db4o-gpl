@@ -66,6 +66,7 @@ public class NativeQueryHandler {
             //optimizationFailure.printStackTrace();
             optimizedEx = optimizationFailure;
             query.clearDescend();
+            query.constrain(predicate.extentType());
         }
         query.constrain(new PredicateEvaluation(predicate));
         notifyListeners(predicate, NativeQueryHandler.UNOPTIMIZED, null);

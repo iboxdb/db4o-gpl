@@ -534,11 +534,13 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
         }
         ComparisonOperand leftOp = (ComparisonOperand) leftObj;
         ComparisonOperand rightOp = descend(right);
+        /*
         if (op.isSymmetric() && isCandidateFieldValue(rightOp) && !isCandidateFieldValue(leftOp)) {
             ComparisonOperand swap = leftOp;
             leftOp = rightOp;
             rightOp = swap;
         }
+        */
         if (!isCandidateFieldValue(leftOp) || rightOp == null) {
             earlyExit();
         }

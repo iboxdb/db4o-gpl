@@ -38,13 +38,21 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
     private int _blockCount = 0;
     private int _topLevelStmtCount = 0;
 
-    public BloatExprBuilderVisitor(BloatLoaderContext bloatUtil) {
-        //	this(bloatUtil, new LinkedList<MemberRef>(), Arrays.<ComparisonOperand>asList(PredicateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE));
-        this(bloatUtil, new LinkedList<MemberRef>(), Arrays.<ComparisonOperand>asList(CandidateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE,
-                CandidateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE,
-                CandidateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE,
-                CandidateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE));
+    public BloatExprBuilderVisitor(BloatLoaderContext bloatUtil, int maxLocals) {
+        // PredicateFieldRoot == inputs
+        // CandidateFieldRoot = match(candidate)-> fieldName
+      
+        //this(bloatUtil, new LinkedList<MemberRef>(), Arrays.<ComparisonOperand>asList(PredicateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE));
+      
+        List<ComparisonOperand> lo = new ArrayList<ComparisonOperand>();
+        for (int i = 0; i < maxLocals - 1; i++) {
+            lo.add(PredicateFieldRoot.INSTANCE);
+        }
+        lo.add(CandidateFieldRoot.INSTANCE);
 
+        _context = bloatUtil;
+        _methodStack = new LinkedList<MemberRef>();
+        _locals = lo;
     }
 
     private BloatExprBuilderVisitor(BloatLoaderContext bloatUtil, LinkedList<MemberRef> methodStack, List<ComparisonOperand> locals) {

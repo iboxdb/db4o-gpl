@@ -370,41 +370,15 @@ public class ObjectContainerSession implements InternalObjectContainer, Transien
 
     @Override
     public <TargetType> ObjectSet<TargetType> query(IPredicate<TargetType> predicate, QueryComparator<TargetType> comparator) {
-        Class t = Predicate.getMatchType(predicate.getClass());
-        ArrayList args = null;
-        if (t == null) {
-            Object o = Db4oOnTheFlyEnhancer.serializedLambda.getMe(predicate);
-            if (o != null) {
-                try {
-                    String tname = (String) Db4oOnTheFlyEnhancer.serializedLambda.getInstantiatedMethodType.invoke(o);
-                    tname = tname.substring(2, tname.length() - 3);
-                    tname = tname.replaceAll("/", ".");
-                    t = Class.forName(tname);
 
-                    args = new ArrayList();
-                    int count = (Integer) Db4oOnTheFlyEnhancer.serializedLambda.getCapturedArgCount.invoke(o);
-                    for (int i = 0; i < count; i++) {
-                        Object v = Db4oOnTheFlyEnhancer.serializedLambda.getCapturedArg.invoke(o, i);
-                        args.add(v);
-
-                    }
-                } catch (Throwable ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }
-
-        final IPredicate<TargetType> f_predicate = predicate;
-        Predicate<TargetType> p = new Predicate<TargetType>(t) {
+        final IPredicate f_predicate = predicate;
+        Predicate p = new Predicate() {
             @Override
-            public boolean match(TargetType candidate) {
+            public boolean match(Object candidate) {
                 return f_predicate.match(candidate);
             }
         };
-        if (t != null) {
-            p.ExtentInterface = predicate;
-            p.ExtentArgs = args;
-        }
+        p.ExtentInterface = predicate;
 
         return query(p, comparator);
     }

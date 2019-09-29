@@ -42,7 +42,8 @@ public class NativeQueryEnhancer {
 			return null;
 		}
 		if(flowGraph!=null) {
-			BloatExprBuilderVisitor builder = new BloatExprBuilderVisitor(bloatUtil);
+                   
+			BloatExprBuilderVisitor builder = new BloatExprBuilderVisitor(bloatUtil, flowGraph.method().maxLocals());
 			if(NQDebug.LOG) {
 				System.out.println("FLOW GRAPH:");
 				flowGraph.visit(new PrintVisitor());

@@ -14,6 +14,7 @@ import com.db4o.internal.query.Db4oNQOptimizer;
 import com.db4o.nativequery.expr.Expression;
 import com.db4o.query.*;
 import com.db4o.reflect.Reflector;
+import com.db4o.reflect.jdk.SerializedLambda;
 import java.lang.reflect.Method;
 
 // only introduced to keep Db4oListFacade clean of Bloat references
@@ -57,50 +58,12 @@ public class Db4oOnTheFlyEnhancer implements Db4oNQOptimizer {
         }
     }
 
-    public static class SerializedLambda {
-
-        private Class FClass;
-        private Method getImplClass;
-        private Method getImplMethodName;
-        public Method getInstantiatedMethodType;
-
-        public Method getCapturedArg;
-        public Method getCapturedArgCount;
-
-        SerializedLambda() {
-            try {
-                FClass = Class.forName("java.lang.invoke.SerializedLambda");
-                getImplClass = FClass.getMethod("getImplClass");
-                getImplMethodName = FClass.getMethod("getImplMethodName");
-                getInstantiatedMethodType = FClass.getMethod("getInstantiatedMethodType");
-
-                getCapturedArg = FClass.getMethod("getCapturedArg", Integer.TYPE);
-                getCapturedArgCount = FClass.getMethod("getCapturedArgCount");
-            } catch (Throwable ex) {
-
-            }
-        }
-
-        public Object getMe(Object f) {
-            try {
-                Method method = f.getClass().getDeclaredMethod("writeReplace");
-                method.setAccessible(true);
-                return method.invoke(f);
-            } catch (Throwable ex) {
-                return null;
-            }
-        }
-
-    }
-
-    public static SerializedLambda serializedLambda = new SerializedLambda();
-
     private Expression analyzeInternal(Predicate filter) throws ClassNotFoundException {
         if (filter.ExtentInterface == null) {
             ClassEditor classEditor = context.editClass(filter.getClass().getName());
             return new NativeQueryEnhancer().analyze(bloatUtil, classEditor, PredicatePlatform.PREDICATEMETHOD_NAME, null);
         } else {
-            Object me = serializedLambda.getMe(filter.ExtentInterface);
+            Object me = SerializedLambda.Instance.getMe(filter.ExtentInterface);
             if (me == null) {
                 ClassEditor classEditor = context.editClass(filter.ExtentInterface.getClass().getName());
                 return new NativeQueryEnhancer().analyze(bloatUtil, classEditor, PredicatePlatform.PREDICATEMETHOD_NAME, null);
@@ -108,8 +71,8 @@ public class Db4oOnTheFlyEnhancer implements Db4oNQOptimizer {
                 String className = null;
                 String methodName = null;
                 try {
-                    className = (String) serializedLambda.getImplClass.invoke(me);
-                    methodName = (String) serializedLambda.getImplMethodName.invoke(me);
+                    className = (String) SerializedLambda.Instance.getImplClass.invoke(me);
+                    methodName = (String) SerializedLambda.Instance.getImplMethodName.invoke(me);
                 } catch (Exception ex) {
                     throw new ClassNotFoundException(ex.getMessage());
                 }

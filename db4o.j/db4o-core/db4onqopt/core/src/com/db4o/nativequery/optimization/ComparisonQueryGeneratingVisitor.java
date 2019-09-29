@@ -32,19 +32,7 @@ final class ComparisonQueryGeneratingVisitor implements ComparisonOperandVisitor
 
     public void visit(FieldValue operand) {
         operand.parent().accept(this);
-        if (operand.parent() instanceof CandidateFieldRoot
-                || operand.parent() instanceof PredicateFieldRoot
-                || _value == _predicate) {
-            _value = argLocal(operand);
-            return;
-        }
-        Class clazz = ((operand.parent() instanceof StaticFieldRoot) ? (Class) _value : _value.getClass());
-        try {
-            Field field = Reflection4.getField(clazz, operand.fieldName());
-            _value = field.get(_value); // arg is ignored for static
-        } catch (Exception exc) {
-            exc.printStackTrace();
-        }
+        _value = argLocal(operand);
     }
 
     private Object argLocal(FieldValue operand) {
@@ -57,7 +45,7 @@ final class ComparisonQueryGeneratingVisitor implements ComparisonOperandVisitor
                 c = o != null ? o.getClass() : null;
             } else {
                 o = _value;
-                c = o.getClass();
+                c = ((operand.parent() instanceof StaticFieldRoot) ? (Class) o : o.getClass());
             }
             if (c != null) {
 
@@ -72,22 +60,24 @@ final class ComparisonQueryGeneratingVisitor implements ComparisonOperandVisitor
                 }
             }
         }
-        throw new RuntimeException("Not Support '" + name + "',  FieldName should in the Left, here get value from the Right. ");
-        //return null;
+        return null;
     }
 
     @Override
     public void visit(LocalValue operand) {
+        if (operand.parent() instanceof CandidateFieldRoot) {
+            _value = null;
+            throw new RuntimeException("Not Support,  FieldName should in the Left, here get value from the Right. ");
+        }
+
         if (_predicate.ExtentArgs != null) {
             int si = operand.index().shortIndex();
             if (si == _predicate.ExtentArgs.size()) {
-                //return _predicate.ExtentInterface;
                 _value = _predicate;
             } else {
                 _value = _predicate.ExtentArgs.get(si);
             }
         } else {
-            //throw new RuntimeException("LocalValue");
             _value = _predicate;
         }
     }
@@ -182,11 +172,9 @@ final class ComparisonQueryGeneratingVisitor implements ComparisonOperandVisitor
     }
 
     public void visit(CandidateFieldRoot root) {
-        _value = _predicate;
     }
 
     public void visit(PredicateFieldRoot root) {
-        _value = _predicate;
     }
 
     public void visit(StaticFieldRoot root) {

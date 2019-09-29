@@ -6,11 +6,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-  
+<!---  
         <Reference Include="../Output/netstandard2.0/Db4objects.Db4o-gpl-2010.dll" />
         <Reference Include="../Output/netstandard2.0/Db4objects.Db4o.Linq-2010.dll" />
         <Reference Include="../Output/netstandard2.0/Db4objects.Db4o.CS-2010.dll" />
-        
+     -->   
+          <ProjectReference Include="..\Db4objects.Db4o.CS\Db4objects.Db4o.CS-2010.csproj" />
+      
+    <ProjectReference Include="..\Db4objects.Db4o.Linq\Db4objects.Db4o.Linq-2010.csproj" />
+     
+    <ProjectReference Include="..\Db4objects.Db4o\Db4objects.Db4o-2010.csproj" />
+
     </ItemGroup>
 
 

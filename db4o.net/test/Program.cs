@@ -32,13 +32,13 @@ namespace db40
         {
             Console.WriteLine("Hello World!");
 
-            LinqIndex.Run();
-            return;
+            //LinqIndex.Run();
+            //return;
 
             IObjectContainer db;
             IObjectServer server = null;
 
-            bool multiple_client = true;
+            bool multiple_client = false;
             string dbpath = "/tmp/temp.n.db";
             File.Delete(dbpath);
 
@@ -56,7 +56,6 @@ namespace db40
                 IObjectContainer client = server.OpenClient();
                 db = client;
             }
-
             try
             {
                 // Store a few Person objects

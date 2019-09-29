@@ -199,7 +199,9 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
         ExpressionPart left = descend(stmt.left());
         ExpressionPart right = descend(stmt.right());
         exitStatement();
+        
         int op = stmt.comparison();
+        /*
         if ((left instanceof ComparisonOperand) && (right instanceof FieldValue)) {
             FieldValue rightField = (FieldValue) right;
             if (rightField.root() == CandidateFieldRoot.INSTANCE) {
@@ -209,6 +211,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
                 op = OpSymmetryUtil.counterpart(op);
             }
         }
+        */
         if (!(left instanceof FieldValue) || !(right instanceof ComparisonOperand)) {
             earlyExit();
         }
@@ -233,7 +236,8 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
         }
         if (!isStatic && expr.method().name().equals("equals")) {
             CallMethodExpr call = (CallMethodExpr) expr;
-            if (TypeRefUtil.isPrimitiveWrapper(call.receiver().type())) {
+            //if (TypeRefUtil.isPrimitiveWrapper(call.receiver().type())) 
+            {
                 processEqualsCall(call, ComparisonOperator.VALUE_EQUALITY);
             }
             return;
@@ -550,7 +554,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
         }
          */
         if (!isCandidateFieldValue(leftOp) || rightOp == null) {
-            earlyExit();
+            earlyExit("equals() not with FieldName"); 
         }
         expression(comparisonExpression((FieldValue) leftOp, rightOp, op));
     }

@@ -67,7 +67,7 @@ public class Empty {
             ObjectSet<Node> ns = x.query(new Predicate<Node>() {
                 @Override
                 public boolean match(Node n) {
-                    return n.value == dd.longValue();
+                    return  n.value == dd;
                 }
             });
             System.out.println(ns.size());
@@ -82,7 +82,7 @@ public class Empty {
             });
             System.out.println(ns.size());
 
-            ns = x.query(new IPredicate<Node>() {
+            ns = x.query(new Predicate<Node>() {
                 @Override
                 public boolean match(Node n) {
                     return n.name.equals(name);
@@ -94,7 +94,7 @@ public class Empty {
                 ns = x.query(new IPredicate<Node>() {
                     @Override
                     public boolean match(Node n) {
-                        return n.name.equals(name);
+                        return n.name.equals(name) && dd == n.value;
                     }
                 });
                 System.out.println(ns.size());

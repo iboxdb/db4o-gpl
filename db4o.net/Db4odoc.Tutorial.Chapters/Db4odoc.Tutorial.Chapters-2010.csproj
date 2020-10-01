@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <StartupObject>Db4objects.Db4o.Tutorial.Console.App</StartupObject>
   </PropertyGroup>
   
@@ -14,7 +14,7 @@
   <PropertyGroup> 
     <OutputPath>..\Output\Tutorial\</OutputPath>
   </PropertyGroup>
-
+   
   <ItemGroup>
     <Compile Include="App.cs">
       <SubType>Code</SubType>

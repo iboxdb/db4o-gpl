@@ -107,6 +107,27 @@ namespace db40
                         Console.WriteLine("Detail Index Time /ms: " + (end - st).TotalMilliseconds + "\r\n");
                     }
 
+                    using (var see = oc.Ext().OpenSession())
+                    {
+                        var st = DateTime.Now;
+
+                        var rs = from Record r in see where r.name.StartsWith("Name-") select r;
+
+                        Console.WriteLine("Size: " + rs.Count());
+                        var end = DateTime.Now;
+                        Console.WriteLine("Recrod StartsWith Time /ms: " + (end - st).TotalMilliseconds + "\r\n");
+                    }
+
+                    using (var see = oc.Ext().OpenSession())
+                    {
+                        var st = DateTime.Now;
+
+                        var rs = from Record r in see where r.name.Length>0 select r;
+
+                        Console.WriteLine("Size: " + rs.Count());
+                        var end = DateTime.Now;
+                        Console.WriteLine("Recrod Name.Length Time /ms: " + (end - st).TotalMilliseconds + "\r\n");
+                    }
 
                     using (var see = oc.Ext().OpenSession())
                     {

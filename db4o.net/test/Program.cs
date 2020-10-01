@@ -32,8 +32,8 @@ namespace db40
         {
             Console.WriteLine("Hello World!");
 
-            //LinqIndex.Run();
-            //return;
+            LinqIndex.Run();
+            return;
 
             IObjectContainer db;
             IObjectServer server = null;

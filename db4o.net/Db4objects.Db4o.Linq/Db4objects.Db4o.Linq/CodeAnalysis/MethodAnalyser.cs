@@ -11,7 +11,8 @@ namespace Db4objects.Db4o.Linq.CodeAnalysis
 #if CF || SILVERLIGHT
 			return CecilMethodAnalyser.FromMethod(method);
 #else
-			return ReflectionMethodAnalyser.FromMethod(method);
+            return null;
+			//return ReflectionMethodAnalyser.FromMethod(method);
 #endif
 		}
 	}

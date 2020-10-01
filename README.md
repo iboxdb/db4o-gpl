@@ -16,12 +16,9 @@ here update it to .NetStandard2 & Java7. some users maybe need it.
 
 #### DotNet Core
 
-Use IDE to Open **Db4o-2010.sln**  or run
+Use MonoDevelop to Open **Db4o-2010.sln**  or run
 ```
-Db4objects.Db4o/dotnet publish -c Release
-Db4objects.Db4o.Linq/dotnet publish -c Release
-Db4objects.Db4o.CS/dotnet publish -c Release
-Db4objects.Db4o.Optional/dotnet publish -c Release //Optional 
+Db4objects.Db4o.Optional/dotnet publish -c Release
 test/dotnet run
 ```
 **/test** includes a dotnet core example.

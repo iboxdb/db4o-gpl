@@ -1,23 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
-
     <ItemGroup>
-<!---  
-        <Reference Include="../Output/netstandard2.0/Db4objects.Db4o-gpl-2010.dll" />
-        <Reference Include="../Output/netstandard2.0/Db4objects.Db4o.Linq-2010.dll" />
-        <Reference Include="../Output/netstandard2.0/Db4objects.Db4o.CS-2010.dll" />
-     -->   
-          <ProjectReference Include="..\Db4objects.Db4o.CS\Db4objects.Db4o.CS-2010.csproj" />
-      
-    <ProjectReference Include="..\Db4objects.Db4o.Linq\Db4objects.Db4o.Linq-2010.csproj" />
-     
-    <ProjectReference Include="..\Db4objects.Db4o\Db4objects.Db4o-2010.csproj" />
-
+        <ProjectReference Include="..\Db4objects.Db4o.CS\Db4objects.Db4o.CS-2010.csproj" />
+        <ProjectReference Include="..\Db4objects.Db4o.Linq\Db4objects.Db4o.Linq-2010.csproj" />
+        <ProjectReference Include="..\Db4objects.Db4o\Db4objects.Db4o-2010.csproj" />
+        <ProjectReference Include="..\Db4objects.Db4o.Optional\Db4objects.Db4o.Optional-2010.csproj" />
     </ItemGroup>
-
-
 </Project>

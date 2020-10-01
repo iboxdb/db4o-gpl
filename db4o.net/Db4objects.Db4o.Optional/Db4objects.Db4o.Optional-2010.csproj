@@ -67,5 +67,6 @@
         </ProjectReference>
         <ProjectReference Include="..\Db4objects.Db4o\Db4objects.Db4o-2010.csproj">
         </ProjectReference>
+        <ProjectReference Include="..\Db4objects.Db4o.CS\Db4objects.Db4o.CS-2010.csproj" />
     </ItemGroup>
 </Project>

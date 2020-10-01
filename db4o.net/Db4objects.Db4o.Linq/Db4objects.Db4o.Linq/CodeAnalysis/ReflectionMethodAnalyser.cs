@@ -1,6 +1,6 @@
 /* Copyright (C) 2009 - 2010  Versant Inc.  http://www.db4o.com */
 
-#if !CF && !SILVERLIGHT
+#if !CF && !SILVERLIGHT && !NETSTANDARD2_0
 
 using System;
 using System.Reflection;

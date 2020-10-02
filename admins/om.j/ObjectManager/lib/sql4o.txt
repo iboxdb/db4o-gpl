@@ -1,6 +1,0 @@
-sql4o.jar from
-https://sourceforge.net/p/db4oviewer/code/HEAD/tree/
-
-the original maybe from 
- SQL for DB4o
-  - http://www.datanucleus.org/products/accessplatform_1_0/db4o/sql4o.html

@@ -1,0 +1,79 @@
+<project name="db4o-sql" default="dist" basedir=".">
+    <description>
+        db4o-sql build file
+    </description>
+    <!-- set global properties for this build -->
+    <property file="build.properties"/>
+    <property name="src" location="src"/>
+    <property name="lib" location="lib"/>
+    <property name="build" location="classes/production"/>
+    <property name="dist" location="dist"/>
+
+    <path id="class.path">
+        <fileset dir="${lib}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+    
+    <!-- boot class path of 1.5 JRE system library -->
+    <path id="jre15.boot.class.path">
+        <pathelement location="${jre15.lib.dir}/rt.jar"/>
+        <pathelement location="${jre15.lib.dir}/jsse.jar"/>
+        <pathelement location="${jre15.lib.dir}/jce.jar"/>
+        <pathelement location="${jre15.lib.dir}/charsets.jar"/>
+    </path>
+
+    <target name="init">
+        <!-- Create the time stamp -->
+        <tstamp/>
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build}"/>
+	<!-- Are we cross compiling? -->
+	<condition property="cross.compile">
+	    	<not>
+	    	<equals arg1="$ant.java.version" arg2="1.5"/>
+		</not>
+	    </condition>
+    </target>
+    
+    <target name="checkcross" depends="init" if="cross.compile">
+    <echo>We are cross compiling.  The ant.java.version is ${ant.java.version} but this project will be compiled against platform 1.5</echo>
+    <fail unless="jre15.lib.dir">
+We are cross compiling - but the property named "jre15.lib.dir" is not set.
+You must set jre15.lib.dir to a JRE 1.5 lib directory.
+You can specify jre15.lib.dir either from the command line when running Ant
+  ant -Djre15.lib.dir=/opt/jdk1.5.0_06/jre/lib compile
+Or you can create the file "build.properties" (in the same directory as this build.xml file) and set jre15.lib.dir by adding a line such as
+  jre15.lib.dir=/opt/jdk1.5.0_06/jre/lib
+            </fail>
+	    <available file="${jre15.lib.dir}" type="dir" property="jre15.lib.present"/>
+	    <fail unless="jre15.lib.present">
+It appears we are cross compiling, but I cannot find rt.jar within ${jre15.lib.dir}.
+Is property jre15.lib.dir set to the correct value?
+	    </fail>
+    </target>
+
+    <target name="compile" depends="checkcross"
+            description="compile the source ">
+        <!-- Compile the java code from ${src} into ${build} -->
+        <javac srcdir="${src}" destdir="${build}" target="1.5" source="1.5" bootclasspathref="jre15.boot.class.path">
+            <classpath refid="class.path"/>
+        </javac>
+    </target>
+
+    <target name="dist" depends="compile"
+            description="generate the distribution">
+        <!-- Create the distribution directory -->
+        <mkdir dir="${dist}/lib"/>
+
+        <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+        <jar jarfile="${dist}/lib/${ant.project.name}-db4o-7.4-java5.jar" basedir="${build}"/>
+    </target>
+
+    <target name="clean"
+            description="clean up">
+        <!-- Delete the ${build} and ${dist} directory trees -->
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+    </target>
+</project>

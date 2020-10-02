@@ -31,10 +31,13 @@ namespace db40
             String objectId;
 
             var cfg = Db4oClientServer.NewServerConfiguration();
+
+            /*
             cfg.Common.ObjectClass(typeof(Node)).CallConstructor(true);
             cfg.Common.ObjectClass(typeof(Node)).CascadeOnActivate(true);
             cfg.Common.ObjectClass(typeof(Node)).CascadeOnUpdate(true);
             cfg.Common.ObjectClass(typeof(Node)).CascadeOnDelete(true);
+            */
 
             cfg.Common.Add(new TransparentActivationSupport());
             cfg.Common.Add(new TransparentPersistenceSupport());

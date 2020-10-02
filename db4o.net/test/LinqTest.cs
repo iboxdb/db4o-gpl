@@ -10,6 +10,7 @@ using Db4objects.Db4o.IO;
 using Db4objects.Db4o.TA;
 using Db4objects.Db4o.Linq;
 using System.Linq;
+using System.IO;
 
 namespace db40
 {
@@ -48,9 +49,14 @@ namespace db40
         {
 
             String dbname = "index.j.db";
+            File.Delete(dbname);
+
             var ecfg = Db4oEmbedded.NewConfiguration();
-            var memory = new MemoryStorage();
-            ecfg.File.Storage = memory;
+
+            //var memory = new MemoryStorage();
+            //ecfg.File.Storage = memory;
+
+            //Db4objects.Db4o.TA.IActivatable act;
             ecfg.Common.Add(new TransparentActivationSupport());
             ecfg.Common.Add(new TransparentPersistenceSupport());
             ecfg.File.GenerateUUIDs = ConfigScope.Globally;

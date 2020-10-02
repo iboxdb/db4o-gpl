@@ -11,9 +11,11 @@ namespace Db4objects.Db4o.Linq.CodeAnalysis
 #if CF || SILVERLIGHT
 			return CecilMethodAnalyser.FromMethod(method);
 #else
-            return null;
 			//return ReflectionMethodAnalyser.FromMethod(method);
 #endif
-		}
+            //remove NativeMethod Query after 8.1.9, 
+            //use simple Linq to Query database
+            return null;
+        }
 	}
 }

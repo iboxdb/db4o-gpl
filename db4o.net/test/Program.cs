@@ -20,10 +20,13 @@ namespace db40
             Name = v;
         }
 
-        //Fields, not properties.
+        //DB4O uses Fields to store, not properties.
         [Indexed]
         public string Name;
         public long Age = 9;
+
+         
+        public string PName() { return Name + "-ABC"; }
     }
 
     class Program
@@ -33,13 +36,16 @@ namespace db40
             Console.WriteLine("Hello World!");
 
             LinqIndex.Run();
-            return;
+            //return;
+
+            TreeProgram.Run();
+            //return;
 
             IObjectContainer db;
             IObjectServer server = null;
 
             bool multiple_client = false;
-            string dbpath = "/tmp/temp.n.db";
+            string dbpath = "temp.n.db";
             File.Delete(dbpath);
 
             if (!multiple_client)
@@ -105,6 +111,16 @@ namespace db40
                     p = (Person)db.Ext().GetByID(uid);
                     Console.WriteLine(p.Name);
                 }
+
+                {
+                    Console.WriteLine("006");
+                    var result2 = from Person tp in db
+                                  where tp.PName() == "Petra-ABC"
+                                  select tp;
+                    p = result2.First();
+                    Console.WriteLine(p.Name);
+                }
+
                 p.Name = "Peter";
                 db.Store(p);
 

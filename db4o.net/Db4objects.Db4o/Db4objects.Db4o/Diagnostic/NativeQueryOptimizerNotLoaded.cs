@@ -32,7 +32,7 @@ namespace Db4objects.Db4o.Diagnostic
 			{
 				case NqNotPresent:
 				{
-					return AppendDetails("Native query not present.");
+					return AppendDetails("Native query not present. It has removed after 8.1.9, use Linq instead.");
 				}
 
 				case NqConstructionFailed:

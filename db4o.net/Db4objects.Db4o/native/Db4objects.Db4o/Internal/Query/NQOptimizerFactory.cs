@@ -8,6 +8,7 @@ namespace Db4objects.Db4o.Internal.Query
 	{
 		public static INQOptimizer CreateExpressionBuilder()
 		{
+            //removed, use Linq instead
 			Type type = Type.GetType("Db4objects.Db4o.NativeQueries.NQOptimizer, Db4objects.Db4o.NativeQueries", false);
             if (type == null)
             {

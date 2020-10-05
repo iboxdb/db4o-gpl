@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <DefineConstants>TRACE;NET_3_5;NET_4_0;</DefineConstants>
+        <OutputPath>..\Output\</OutputPath>
+    </PropertyGroup>
+    <ItemGroup>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\AndExpression.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\AndExpression.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\BinaryExpression.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\BinaryExpression.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\BoolConstExpression.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\BoolConstExpression.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\ComparisonExpression.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\ComparisonExpression.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\IExpression.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\IExpression.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\IExpressionPart.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\IExpressionPart.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\IExpressionVisitor.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\IExpressionVisitor.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\IgnoredExpression.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\IgnoredExpression.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\NotExpression.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\NotExpression.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\OrExpression.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\OrExpression.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\TraversingExpressionVisitor.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\TraversingExpressionVisitor.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\Build\ExpressionBuilder.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\Build\ExpressionBuilder.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\Cmp\ArithmeticOperator.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\Cmp\ArithmeticOperator.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\Cmp\ComparisonOperator.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\Cmp\ComparisonOperator.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\ArithmeticExpression.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\ArithmeticExpression.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\ArrayAccessValue.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\ArrayAccessValue.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\CandidateFieldRoot.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\CandidateFieldRoot.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\ComparisonOperandDescendant.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\ComparisonOperandDescendant.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\ComparisonOperandRoot.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\ComparisonOperandRoot.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\ConstValue.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\ConstValue.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\FieldValue.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\FieldValue.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\IComparisonOperand.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\IComparisonOperand.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\IComparisonOperandAnchor.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\IComparisonOperandAnchor.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\IComparisonOperandVisitor.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\IComparisonOperandVisitor.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\MethodCallValue.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\MethodCallValue.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\PredicateFieldRoot.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\PredicateFieldRoot.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\StaticFieldRoot.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\StaticFieldRoot.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\ThreeWayComparison.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Expr\Cmp\Operand\ThreeWayComparison.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Instrumentation\ComparisonBytecodeGeneratingVisitor.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Instrumentation\ComparisonBytecodeGeneratingVisitor.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Instrumentation\SODAMethodBuilder.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Instrumentation\SODAMethodBuilder.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Instrumentation\TypeDeducingVisitor.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Instrumentation\TypeDeducingVisitor.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Optimization\ComparisonQueryGeneratingVisitor.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Optimization\ComparisonQueryGeneratingVisitor.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\Db4objects.Db4o.NativeQueries\Optimization\SODAQueryBuilder.cs">
+            <Link>Db4objects.Db4o.NativeQueries\Optimization\SODAQueryBuilder.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\native\Db4objects.Db4o.NativeQueries\AssemblyResolver.cs">
+            <Link>native\Db4objects.Db4o.NativeQueries\AssemblyResolver.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\native\Db4objects.Db4o.NativeQueries\ICachingStrategy.cs">
+            <Link>native\Db4objects.Db4o.NativeQueries\ICachingStrategy.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\native\Db4objects.Db4o.NativeQueries\NQOptimizer.cs">
+            <Link>native\Db4objects.Db4o.NativeQueries\NQOptimizer.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\native\Db4objects.Db4o.NativeQueries\QueryExpressionBuilder.cs">
+            <Link>native\Db4objects.Db4o.NativeQueries\QueryExpressionBuilder.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\native\Db4objects.Db4o.NativeQueries\SingleItemCachingStrategy.cs">
+            <Link>native\Db4objects.Db4o.NativeQueries\SingleItemCachingStrategy.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\native\Db4objects.Db4o.NativeQueries\UnsupportedPredicateException.cs">
+            <Link>native\Db4objects.Db4o.NativeQueries\UnsupportedPredicateException.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.NativeQueries\native\Db4objects.Db4o.NativeQueries\Optimization\NativeQueriesPlatform.cs">
+            <Link>native\Db4objects.Db4o.NativeQueries\Optimization\NativeQueriesPlatform.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.Instrumentation\Db4objects.Db4o.Instrumentation\Api\CallingConvention.cs">
+            <Link>Db4objects.Db4o.Instrumentation\Api\CallingConvention.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.Instrumentation\Db4objects.Db4o.Instrumentation\Api\IFieldRef.cs">
+            <Link>Db4objects.Db4o.Instrumentation\Api\IFieldRef.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.Instrumentation\Db4objects.Db4o.Instrumentation\Api\IMethodBuilder.cs">
+            <Link>Db4objects.Db4o.Instrumentation\Api\IMethodBuilder.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.Instrumentation\Db4objects.Db4o.Instrumentation\Api\IMethodRef.cs">
+            <Link>Db4objects.Db4o.Instrumentation\Api\IMethodRef.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.Instrumentation\Db4objects.Db4o.Instrumentation\Api\INativeClassFactory.cs">
+            <Link>Db4objects.Db4o.Instrumentation\Api\INativeClassFactory.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.Instrumentation\Db4objects.Db4o.Instrumentation\Api\IReferenceProvider.cs">
+            <Link>Db4objects.Db4o.Instrumentation\Api\IReferenceProvider.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.Instrumentation\Db4objects.Db4o.Instrumentation\Api\IReferenceResolver.cs">
+            <Link>Db4objects.Db4o.Instrumentation\Api\IReferenceResolver.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.Instrumentation\Db4objects.Db4o.Instrumentation\Api\ITypeEditor.cs">
+            <Link>Db4objects.Db4o.Instrumentation\Api\ITypeEditor.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.Instrumentation\Db4objects.Db4o.Instrumentation\Api\ITypeRef.cs">
+            <Link>Db4objects.Db4o.Instrumentation\Api\ITypeRef.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.Instrumentation\Db4objects.Db4o.Instrumentation\Api\InstrumentationException.cs">
+            <Link>Db4objects.Db4o.Instrumentation\Api\InstrumentationException.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.Instrumentation\Db4objects.Db4o.Instrumentation\Core\DefaultNativeClassFactory.cs">
+            <Link>Db4objects.Db4o.Instrumentation\Core\DefaultNativeClassFactory.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.Instrumentation\native\Db4objects.Db4o.Instrumentation\Cecil\CecilFieldRef.cs">
+            <Link>native\Db4objects.Db4o.Instrumentation\Cecil\CecilFieldRef.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.Instrumentation\native\Db4objects.Db4o.Instrumentation\Cecil\CecilMethodBuilder.cs">
+            <Link>native\Db4objects.Db4o.Instrumentation\Cecil\CecilMethodBuilder.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.Instrumentation\native\Db4objects.Db4o.Instrumentation\Cecil\CecilMethodRef.cs">
+            <Link>native\Db4objects.Db4o.Instrumentation\Cecil\CecilMethodRef.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.Instrumentation\native\Db4objects.Db4o.Instrumentation\Cecil\CecilRef.cs">
+            <Link>native\Db4objects.Db4o.Instrumentation\Cecil\CecilRef.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.Instrumentation\native\Db4objects.Db4o.Instrumentation\Cecil\CecilReferenceProvider.cs">
+            <Link>native\Db4objects.Db4o.Instrumentation\Cecil\CecilReferenceProvider.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.Instrumentation\native\Db4objects.Db4o.Instrumentation\Cecil\CecilReferenceResolver.cs">
+            <Link>native\Db4objects.Db4o.Instrumentation\Cecil\CecilReferenceResolver.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.Instrumentation\native\Db4objects.Db4o.Instrumentation\Cecil\CecilTypeEditor.cs">
+            <Link>native\Db4objects.Db4o.Instrumentation\Cecil\CecilTypeEditor.cs</Link>
+        </Compile>
+        <Compile Include="Db4objects.Db4o.Instrumentation\native\Db4objects.Db4o.Instrumentation\Cecil\CecilTypeRef.cs">
+            <Link>native\Db4objects.Db4o.Instrumentation\Cecil\CecilTypeRef.cs</Link>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="cecil-master\Mono\*.cs" />
+        <Compile Include="cecil-master\Mono.Cecil\*.cs" />
+        <Compile Include="cecil-master\Mono.Cecil.Cil\*.cs" />
+        <Compile Include="cecil-master\Mono.Cecil.Metadata\*.cs" />
+        <Compile Include="cecil-master\Mono.Cecil.PE\*.cs" />
+        <Compile Include="cecil-master\Mono.Collections.Generic\*.cs" />
+        <Compile Include="cecil-master\Mono.Security.Cryptography\*.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Cecil.FlowAnalysis\*.cs" />
+        <Compile Include="Cecil.FlowAnalysis\*\*.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Db4objects.Db4o\Db4objects.Db4o-2010.csproj" />
+    </ItemGroup>
+</Project>

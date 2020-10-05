@@ -13,9 +13,6 @@
     </PropertyGroup>
   
     <ItemGroup>
-      <Compile Remove="native\Silverlight\Db4objects.Db4o\Config\SilverlightSupport.cs" />
-    </ItemGroup>
-    <ItemGroup>
         <Compile Include="Db4objects.Db4o\Activation\ActivationPurpose.cs" />
         <Compile Include="Db4objects.Db4o\Activation\IActivator.cs" />
         <Compile Include="Db4objects.Db4o\Collections\ArrayDictionary4.cs" />
@@ -1006,5 +1003,15 @@
         <Compile Include="native\net\Lock4.cs" />
         <Compile Include="native\net\SerializationConstructor.cs" />
         <Compile Include="native\net\TSerializable.cs" />
+        <Compile Include="native\Silverlight\System\NonSerialized.cs" />
+        <Compile Include="native\Silverlight\System\Serializable.cs" />
+        <Compile Include="native\Silverlight\System\Collections\ArrayList.cs" />
+        <Compile Include="native\Silverlight\System\Collections\Hashtable.cs" />
+        <Compile Include="native\Silverlight\Db4objects.Db4o\IO\IsolatedStorageFileBin.cs" />
+        <Compile Include="native\Silverlight\Db4objects.Db4o\IO\IsolatedStorageStorage.cs" />
+        <Compile Include="native\Silverlight\Db4objects.Db4o\IO\SilverlightIO.cs" />
+        <Compile Include="native\Silverlight\Db4objects.Db4o\Config\SilverlightSupport.cs" />
+        <Compile Include="native\Silverlight\Db4objects.Db4o\Internal\BlobImpl.cs" />
+        <Compile Include="native\Silverlight\Db4objects.Db4o\Foundation\IO\File4.cs" />
     </ItemGroup>
 </Project>

@@ -35,10 +35,10 @@ namespace db40
         {
             Console.WriteLine("Hello World!");
 
-            LinqIndex.Run();
+            //LinqIndex.Run();
             //return;
 
-            TreeProgram.Run();
+            //TreeProgram.Run();
             //return;
 
             IObjectContainer db;

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Db4objects.Db4o.Optional-20
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "db40_test", "test\db40_test.csproj", "{4C771362-FC6B-4EBC-B16F-81CDC635A63A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Db4objects.Db4o.NativeQueries", "NativeQuery\Db4objects.Db4o.NativeQueries.csproj", "{66A65C07-FB0D-4873-9EE0-C3001ED18339}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{4C771362-FC6B-4EBC-B16F-81CDC635A63A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C771362-FC6B-4EBC-B16F-81CDC635A63A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C771362-FC6B-4EBC-B16F-81CDC635A63A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66A65C07-FB0D-4873-9EE0-C3001ED18339}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66A65C07-FB0D-4873-9EE0-C3001ED18339}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66A65C07-FB0D-4873-9EE0-C3001ED18339}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66A65C07-FB0D-4873-9EE0-C3001ED18339}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

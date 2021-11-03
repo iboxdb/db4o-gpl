@@ -1,6 +1,7 @@
 /* Copyright (C) 2004 - 2006  Versant Inc.  http://www.db4o.com */
+
 /**
- *
+ *   Updated GPL Version 
  */
 package com.db4o.nativequery.optimization;
 

@@ -38,7 +38,7 @@ public class db4odemo {
     }
 
     public static void main(String[] args) throws Exception {
-
+        DiagnosticToConsole.Enable = false;
         String dbname = "/tmp/node.j.db";
         new File(dbname).delete();
 
@@ -131,9 +131,52 @@ public class db4odemo {
             //Use Native Query, recommended
             System.out.println("---AA---");
             try (var oc = server.openClient()) {
+
                 try (var see = oc.ext().openSession()) {
-                    var ns = see.query((Node n) -> n.name.equals("Root"));
-                    System.out.println("AA: " + ns.size());
+                    String r = "Root";
+                    String rr = "Right.Right";
+
+                    var ns = see.query((Node n) -> n.Right.Right.name.equals(rr));
+                    System.out.println("RAA-1: " + ns.size());
+
+                    ns = see.query((Node n) -> n.name.equals(r));
+                    System.out.println("AA-1: " + ns.size());
+
+                    ns = oc.query(new IPredicate<Node>() {
+                        @Override
+                        public boolean match(Node n) {
+                            return n.name.equals(r);
+                        }
+                    });
+                    System.out.println("AA-2: " + ns.size());
+
+                    ns = oc.query(new Predicate<Node>() {
+                        @Override
+                        public boolean match(Node n) {
+                            return n.name.equals(r);
+                        }
+                    });
+                    System.out.println("AA-3: " + ns.size());
+                    ///////
+                    ///////
+                    ns = see.query((Node n) -> n.name.equals("Root"));
+                    System.out.println("AA-1-C: " + ns.size());
+
+                    ns = oc.query(new IPredicate<Node>() {
+                        @Override
+                        public boolean match(Node n) {
+                            return n.name.equals("Root");
+                        }
+                    });
+                    System.out.println("AA-2-C: " + ns.size());
+
+                    ns = oc.query(new Predicate<Node>() {
+                        @Override
+                        public boolean match(Node n) {
+                            return n.name.equals("Root");
+                        }
+                    });
+                    System.out.println("AA-3-C: " + ns.size());
 
                     ns = see.query((Node n) -> n.Size > 10, (Node a, Node b) -> a.name.compareTo(b.name));
                     System.out.println("AA-10: " + ns.size());

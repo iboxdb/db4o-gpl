@@ -41,9 +41,8 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
     public BloatExprBuilderVisitor(BloatLoaderContext bloatUtil, int maxLocals) {
         // PredicateFieldRoot == inputs
         // CandidateFieldRoot = match(candidate)-> fieldName
-      
+
         //this(bloatUtil, new LinkedList<MemberRef>(), Arrays.<ComparisonOperand>asList(PredicateFieldRoot.INSTANCE, CandidateFieldRoot.INSTANCE));
-      
         List<ComparisonOperand> lo = new ArrayList<ComparisonOperand>();
         for (int i = 0; i < maxLocals - 1; i++) {
             lo.add(PredicateFieldRoot.INSTANCE);
@@ -199,9 +198,9 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
         ExpressionPart left = descend(stmt.left());
         ExpressionPart right = descend(stmt.right());
         exitStatement();
-        
+
         int op = stmt.comparison();
-        /*
+
         if ((left instanceof ComparisonOperand) && (right instanceof FieldValue)) {
             FieldValue rightField = (FieldValue) right;
             if (rightField.root() == CandidateFieldRoot.INSTANCE) {
@@ -211,7 +210,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
                 op = OpSymmetryUtil.counterpart(op);
             }
         }
-        */
+
         if (!(left instanceof FieldValue) || !(right instanceof ComparisonOperand)) {
             earlyExit();
         }
@@ -546,15 +545,15 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
         }
         ComparisonOperand leftOp = (ComparisonOperand) leftObj;
         ComparisonOperand rightOp = descend(right);
-        /*
+
         if (op.isSymmetric() && isCandidateFieldValue(rightOp) && !isCandidateFieldValue(leftOp)) {
             ComparisonOperand swap = leftOp;
             leftOp = rightOp;
             rightOp = swap;
         }
-         */
+
         if (!isCandidateFieldValue(leftOp) || rightOp == null) {
-            earlyExit("equals() not with FieldName"); 
+            earlyExit("equals() not with FieldName");
         }
         expression(comparisonExpression((FieldValue) leftOp, rightOp, op));
     }
@@ -682,7 +681,6 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
 
         boolean swapped = false;
 
-        /*
         if (right instanceof FieldValue && (!(left instanceof FieldValue))) {
             FieldValue rightField = (FieldValue) right;
             if (rightField.root() == CandidateFieldRoot.INSTANCE) {
@@ -692,7 +690,7 @@ public class BloatExprBuilderVisitor extends TreeVisitor {
                 swapped = true;
             }
         }
-         */
+
         ArithmeticOperator arithOp = arithmeticOperator(expr.operation());
         if (arithOp != null) {
             retval(new ArithmeticExpression(left, right, arithOp));

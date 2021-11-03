@@ -13,6 +13,9 @@ package com.db4o.diagnostic;
  */
 public class DiagnosticToConsole implements DiagnosticListener{
 
+    public DiagnosticToConsole(){
+        System.out.println("This Diagnostic is for internal use, the information isn't accurate.");
+    }
     /**
      * redirects Diagnostic messages to the Console.
      */

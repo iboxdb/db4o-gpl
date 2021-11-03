@@ -30,8 +30,8 @@ public class NativeQueryNotOptimized extends DiagnosticBase {
 
     public String solution() {
         return "This Native Query was run by instantiating all objects of the candidate class. "
-                //+ "Consider simplifying the expression in the Native Query method. "
-                + " 'FieldName' should on the Left. except to disable Index for test";
+                + "Consider simplifying the expression in the Native Query method. ";
+        //+ " 'FieldName' should on the Left. except to disable Index for test";
     }
 
 }

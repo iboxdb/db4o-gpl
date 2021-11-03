@@ -154,18 +154,6 @@ is divided into following sections:
                 <istrue value="${not.archive.disabled}"/>
             </or>
         </condition>
-        <condition property="do.mkdist">
-            <and>
-                <isset property="do.archive"/>
-                <isset property="libs.CopyLibs.classpath"/>
-                <not>
-                    <istrue value="${mkdist.disabled}"/>
-                </not>
-                <not>
-                    <istrue value="${modules.supported.internal}"/>
-                </not>
-            </and>
-        </condition>
         <condition property="do.archive+manifest.available">
             <and>
                 <isset property="manifest.available"/>
@@ -192,6 +180,7 @@ is divided into following sections:
         </condition>
         <condition property="have.tests">
             <or>
+                <available file="${test.src.dir}"/>
                 <available file="${test.src2.dir}"/>
             </or>
         </condition>
@@ -315,6 +304,7 @@ is divided into following sections:
         <fail unless="src.src2.dir">Must set src.src2.dir</fail>
         <fail unless="src.src.dir">Must set src.src.dir</fail>
         <fail unless="src.dir">Must set src.dir</fail>
+        <fail unless="test.src.dir">Must set test.src.dir</fail>
         <fail unless="test.src2.dir">Must set test.src2.dir</fail>
         <fail unless="build.dir">Must set build.dir</fail>
         <fail unless="dist.dir">Must set dist.dir</fail>
@@ -614,6 +604,9 @@ is divided into following sections:
                 <j2seproject3:junit-prototype>
                     <customizePrototype>
                         <batchtest todir="${build.test.results.dir}">
+                            <fileset dir="${test.src.dir}" excludes="@{excludes},${excludes}" includes="@{includes}">
+                                <filename name="@{testincludes}"/>
+                            </fileset>
                             <fileset dir="${test.src2.dir}" excludes="@{excludes},${excludes}" includes="@{includes}">
                                 <filename name="@{testincludes}"/>
                             </fileset>
@@ -640,6 +633,9 @@ is divided into following sections:
                     <isset property="test.method"/>
                 </condition>
                 <union id="test.set">
+                    <fileset dir="${test.src.dir}" excludes="@{excludes},**/*.xml,${excludes}" includes="@{includes}">
+                        <filename name="@{testincludes}"/>
+                    </fileset>
                     <fileset dir="${test.src2.dir}" excludes="@{excludes},**/*.xml,${excludes}" includes="@{includes}">
                         <filename name="@{testincludes}"/>
                     </fileset>
@@ -1214,13 +1210,27 @@ is divided into following sections:
             <attribute name="SplashScreen-Image" value="META-INF/${splashscreen.basename}"/>
         </manifest>
     </target>
-    <target depends="init,-init-macrodef-copylibs,compile,-pre-pre-jar,-pre-jar,-do-jar-create-manifest,-do-jar-copy-manifest,-do-jar-set-mainclass,-do-jar-set-profile,-do-jar-set-splashscreen" if="do.mkdist" name="-do-jar-copylibs">
+    <target depends="init,compile" name="-check-do-mkdist">
+        <condition property="do.mkdist">
+            <and>
+                <isset property="do.archive"/>
+                <isset property="libs.CopyLibs.classpath"/>
+                <not>
+                    <istrue value="${mkdist.disabled}"/>
+                </not>
+                <not>
+                    <available file="${build.classes.dir}/module-info.class"/>
+                </not>
+            </and>
+        </condition>
+    </target>
+    <target depends="init,-init-macrodef-copylibs,compile,-pre-pre-jar,-pre-jar,-do-jar-create-manifest,-do-jar-copy-manifest,-do-jar-set-mainclass,-do-jar-set-profile,-do-jar-set-splashscreen,-check-do-mkdist" if="do.mkdist" name="-do-jar-copylibs">
         <j2seproject3:copylibs manifest="${tmp.manifest.file}"/>
         <echo level="info">To run this application from the command line without Ant, try:</echo>
         <property location="${dist.jar}" name="dist.jar.resolved"/>
         <echo level="info">java -jar "${dist.jar.resolved}"</echo>
     </target>
-    <target depends="init,compile,-pre-pre-jar,-pre-jar,-do-jar-create-manifest,-do-jar-copy-manifest,-do-jar-set-mainclass,-do-jar-set-profile,-do-jar-set-splashscreen" if="do.archive" name="-do-jar-jar" unless="do.mkdist">
+    <target depends="init,compile,-pre-pre-jar,-pre-jar,-do-jar-create-manifest,-do-jar-copy-manifest,-do-jar-set-mainclass,-do-jar-set-profile,-do-jar-set-splashscreen,-check-do-mkdist" if="do.archive" name="-do-jar-jar" unless="do.mkdist">
         <j2seproject1:jar manifest="${tmp.manifest.file}"/>
         <property location="${build.classes.dir}" name="build.classes.dir.resolved"/>
         <property location="${dist.jar}" name="dist.jar.resolved"/>
@@ -1605,14 +1615,14 @@ is divided into following sections:
         <!-- You can override this target in the ../build.xml file. -->
     </target>
     <target depends="-init-source-module-properties" if="named.module.internal" name="-init-test-javac-module-properties-with-module">
-        <j2seproject3:modulename property="test.module.name" sourcepath="${test.src2.dir}"/>
-        <condition else="${empty.dir}" property="javac.test.sourcepath" value="${test.src2.dir}">
+        <j2seproject3:modulename property="test.module.name" sourcepath="${test.src.dir}:${test.src2.dir}"/>
+        <condition else="${empty.dir}" property="javac.test.sourcepath" value="${test.src.dir}:${test.src2.dir}">
             <and>
                 <isset property="test.module.name"/>
                 <length length="0" string="${test.module.name}" when="greater"/>
             </and>
         </condition>
-        <condition else="--patch-module ${module.name}=${test.src2.dir} --add-reads ${module.name}=ALL-UNNAMED" property="javac.test.compilerargs" value="--add-reads ${test.module.name}=ALL-UNNAMED">
+        <condition else="--patch-module ${module.name}=${test.src.dir}:${test.src2.dir} --add-reads ${module.name}=ALL-UNNAMED" property="javac.test.compilerargs" value="--add-reads ${test.module.name}=ALL-UNNAMED">
             <and>
                 <isset property="test.module.name"/>
                 <length length="0" string="${test.module.name}" when="greater"/>
@@ -1653,15 +1663,16 @@ is divided into following sections:
     </target>
     <target depends="-init-test-javac-module-properties-with-module,-init-test-module-properties-without-module" name="-init-test-module-properties"/>
     <target if="do.depend.true" name="-compile-test-depend">
-        <j2seproject3:depend classpath="${javac.test.classpath}" destdir="${build.test.classes.dir}" srcdir="${test.src2.dir}"/>
+        <j2seproject3:depend classpath="${javac.test.classpath}" destdir="${build.test.classes.dir}" srcdir="${test.src.dir}:${test.src2.dir}"/>
     </target>
     <target depends="init,deps-jar,compile,-init-test-module-properties,-pre-pre-compile-test,-pre-compile-test,-compile-test-depend" if="have.tests" name="-do-compile-test">
-        <j2seproject3:javac apgeneratedsrcdir="${build.test.classes.dir}" classpath="${javac.test.classpath}" debug="true" destdir="${build.test.classes.dir}" modulepath="${javac.test.modulepath}" processorpath="${javac.test.processorpath}" sourcepath="${javac.test.sourcepath}" srcdir="${test.src2.dir}">
+        <j2seproject3:javac apgeneratedsrcdir="${build.test.classes.dir}" classpath="${javac.test.classpath}" debug="true" destdir="${build.test.classes.dir}" modulepath="${javac.test.modulepath}" processorpath="${javac.test.processorpath}" sourcepath="${javac.test.sourcepath}" srcdir="${test.src.dir}:${test.src2.dir}">
             <customize>
                 <compilerarg line="${javac.test.compilerargs}"/>
             </customize>
         </j2seproject3:javac>
         <copy todir="${build.test.classes.dir}">
+            <fileset dir="${test.src.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
             <fileset dir="${test.src2.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
         </copy>
     </target>
@@ -1677,12 +1688,13 @@ is divided into following sections:
     <target depends="init,deps-jar,compile,-init-test-module-properties,-pre-pre-compile-test,-pre-compile-test-single" if="have.tests" name="-do-compile-test-single">
         <fail unless="javac.includes">Must select some files in the IDE or set javac.includes</fail>
         <j2seproject3:force-recompile destdir="${build.test.classes.dir}"/>
-        <j2seproject3:javac apgeneratedsrcdir="${build.test.classes.dir}" classpath="${javac.test.classpath}" debug="true" destdir="${build.test.classes.dir}" excludes="" includes="${javac.includes}, module-info.java" modulepath="${javac.test.modulepath}" processorpath="${javac.test.processorpath}" sourcepath="${test.src2.dir}" srcdir="${test.src2.dir}">
+        <j2seproject3:javac apgeneratedsrcdir="${build.test.classes.dir}" classpath="${javac.test.classpath}" debug="true" destdir="${build.test.classes.dir}" excludes="" includes="${javac.includes}, module-info.java" modulepath="${javac.test.modulepath}" processorpath="${javac.test.processorpath}" sourcepath="${test.src.dir}:${test.src2.dir}" srcdir="${test.src.dir}:${test.src2.dir}">
             <customize>
                 <compilerarg line="${javac.test.compilerargs}"/>
             </customize>
         </j2seproject3:javac>
         <copy todir="${build.test.classes.dir}">
+            <fileset dir="${test.src.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
             <fileset dir="${test.src2.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
         </copy>
     </target>
@@ -1747,6 +1759,7 @@ is divided into following sections:
     </target>
     <target depends="init,compile-test-single,-init-test-run-module-properties,-debug-start-debugger-test,-debug-start-debuggee-test" name="debug-test"/>
     <target depends="init,compile-test-single,-init-test-run-module-properties,-debug-start-debugger-test,-debug-start-debuggee-test-method" name="debug-test-method"/>
+    <target depends="debug-test-method" name="debug-single-method"/>
     <target depends="init,-pre-debug-fix,compile-test-single" if="netbeans.home" name="-do-debug-fix-test">
         <j2seproject1:nbjpdareload dir="${build.test.classes.dir}"/>
     </target>

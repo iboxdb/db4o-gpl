@@ -65,10 +65,6 @@ final class ComparisonQueryGeneratingVisitor implements ComparisonOperandVisitor
 
     @Override
     public void visit(LocalValue operand) {
-        if (operand.parent() instanceof CandidateFieldRoot) {
-            _value = null;
-            throw new RuntimeException("Not Support,  FieldName should in the Left, here get value from the Right. ");
-        }
 
         if (_predicate.ExtentArgs != null) {
             int si = operand.index().shortIndex();
@@ -171,12 +167,15 @@ final class ComparisonQueryGeneratingVisitor implements ComparisonOperandVisitor
         }
     }
 
+    @Override
     public void visit(CandidateFieldRoot root) {
     }
 
+    @Override
     public void visit(PredicateFieldRoot root) {
     }
 
+    @Override
     public void visit(StaticFieldRoot root) {
         try {
             _value = _classSource.forName(root.type().name());

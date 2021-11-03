@@ -25,11 +25,13 @@ test/dotnet run
 
 
 #### JAVA 7
-Use IDE **NetBeans 11** to Open **db4o.j/db4o-core** project
+Use IDE **NetBeans 12** to Open **db4o.j/db4o-core** project
 ```
  Build Project will output a jar to ../db4o-gpl/db4o.j/db4o-core/dist/db4o-core.jar
  or Run File, db4o.j/db4o-core/tutorial/src/com/db4odoc/f1/Main.java 
 ```
+db4o-core using JDK7, some test files using JDK11, the test files can be removed.
+
 
 #### Xamarin
 
@@ -154,7 +156,6 @@ try {
 ```java
 var rs = see.query((Record r) -> r.indexField == dv);
 ```
-Lambda index. FieldName on the left, enable index; on the right, disable index.
 
 #### Getting Started
 ```cs

@@ -180,6 +180,10 @@ public class db4odemo {
 
                     ns = see.query((Node n) -> n.Size > 10, (Node a, Node b) -> a.name.compareTo(b.name));
                     System.out.println("AA-10: " + ns.size());
+                    
+                    ns = see.query(Node.class);
+                    System.out.println("AA-10-Class: " + ns.size());
+                    
                 }
             }
             try (var oc = server.openClient()) {

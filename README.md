@@ -29,6 +29,8 @@ Use IDE **NetBeans 12** to Open **db4o.j/db4o-core** project
 ```
  Build Project will output a jar to ../db4o-gpl/db4o.j/db4o-core/dist/db4o-core.jar
  or Run File, db4o.j/db4o-core/tutorial/src/com/db4odoc/f1/Main.java 
+
+ [user@localhost db4o-core]$ /home/user/netbeans12/extide/ant/bin/ant jar
 ```
 db4o-core using JDK7, some test files using JDK11, the test files can be removed.
 

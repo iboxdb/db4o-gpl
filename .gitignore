@@ -14,7 +14,7 @@ db4o.net/.vs
 *.pdb
 *.db
 **/publish/*
-db4o.net/Output/netstandard2.0/*.json
+db4o.net/Output/netstandard2.0/
 **/Output/Tutorial/*
 /db4o.j/db4o-core/nbproject/private/
 /db4o.j/db4o-core/build/

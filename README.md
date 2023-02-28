@@ -72,12 +72,7 @@ new Async().execute(null);
 
 #### Download Assemblies Directly
 
-[.NETStandard2](https://github.com/iboxdb/db4o-gpl/tree/master/db4o.net/Output/netstandard2.0)
-
-[JAVA JAR](https://github.com/iboxdb/db4o-gpl/tree/master/db4o.j/db4o-core/dist) 
-
-[Nuget db4o-core](https://www.nuget.org/packages/db4o-core/)
-
+Compile Source Code
 
 #### .NET Tutorials
 
